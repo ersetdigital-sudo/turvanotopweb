@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowRightIcon, ClockCheckIcon, SearchIcon } from "@/components/icons";
 import { useSearchParam } from "@/hooks/use-search-param";
 import { isCategorySlug } from "@/lib/catalog";
@@ -51,7 +51,11 @@ export function CheckoutFlow() {
   const [providerOverride, setProviderOverride] = useState<string | null>(null);
   const [productOverride, setProductOverride] = useState<LineItem | null | undefined>(undefined);
   const [stageOverride, setStageOverride] = useState<number | null>(null);
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("qris");
+  // Belum ada metode terpilih: pelanggan memilih dulu, baru petunjuk + QRIS muncul.
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null);
+  // ID dibuat saat masuk tahap 4; pesanan baru disimpan saat pelanggan menekan "Saya Sudah Bayar".
+  const [pendingId, setPendingId] = useState("");
+  const instructionsRef = useRef<HTMLDivElement>(null);
   const [order, setOrder] = useState<Order | null>(null);
   const [fulfilled, setFulfilled] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -189,7 +193,7 @@ export function CheckoutFlow() {
       const { order: created } = await apiFetch<{ order: Order }>("/api/orders", {
         method: "POST",
         body: JSON.stringify({
-          id: generateOrderId(),
+          id: pendingId || generateOrderId(),
           category: category.name,
           categorySlug: category.slug,
           provider: activeProvider,
@@ -197,7 +201,7 @@ export function CheckoutFlow() {
           customer,
           total,
           totalFormatted: rupiah(total),
-          paymentMethod: paymentMethod.toUpperCase(),
+          paymentMethod: (paymentMethod ?? "qris").toUpperCase(),
           sn: generateSN(activeProvider),
           status: "SUCCESS",
           statusLabel: "Berhasil Dikonfirmasi",
@@ -208,6 +212,8 @@ export function CheckoutFlow() {
       setOrder(created);
       return true;
     } catch (error) {
+      // ID bentrok: buat ID baru supaya percobaan berikutnya langsung bisa.
+      if (error instanceof Error && /terpakai/i.test(error.message)) setPendingId(generateOrderId());
       setOrderError(
         error instanceof Error ? error.message : "Gagal membuat pesanan. Silakan coba lagi.",
       );
@@ -217,16 +223,40 @@ export function CheckoutFlow() {
     }
   }
 
-  function handleConfirmPayment() {
+  /** Ringkasan -> pembayaran: metode dipilih ulang dan ID baru dibuat tiap masuk tahap 4. */
+  function goToPayment() {
+    setPaymentMethod(null);
+    setPendingId(generateOrderId());
+    setOrderError("");
+    goToStage(4);
+  }
+
+  function selectPaymentMethod(next: PaymentMethod) {
+    setPaymentMethod(next);
+    setOrderError("");
+    // Bawa petunjuk (dan foto QRIS) ke layar, terutama di ponsel.
+    window.setTimeout(
+      () => instructionsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
+      60,
+    );
+  }
+
+  async function handleConfirmPayment() {
+    if (!paymentMethod || submitting) return;
     setSubmitting(true);
+    const saved = await createOrder();
+    if (!saved) {
+      setSubmitting(false);
+      return;
+    }
     setTimeout(() => {
       setSubmitting(false);
       goToStage(5);
-    }, 1200);
+    }, 900);
   }
 
-  const waText = order
-    ? `Halo Admin Turvanotopweb, saya ingin konfirmasi pembayaran untuk pesanan ID: ${order.id} (${order.product}) sebesar ${order.totalFormatted}. Nomor tujuan: ${order.customer}.`
+  const waText = pendingId
+    ? `Halo Admin Turvanotopweb, saya ingin konfirmasi pembayaran untuk pesanan ID: ${pendingId} (${activeProvider ? `${activeProvider} — ` : ""}${activeItem?.name ?? ""}) sebesar ${rupiah(total)}. Nomor tujuan: ${customer}.`
     : "";
 
   return (
@@ -542,12 +572,6 @@ export function CheckoutFlow() {
             </div>
           </div>
 
-          {orderError && (
-            <div id="stage-3-error" style={{ color: "#DC2626", fontSize: 13.5, marginBottom: 16 }}>
-              {orderError}
-            </div>
-          )}
-
           <div style={{ display: "flex", gap: 14, justifyContent: "space-between" }}>
             <button
               type="button"
@@ -563,11 +587,9 @@ export function CheckoutFlow() {
               className="btn-primary"
               id="btn-stage3-next"
               disabled={creatingOrder}
-              onClick={async () => {
-                if (await createOrder()) goToStage(4);
-              }}
+              onClick={goToPayment}
             >
-              {creatingOrder ? "Menyimpan pesanan…" : "Lanjut ke Pembayaran →"}
+              Lanjut ke Pembayaran →
             </button>
           </div>
         </div>
@@ -576,47 +598,41 @@ export function CheckoutFlow() {
         <div className={`checkout-stage-pane${stage === 4 ? " active" : ""}`} id="stage-4-pane">
           <div className="section-kicker">TAHAP 04</div>
           <h2 className="stage-title">Selesaikan pembayaran.</h2>
-          <p className="stage-desc">
-            Ikuti petunjuk yang tersedia dan pastikan jumlah pembayaran sesuai.
-          </p>
+          <p className="stage-desc">Pilih metode pembayaran, lalu ikuti petunjuknya sampai selesai.</p>
 
-          <div
-            style={{
-              marginBottom: 24,
-              padding: "18px 22px",
-              background: "#e9eef8",
-              borderRadius: 12,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              border: "1px solid #c3cfe8",
-            }}
-          >
-            <span style={{ fontSize: 14.5, color: "#2e4c8c", fontWeight: 600 }}>
-              Total yang harus dibayar:
-            </span>
-            <span
-              id="payment-total-val"
-              style={{ fontFamily: "var(--font-mono)", fontSize: 22, fontWeight: 700, color: "#18264a" }}
-            >
-              {order?.totalFormatted ?? rupiah(total)}
+          <div className="pay-total-box">
+            <span className="pay-total-label">Total yang harus dibayar:</span>
+            <span id="payment-total-val" className="pay-total-val">
+              {rupiah(total)}
             </span>
           </div>
 
-          <label className="form-label">Pilih Metode Pembayaran</label>
+          <div className="pay-step-label">
+            <span className="pay-step-num">1</span>
+            Pilih metode pembayaran
+          </div>
           <div className="payment-methods-grid">
             {(
               [
                 { id: "qris", icon: "QRIS", note: "Semua e-wallet & m-banking" },
-                { id: "va", icon: "Virtual Account", note: "BCA, Mandiri, BNI, BRI" },
-                { id: "ewallet", icon: "Dompet Digital", note: "Notifikasi instan" },
+                { id: "va", icon: "Transfer Bank", note: "Ke rekening resmi kami" },
+                { id: "ewallet", icon: "Dompet Digital", note: "DANA, OVO, GoPay, dll." },
               ] as const
             ).map((method) => (
               <div
                 key={method.id}
+                role="button"
+                tabIndex={0}
+                aria-pressed={paymentMethod === method.id}
                 className={`payment-method-card${paymentMethod === method.id ? " selected" : ""}`}
                 data-method={method.id}
-                onClick={() => setPaymentMethod(method.id)}
+                onClick={() => selectPaymentMethod(method.id)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    selectPaymentMethod(method.id);
+                  }
+                }}
               >
                 <div className="pay-card-icon">{method.icon}</div>
                 <div className="pay-card-note">{method.note}</div>
@@ -624,49 +640,84 @@ export function CheckoutFlow() {
             ))}
           </div>
 
-          <div className="payment-instructions-box" id="payment-instructions-wrap">
-            <PaymentInstructions
-              method={paymentMethod}
-              order={order}
-              settings={settings}
-              waText={waText}
-            />
-          </div>
-
-          <div style={{ marginBottom: 24, fontSize: 13, color: "#5e6b85", lineHeight: 1.55 }}>
-            Status akan diperbarui setelah sistem menerima dan memverifikasi konfirmasi pembayaran.
-          </div>
-
-          <button
-            type="button"
-            className="btn-primary"
-            id="btn-stage4-check-payment"
-            style={{ width: "100%" }}
-            onClick={handleConfirmPayment}
-            disabled={submitting}
-          >
-            {submitting ? (
+          <div ref={instructionsRef} className="payment-instructions-box" id="payment-instructions-wrap">
+            {paymentMethod ? (
               <>
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: 14,
-                    height: 14,
-                    border: "2px solid #FFFFFF",
-                    borderRightColor: "transparent",
-                    borderRadius: "50%",
-                    animation: "spin 0.7s linear infinite",
+                <div className="pay-step-label">
+                  <span className="pay-step-num">2</span>
+                  {PAYMENT_TITLES[paymentMethod]}
+                </div>
+                <PaymentInstructions
+                  method={paymentMethod}
+                  info={{
+                    id: pendingId,
+                    totalFormatted: rupiah(total),
+                    provider: activeProvider,
+                    customer,
                   }}
+                  settings={settings}
+                  waText={waText}
                 />
-                Memverifikasi Pembayaran...
               </>
             ) : (
-              <>
-                Periksa Status Pembayaran
-                <ClockCheckIcon width={16} height={16} />
-              </>
+              <div className="pay-empty-hint" id="payment-empty-hint">
+                Pilih salah satu metode pembayaran di atas, nanti petunjuk dan kode pembayarannya
+                (termasuk foto QRIS) muncul di sini.
+              </div>
             )}
-          </button>
+          </div>
+
+          {orderError && (
+            <div id="stage-4-error" style={{ color: "#DC2626", fontSize: 13.5, marginBottom: 16 }}>
+              {orderError}
+            </div>
+          )}
+
+          <div className="pay-note">
+            Setelah membayar, tekan <b>Saya Sudah Bayar</b>. Status pesananmu diperbarui setelah
+            pembayaran diverifikasi.
+          </div>
+
+          <div className="pay-actions">
+            <button
+              type="button"
+              className="btn-secondary"
+              id="btn-stage4-back"
+              disabled={submitting}
+              onClick={() => goToStage(3)}
+            >
+              &larr; Kembali
+            </button>
+            <button
+              type="button"
+              className="btn-primary"
+              id="btn-stage4-check-payment"
+              onClick={handleConfirmPayment}
+              disabled={!paymentMethod || submitting}
+            >
+              {submitting ? (
+                <>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      width: 14,
+                      height: 14,
+                      border: "2px solid #FFFFFF",
+                      borderRightColor: "transparent",
+                      borderRadius: "50%",
+                      animation: "spin 0.7s linear infinite",
+                    }}
+                  />
+                  Memproses pesanan...
+                </>
+              ) : (
+                <>
+                  Saya Sudah Bayar
+                  <ClockCheckIcon width={16} height={16} />
+                </>
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Stage 5 */}
@@ -801,40 +852,54 @@ export function CheckoutFlow() {
   );
 }
 
-/** Payment instructions vary by method; mirrors the legacy checkout.js output. */
-function PaymentInstructions({
-  method,
-  order,
-  settings,
-  waText,
-}: {
-  method: PaymentMethod;
-  order: Order | null;
-  settings: PublicSettings | null;
-  waText: string;
-}) {
-  if (!order || !settings) return null;
-  const waLink = toWhatsAppLink(settings.whatsappNumber, waText);
+const PAYMENT_TITLES: Record<PaymentMethod, string> = {
+  qris: "Bayar dengan QRIS",
+  va: "Transfer ke rekening bank",
+  ewallet: "Kirim ke dompet digital",
+};
 
-  const waButton = (
-    <a
-      href={waLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 6,
-        background: "#ECFDF5",
-        border: "1px solid #A7F3D0",
-        color: "#047857",
-        padding: "8px 14px",
-        borderRadius: 8,
-        fontSize: 13,
-        fontWeight: 600,
-        textDecoration: "none",
+interface PaymentInfo {
+  id: string;
+  totalFormatted: string;
+  provider: string;
+  customer: string;
+}
+
+function CopyButton({ value, label }: { value: string; label: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      type="button"
+      className="pay-copy-btn"
+      aria-label={`Salin ${label}`}
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(value);
+          setCopied(true);
+          window.setTimeout(() => setCopied(false), 1800);
+        } catch {
+          /* clipboard tidak tersedia: pengguna bisa menyalin manual */
+        }
       }}
     >
+      {copied ? "Tersalin ✓" : "Salin"}
+    </button>
+  );
+}
+
+function PayStepList({ steps }: { steps: React.ReactNode[] }) {
+  return (
+    <ol className="pay-steps-list">
+      {steps.map((step, index) => (
+        <li key={index}>{step}</li>
+      ))}
+    </ol>
+  );
+}
+
+function WhatsAppButton({ href }: { href: string }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className="pay-wa-btn">
       <svg
         width={15}
         height={15}
@@ -848,116 +913,167 @@ function PaymentInstructions({
       >
         <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
       </svg>
-      Konfirmasi via WhatsApp
+      Tanya admin via WhatsApp
     </a>
+  );
+}
+
+function AccountList({
+  accounts,
+  emptyText,
+}: {
+  accounts: { id: string; title: string; holder: string; number: string }[];
+  emptyText: string;
+}) {
+  if (accounts.length === 0) {
+    return <div className="pay-empty-hint">{emptyText}</div>;
+  }
+  return (
+    <div className="pay-account-list">
+      {accounts.map((account) => (
+        <div className="pay-account-card" key={account.id}>
+          <div>
+            <div className="pay-account-name">{account.title}</div>
+            <div className="pay-account-holder">a.n. {account.holder}</div>
+          </div>
+          <div className="pay-account-right">
+            <span className="pay-account-num">{account.number}</span>
+            <CopyButton value={account.number.replace(/\s/g, "")} label={`nomor ${account.title}`} />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** Petunjuk pembayaran sesuai metode yang dipilih pelanggan. */
+function PaymentInstructions({
+  method,
+  info,
+  settings,
+  waText,
+}: {
+  method: PaymentMethod;
+  info: PaymentInfo;
+  settings: PublicSettings | null;
+  waText: string;
+}) {
+  if (!settings) {
+    return <div className="pay-empty-hint">Memuat petunjuk pembayaran…</div>;
+  }
+  const waButton = settings.whatsappNumber ? (
+    <WhatsAppButton href={toWhatsAppLink(settings.whatsappNumber, waText)} />
+  ) : null;
+  const idRow = (
+    <div className="pay-id-row">
+      ID Transaksi: <b>{info.id}</b>
+    </div>
   );
 
   if (method === "qris") {
+    const hasQris = settings.qrisActive !== false && !!settings.qrisImage;
     return (
-      <div style={{ textAlign: "center", padding: "12px 0" }}>
-        <div style={{ fontWeight: 700, color: "#101a33", marginBottom: 4 }}>
-          {settings.qrisMerchant || "QRIS Standar Pembayaran Nasional"}
-        </div>
-        <div style={{ fontSize: 12, color: "#5e6b85", fontFamily: "var(--font-mono)", marginBottom: 12 }}>
-          NMID: {settings.qrisNmid || "ID1020039102910"}
-        </div>
-        <div style={{ fontSize: 13.5, color: "#5e6b85", marginBottom: 16 }}>
-          {settings.qrisInstructions ||
-            "Buka aplikasi GoPay, OVO, DANA, BCA Mobile, atau aplikasi bank kamu, lalu pindai kode di bawah."}
-        </div>
-        <div
-          style={{
-            display: "inline-block",
-            padding: 14,
-            background: "#FFFFFF",
-            border: "2px solid #eadfc9",
-            borderRadius: 12,
-            boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-          }}
-        >
-          {settings.qrisImage ? (
+      <div className="pay-panel pay-panel-qris">
+        <div className="pay-qris-frame">
+          {hasQris ? (
             // Next's optimizer is bypassed on purpose so the stored image is
             // served as-is: re-encoding could soften a scannable QR code.
             <Image
               src={settings.qrisImage}
-              alt="Barcode QRIS merchant Turvanotopweb"
-              width={180}
-              height={180}
+              alt="Kode QRIS pembayaran Turvanotopweb"
+              width={320}
+              height={320}
               unoptimized
-              style={{ objectFit: "contain" }}
+              priority
             />
           ) : (
-            <p style={{ maxWidth: 220, padding: "12px 8px", fontSize: 13, color: "#5e6b85" }}>
-              QRIS belum tersedia. Hubungi CS untuk menyelesaikan pembayaran.
+            <p className="pay-qris-missing">
+              QRIS belum tersedia. Hubungi admin lewat WhatsApp untuk menyelesaikan pembayaran.
             </p>
           )}
+          {hasQris && (
+            <>
+              <div className="pay-qris-merchant">{settings.qrisMerchant || "QRIS Turvanotopweb"}</div>
+              {settings.qrisNmid && <div className="pay-qris-nmid">NMID: {settings.qrisNmid}</div>}
+            </>
+          )}
         </div>
-        <div style={{ fontSize: 13, color: "#2e4c8c", fontWeight: 700, marginTop: 12 }}>
-          ID Transaksi: {order.id}
+        <div className="pay-panel-body">
+          <PayStepList
+            steps={[
+              "Buka aplikasi e-wallet atau m-banking apa pun yang mendukung QRIS.",
+              <>
+                Pilih menu <b>Bayar / Scan QRIS</b>, lalu pindai kode QRIS di halaman ini.
+              </>,
+              <>
+                Pastikan nominalnya <b>{info.totalFormatted}</b>, lalu selesaikan pembayaran.
+              </>,
+              <>
+                Kembali ke halaman ini dan tekan <b>Saya Sudah Bayar</b>.
+              </>,
+            ]}
+          />
+          {settings.qrisInstructions && <p className="pay-note-small">{settings.qrisInstructions}</p>}
+          {idRow}
+          {waButton}
         </div>
-        <div style={{ marginTop: 16 }}>{waButton}</div>
       </div>
     );
   }
 
   if (method === "va") {
-    const activeBanks = (settings.banks || []).filter((b) => b.active !== false);
+    const accounts = (settings.banks || [])
+      .filter((bank) => bank.active !== false)
+      .map((bank) => ({ id: bank.id, title: `Bank ${bank.name}`, holder: bank.accName, number: bank.accNo }));
     return (
-      <div style={{ padding: "10px 0" }}>
-        <div style={{ fontWeight: 700, color: "#101a33", marginBottom: 8 }}>
-          Pilihan Rekening Transfer Bank &amp; Virtual Account
-        </div>
-        <div style={{ marginBottom: 14 }}>
-          {activeBanks.length > 0 ? (
-            activeBanks.map((b) => (
-              <div
-                key={b.id}
-                style={{
-                  background: "#FFFFFF",
-                  border: "1px solid #eadfc9",
-                  borderRadius: 8,
-                  padding: "10px 14px",
-                  marginBottom: 8,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <div>
-                  <b style={{ color: "#101a33", fontSize: 13.5 }}>Bank {b.name}</b>
-                  <div style={{ fontSize: 12, color: "#5e6b85" }}>a.n. {b.accName}</div>
-                </div>
-                <span style={{ fontFamily: "var(--font-mono)", fontSize: 15, fontWeight: 700, color: "#2e4c8c" }}>
-                  {b.accNo}
-                </span>
-              </div>
-            ))
-          ) : (
-            <div style={{ color: "#5e6b85", fontSize: 13, marginBottom: 12 }}>
-              Rekening transfer belum tersedia. Hubungi CS untuk menyelesaikan pembayaran.
-            </div>
-          )}
-        </div>
-        <p style={{ fontSize: 13, color: "#5e6b85" }}>
-          Transfer tepat sesuai nominal: <b>{order.totalFormatted}</b> melalui menu Transfer pada
-          m-banking atau ATM kamu.
-        </p>
-        <div style={{ marginTop: 14 }}>{waButton}</div>
+      <div className="pay-panel pay-panel-stack">
+        <AccountList
+          accounts={accounts}
+          emptyText="Rekening transfer belum tersedia. Hubungi admin lewat WhatsApp untuk menyelesaikan pembayaran."
+        />
+        <PayStepList
+          steps={[
+            "Buka m-banking atau ATM bank kamu, pilih menu Transfer.",
+            <>
+              Transfer ke salah satu rekening di atas sebesar <b>{info.totalFormatted}</b> (tepat sesuai
+              nominal).
+            </>,
+            "Simpan bukti transfer.",
+            <>
+              Kembali ke halaman ini dan tekan <b>Saya Sudah Bayar</b>.
+            </>,
+          ]}
+        />
+        {idRow}
+        {waButton}
       </div>
     );
   }
 
+  const wallets = (settings.ewallets || [])
+    .filter((wallet) => wallet.active !== false)
+    .map((wallet) => ({ id: wallet.id, title: wallet.name, holder: wallet.accName, number: wallet.accNo }));
   return (
-    <div style={{ padding: "10px 0" }}>
-      <div style={{ fontWeight: 700, color: "#101a33", marginBottom: 8 }}>
-        Pembayaran E-Wallet Instan
-      </div>
-      <p style={{ fontSize: 13, color: "#5e6b85" }}>
-        Pemberitahuan konfirmasi top up <b>{order.provider || "dompet digital"}</b> akan dikirimkan
-        ke nomor <b>{order.customer}</b>. Buka aplikasi {order.provider || "dompet digitalmu"} untuk
-        menyelesaikan pembayaran sebesar <b>{order.totalFormatted}</b>.
-      </p>
-      <div style={{ marginTop: 14 }}>{waButton}</div>
+    <div className="pay-panel pay-panel-stack">
+      <AccountList
+        accounts={wallets}
+        emptyText="Akun dompet digital belum tersedia. Hubungi admin lewat WhatsApp untuk menyelesaikan pembayaran."
+      />
+      <PayStepList
+        steps={[
+          "Buka aplikasi dompet digitalmu (DANA, OVO, GoPay, dan lainnya).",
+          <>
+            Kirim saldo ke salah satu akun di atas sebesar <b>{info.totalFormatted}</b> (tepat sesuai
+            nominal).
+          </>,
+          "Simpan bukti pengiriman.",
+          <>
+            Kembali ke halaman ini dan tekan <b>Saya Sudah Bayar</b>.
+          </>,
+        ]}
+      />
+      {idRow}
+      {waButton}
     </div>
   );
 }
