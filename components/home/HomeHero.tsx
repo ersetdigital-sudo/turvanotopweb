@@ -6,7 +6,7 @@ import { heroFlowSteps, heroTrustPoints } from "@/lib/home-content";
 
 export function HomeHero() {
   return (
-    <section className="home-hero-wrap" aria-label="Hero Jogatix">
+    <section className="home-hero-wrap" aria-label="Hero Turvanotopweb">
       <div className="container home-hero-grid">
         {/* Left: headline + CTAs */}
         <div className="home-hero-content">
@@ -59,7 +59,7 @@ export function HomeHero() {
           <div className="hero-flow-card">
             <div className="hero-flow-header">
               <div className="hero-flow-header-left">
-                <span className="hero-flow-kicker">ALUR TRANSAKSI JOGATIX</span>
+                <span className="hero-flow-kicker">ALUR TRANSAKSI TURVANOTOPWEB</span>
                 <h2 className="hero-flow-title">Transaksi Jelas di Setiap Langkah</h2>
               </div>
               <div className="hero-flow-badge" title="Status proses transaksi dapat dipantau">

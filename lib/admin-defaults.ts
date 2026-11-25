@@ -21,30 +21,33 @@ export const CATEGORY_NAMES: Record<CategorySlug, string> = {
 };
 
 export const defaultSettings: AdminSettings = {
-  whatsappNumber: "081234567890",
-  whatsappAdminName: "Customer Care Jogatix",
+  // Nomor CS diambil dari env saat pertama kali di-seed; ubah lewat dashboard admin.
+  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP ?? "",
+  whatsappAdminName: "Customer Care Turvanotopweb",
   whatsappHours: "07:00 - 23:00 WIB Setiap Hari",
   whatsappTemplateOrder:
-    "Halo Admin Jogatix, saya ingin konfirmasi pembayaran pesanan dengan ID: {id} ({produk}) sebesar {total}. Mohon segera diverifikasi. Terima kasih!",
+    "Halo Admin Turvanotopweb, saya ingin konfirmasi pembayaran pesanan dengan ID: {id} ({produk}) sebesar {total}. Mohon segera diverifikasi. Terima kasih!",
   whatsappTemplateSuccess:
-    "Halo Kak! Pesanan Jogatix ID: {id} untuk {produk} telah BERHASIL diproses. Nomor SN / Token Anda: {sn}. Terima kasih telah bertransaksi di Jogatix!",
+    "Halo Kak! Pesanan Turvanotopweb ID: {id} untuk {produk} telah BERHASIL diproses. Nomor SN / Token Anda: {sn}. Terima kasih telah bertransaksi di Turvanotopweb!",
   qrisImage: "",
-  qrisMerchant: "JOGATIX DIGITAL COMMERCE",
-  qrisNmid: "ID1020039102910",
+  qrisMerchant: "TURVANOTOPWEB",
+  qrisNmid: "",
   qrisActive: true,
   qrisInstructions:
     "Buka aplikasi GoPay, OVO, DANA, ShopeePay, BCA Mobile, atau m-banking lainnya, lalu scan kode QR di atas.",
+  // Rekening dan akun e-wallet sengaja nonaktif dan kosong. Isi lewat dashboard
+  // admin lalu aktifkan; data contoh tidak boleh tampil ke pelanggan.
   banks: [
-    { id: "bca", name: "BCA", code: "bca", accNo: "8901289104", accName: "JOGATIX INDONESIA", active: true },
-    { id: "mandiri", name: "Mandiri", code: "mandiri", accNo: "1370019284019", accName: "JOGATIX INDONESIA", active: true },
-    { id: "bri", name: "BRI", code: "bri", accNo: "020601002948301", accName: "JOGATIX INDONESIA", active: true },
-    { id: "bni", name: "BNI", code: "bni", accNo: "0819284910", accName: "JOGATIX INDONESIA", active: true },
+    { id: "bca", name: "BCA", code: "bca", accNo: "", accName: "", active: false },
+    { id: "mandiri", name: "Mandiri", code: "mandiri", accNo: "", accName: "", active: false },
+    { id: "bri", name: "BRI", code: "bri", accNo: "", accName: "", active: false },
+    { id: "bni", name: "BNI", code: "bni", accNo: "", accName: "", active: false },
   ],
   ewallets: [
-    { id: "gopay", name: "GoPay", accNo: "081234567890", accName: "Jogatix Official", active: true },
-    { id: "dana", name: "DANA", accNo: "081234567890", accName: "Jogatix Official", active: true },
-    { id: "ovo", name: "OVO", accNo: "081234567890", accName: "Jogatix Official", active: true },
-    { id: "shopeepay", name: "ShopeePay", accNo: "081234567890", accName: "Jogatix Official", active: true },
+    { id: "gopay", name: "GoPay", accNo: "", accName: "", active: false },
+    { id: "dana", name: "DANA", accNo: "", accName: "", active: false },
+    { id: "ovo", name: "OVO", accNo: "", accName: "", active: false },
+    { id: "shopeepay", name: "ShopeePay", accNo: "", accName: "", active: false },
   ],
   adminFeeBill: 2500,
 };

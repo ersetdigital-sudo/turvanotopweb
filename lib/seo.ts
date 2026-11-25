@@ -91,7 +91,7 @@ export function serviceCatalogSchema(): Record<string, unknown> {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Katalog Layanan Jogatix",
+    name: "Katalog Layanan Turvanotopweb",
     itemListElement: categories.map((category, index) => ({
       "@type": "ListItem",
       position: index + 1,

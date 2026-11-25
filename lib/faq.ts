@@ -5,7 +5,7 @@ export const faqItems: FaqItem[] = [
   {
     id: "faq-1",
     badge: "Panduan",
-    question: "Bagaimana cara bertransaksi di Jogatix?",
+    question: "Bagaimana cara bertransaksi di Turvanotopweb?",
     answer: [
       {
         type: "text",
@@ -20,7 +20,7 @@ export const faqItems: FaqItem[] = [
     answer: [
       {
         type: "text",
-        text: "Tidak perlu. Jogatix dapat digunakan secara langsung tanpa kewajiban registrasi atau login akun. Cukup simpan ID Transaksi unik yang diterbitkan setelah checkout untuk memantau status pembayaran dan pengiriman produk kapan saja.",
+        text: "Tidak perlu. Turvanotopweb dapat digunakan secara langsung tanpa kewajiban registrasi atau login akun. Cukup simpan ID Transaksi unik yang diterbitkan setelah checkout untuk memantau status pembayaran dan pengiriman produk kapan saja.",
       },
     ],
   },
@@ -82,7 +82,7 @@ export const faqItems: FaqItem[] = [
     answer: [
       {
         type: "text",
-        text: "Sama sekali tidak ada. Semua biaya di Jogatix bersifat transparan. Rincian harga dasar produk dan biaya admin metode pembayaran selalu dipaparkan secara jelas di ringkasan pesanan sebelum Anda melakukan pembayaran.",
+        text: "Sama sekali tidak ada. Semua biaya di Turvanotopweb bersifat transparan. Rincian harga dasar produk dan biaya admin metode pembayaran selalu dipaparkan secara jelas di ringkasan pesanan sebelum Anda melakukan pembayaran.",
       },
     ],
   },

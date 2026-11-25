@@ -7,12 +7,12 @@ export function HomeTimeline() {
     <section
       className="home-timeline-section"
       id="alur-transaksi"
-      aria-label="Alur Transaksi Jogatix"
+      aria-label="Alur Transaksi Turvanotopweb"
     >
       <div className="container">
         <div className="home-sec-header">
           <span className="section-kicker">ALUR TRANSAKSI</span>
-          <h2>Cara Mudah Bertransaksi di Jogatix</h2>
+          <h2>Cara Mudah Bertransaksi di Turvanotopweb</h2>
           <p>
             Penuhi kebutuhan digital dalam tiga langkah praktis, mulai dari memilih layanan hingga
             memantau status pesanan.

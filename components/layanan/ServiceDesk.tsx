@@ -142,10 +142,10 @@ export function ServiceDesk() {
                 padding: "20px 14px",
                 textAlign: "center",
                 fontSize: 13,
-                color: "#64748B",
-                background: "#F8FAFC",
+                color: "#5e6b85",
+                background: "#fff4e2",
                 borderRadius: 8,
-                border: "1px dashed #CBD5E1",
+                border: "1px dashed #d9cdb4",
                 marginTop: 8,
               }}
             >
@@ -205,7 +205,7 @@ export function ServiceDesk() {
               <span className="form-step-label">Masukkan Data Pelanggan</span>
               <span
                 id="desk-detected-provider"
-                style={{ display: "none", fontSize: 12, fontWeight: 700, color: "#4338CA" }}
+                style={{ display: "none", fontSize: 12, fontWeight: 700, color: "#2e4c8c" }}
               />
             </div>
 
@@ -230,7 +230,7 @@ export function ServiceDesk() {
           <div className="form-step-block">
             <div className="form-step-header">
               <span className="form-step-label">Pilih Produk &amp; Nominal</span>
-              <span style={{ fontSize: 12, color: "#646982" }}>Harga ditampilkan di awal</span>
+              <span style={{ fontSize: 12, color: "#5e6b85" }}>Harga ditampilkan di awal</span>
             </div>
 
             <div className="products-selection-grid" id="desk-products-grid">
@@ -258,16 +258,16 @@ export function ServiceDesk() {
                   style={{
                     gridColumn: "1 / -1",
                     padding: 20,
-                    background: "#F8FAFC",
-                    border: "1.5px dashed #CBD5E1",
+                    background: "#fff4e2",
+                    border: "1.5px dashed #d9cdb4",
                     borderRadius: 12,
                     fontSize: 14,
-                    color: "#475569",
+                    color: "#4a5670",
                     lineHeight: 1.6,
                   }}
                 >
                   <strong
-                    style={{ color: "#0E1126", display: "block", marginBottom: 4, fontSize: 15 }}
+                    style={{ color: "#101a33", display: "block", marginBottom: 4, fontSize: 15 }}
                   >
                     Pemeriksaan Tagihan Otomatis
                   </strong>
@@ -290,7 +290,7 @@ export function ServiceDesk() {
                 {summaryProduct}
               </span>
               <span
-                style={{ fontSize: 11.5, color: "#646982", fontFamily: "var(--font-mono)" }}
+                style={{ fontSize: 11.5, color: "#5e6b85", fontFamily: "var(--font-mono)" }}
                 id="desk-summary-id"
               >
                 {customerId.trim() ? `ID / Nomor: ${customerId.trim()}` : "-"}

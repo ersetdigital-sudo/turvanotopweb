@@ -22,7 +22,7 @@ interface Toast {
 const VIEW_META: Record<AdminView, { title: string; sub: string }> = {
   overview: {
     title: "Ringkasan Statistik",
-    sub: "Ikhtisar omset, volume pesanan, dan performa transaksi Jogatix",
+    sub: "Ikhtisar omset, volume pesanan, dan performa transaksi Turvanotopweb",
   },
   products: {
     title: "Kelola Katalog Produk",
@@ -253,7 +253,7 @@ export function AdminConsole() {
               </div>
               <div className="admin-brand-text">
                 <span className="admin-brand-title">
-                  Joga<span>tix</span>
+                  Turvano<span>topweb</span>
                 </span>
                 <span className="admin-badge-sub">Admin Console</span>
               </div>
@@ -537,7 +537,7 @@ export function AdminConsole() {
         {toasts.map((toast) => (
           <div className={`admin-toast ${toast.type}`} key={toast.id}>
             <ToastIcon type={toast.type} />
-            <div style={{ fontSize: 13.5, fontWeight: 600, color: "#0F172A", flex: 1 }}>
+            <div style={{ fontSize: 13.5, fontWeight: 600, color: "#101a33", flex: 1 }}>
               {toast.message}
             </div>
           </div>
@@ -565,7 +565,7 @@ function ToastIcon({ type }: { type: ToastType }) {
     );
   }
   return (
-    <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="#4F46E5" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="#3a5ba8" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <circle cx="12" cy="12" r="10" />
       <line x1="12" y1="16" x2="12" y2="12" />
       <line x1="12" y1="8" x2="12.01" y2="8" />
@@ -652,7 +652,7 @@ function OverviewView({
             <tbody id="recent-orders-table-body">
               {recent.length === 0 ? (
                 <tr>
-                  <td colSpan={6} style={{ textAlign: "center", color: "#94A3B8", padding: 24 }}>
+                  <td colSpan={6} style={{ textAlign: "center", color: "#8d96aa", padding: 24 }}>
                     Belum ada riwayat transaksi.
                   </td>
                 </tr>
@@ -665,14 +665,14 @@ function OverviewView({
                         <span className="tx-id-badge">{order.id}</span>
                       </td>
                       <td>
-                        <div style={{ fontWeight: 600, color: "#0F172A" }}>{order.product || order.category}</div>
-                        <div style={{ fontSize: 12, color: "#64748B" }}>{order.customer || "-"}</div>
+                        <div style={{ fontWeight: 600, color: "#101a33" }}>{order.product || order.category}</div>
+                        <div style={{ fontSize: 12, color: "#5e6b85" }}>{order.customer || "-"}</div>
                       </td>
                       <td>
                         <b>{rupiah(order.total)}</b>
                       </td>
                       <td>
-                        <span style={{ fontSize: 12.5, color: "#475569" }}>{order.paymentMethod || "QRIS"}</span>
+                        <span style={{ fontSize: 12.5, color: "#4a5670" }}>{order.paymentMethod || "QRIS"}</span>
                       </td>
                       <td>
                         <span className={`status-pill-admin ${badge.cls}`}>
@@ -705,7 +705,7 @@ function OverviewView({
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 20 }}>
         <div className="admin-card" style={{ marginBottom: 0 }}>
           <h3 style={{ fontSize: 16, marginBottom: 8 }}>Kelola QRIS &amp; Rekening</h3>
-          <p style={{ fontSize: 13, color: "#64748B", marginBottom: 16 }}>
+          <p style={{ fontSize: 13, color: "#5e6b85", marginBottom: 16 }}>
             Ganti foto barcode QRIS atau perbarui nomor rekening bank BCA, Mandiri, BRI tujuan
             transfer pelanggan.
           </p>
@@ -716,7 +716,7 @@ function OverviewView({
 
         <div className="admin-card" style={{ marginBottom: 0 }}>
           <h3 style={{ fontSize: 16, marginBottom: 8 }}>Pengaturan Nomor WhatsApp</h3>
-          <p style={{ fontSize: 13, color: "#64748B", marginBottom: 16 }}>
+          <p style={{ fontSize: 13, color: "#5e6b85", marginBottom: 16 }}>
             Pastikan nomor WhatsApp aktif agar pembeli dapat langsung konfirmasi bukti pembayaran ke
             kamu.
           </p>
@@ -835,7 +835,7 @@ function ProductsView({
   function handleReset() {
     if (
       !window.confirm(
-        "Apakah kamu yakin ingin mengembalikan seluruh daftar produk ke konfigurasi bawaan katalog Jogatix?",
+        "Apakah kamu yakin ingin mengembalikan seluruh daftar produk ke konfigurasi bawaan katalog Turvanotopweb?",
       )
     )
       return;
@@ -920,7 +920,7 @@ function ProductsView({
             <tbody id="products-table-body">
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={7} style={{ textAlign: "center", color: "#94A3B8", padding: 32 }}>
+                  <td colSpan={7} style={{ textAlign: "center", color: "#8d96aa", padding: 32 }}>
                     Tidak ditemukan produk sesuai kriteria pencarian.
                   </td>
                 </tr>
@@ -930,24 +930,24 @@ function ProductsView({
                   return (
                     <tr key={p.id}>
                       <td>
-                        <span style={{ fontWeight: 700, color: "#4F46E5", background: "#EEF2FF", padding: "3px 8px", borderRadius: 6, fontSize: 12 }}>
+                        <span style={{ fontWeight: 700, color: "#3a5ba8", background: "#e9eef8", padding: "3px 8px", borderRadius: 6, fontSize: 12 }}>
                           {p.categoryName || p.categorySlug}
                         </span>
                       </td>
                       <td>
-                        <div style={{ fontWeight: 700, color: "#0F172A", fontSize: 14 }}>{p.name}</div>
-                        <div style={{ fontSize: 12, color: "#64748B" }}>ID: {p.id}</div>
+                        <div style={{ fontWeight: 700, color: "#101a33", fontSize: 14 }}>{p.name}</div>
+                        <div style={{ fontSize: 12, color: "#5e6b85" }}>ID: {p.id}</div>
                       </td>
                       <td>
-                        <span style={{ display: "inline-block", padding: "2px 8px", background: "#F1F5F9", borderRadius: 4, fontSize: 12.5, fontWeight: 600, color: "#334155" }}>
+                        <span style={{ display: "inline-block", padding: "2px 8px", background: "#f7ebd3", borderRadius: 4, fontSize: 12.5, fontWeight: 600, color: "#34405c" }}>
                           {p.provider || "-"}
                         </span>
                       </td>
                       <td>
-                        <div style={{ fontWeight: 800, color: "#0F172A", fontSize: 14 }}>{rupiah(p.price)}</div>
+                        <div style={{ fontWeight: 800, color: "#101a33", fontSize: 14 }}>{rupiah(p.price)}</div>
                       </td>
                       <td>
-                        <span style={{ fontSize: 12.5, color: "#64748B" }}>{p.note || "-"}</span>
+                        <span style={{ fontSize: 12.5, color: "#5e6b85" }}>{p.note || "-"}</span>
                       </td>
                       <td>
                         <label style={{ position: "relative", display: "inline-block", width: 38, height: 20, cursor: "pointer" }}>
@@ -958,7 +958,7 @@ function ProductsView({
                             onChange={(e) => handleToggle(p.id, e.target.checked)}
                             style={{ opacity: 0, width: 0, height: 0 }}
                           />
-                          <span style={{ position: "absolute", inset: 0, backgroundColor: isActive ? "#4F46E5" : "#CBD5E1", borderRadius: 20, transition: "0.2s" }}>
+                          <span style={{ position: "absolute", inset: 0, backgroundColor: isActive ? "#3a5ba8" : "#d9cdb4", borderRadius: 20, transition: "0.2s" }}>
                             <span style={{ position: "absolute", left: isActive ? 20 : 3, top: 3, width: 14, height: 14, background: "white", borderRadius: "50%", transition: "0.2s" }} />
                           </span>
                         </label>
@@ -1051,7 +1051,7 @@ function PaymentView({
   }
 
   function clearQris() {
-    if (!window.confirm("Gunakan kembali template QRIS bawaan Jogatix?")) return;
+    if (!window.confirm("Gunakan kembali template QRIS bawaan Turvanotopweb?")) return;
     const previousId = publicIdFromUrl(settings.qrisImage);
     if (previousId) void deleteCloudinaryAsset(previousId);
     persistSettings({ ...settings, qrisImage: "" });
@@ -1102,7 +1102,7 @@ function PaymentView({
                   type="text"
                   className="form-input-admin"
                   id="setting-qris-merchant"
-                  placeholder="Contoh: JOGATIX DIGITAL STORE"
+                  placeholder="Contoh: TURVANOTOPWEB"
                   value={draft.qrisMerchant}
                   onChange={(e) => setDraft({ ...draft, qrisMerchant: e.target.value })}
                 />
@@ -1163,7 +1163,7 @@ function PaymentView({
                 QRIS RESMI
               </div>
               <div className="qris-merchant-display" id="preview-qris-merchant">
-                {draft.qrisMerchant || "JOGATIX DIGITAL STORE"}
+                {draft.qrisMerchant || "TURVANOTOPWEB"}
               </div>
               <div className="qris-nmid-display" id="preview-qris-nmid">
                 NMID: {draft.qrisNmid || "ID1020039102910"}
@@ -1179,24 +1179,24 @@ function PaymentView({
                     style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
                   />
                 ) : (
-                  <svg width={180} height={180} viewBox="0 0 100 100" fill="#0E1126" aria-hidden="true">
+                  <svg width={180} height={180} viewBox="0 0 100 100" fill="#101a33" aria-hidden="true">
                     <rect width="100" height="100" fill="#FFFFFF" />
-                    <rect x="10" y="10" width="25" height="25" fill="#0E1126" />
+                    <rect x="10" y="10" width="25" height="25" fill="#101a33" />
                     <rect x="15" y="15" width="15" height="15" fill="#FFFFFF" />
-                    <rect x="65" y="10" width="25" height="25" fill="#0E1126" />
+                    <rect x="65" y="10" width="25" height="25" fill="#101a33" />
                     <rect x="70" y="15" width="15" height="15" fill="#FFFFFF" />
-                    <rect x="10" y="65" width="25" height="25" fill="#0E1126" />
+                    <rect x="10" y="65" width="25" height="25" fill="#101a33" />
                     <rect x="15" y="70" width="15" height="15" fill="#FFFFFF" />
-                    <rect x="45" y="15" width="10" height="10" fill="#0E1126" />
-                    <rect x="40" y="40" width="20" height="20" fill="#0E1126" />
-                    <rect x="65" y="55" width="15" height="10" fill="#0E1126" />
-                    <rect x="45" y="75" width="20" height="15" fill="#0E1126" />
-                    <rect x="75" y="75" width="15" height="15" fill="#0E1126" />
+                    <rect x="45" y="15" width="10" height="10" fill="#101a33" />
+                    <rect x="40" y="40" width="20" height="20" fill="#101a33" />
+                    <rect x="65" y="55" width="15" height="10" fill="#101a33" />
+                    <rect x="45" y="75" width="20" height="15" fill="#101a33" />
+                    <rect x="75" y="75" width="15" height="15" fill="#101a33" />
                   </svg>
                 )}
               </div>
 
-              <div style={{ fontSize: 11.5, color: "#64748B", marginBottom: 12 }}>
+              <div style={{ fontSize: 11.5, color: "#5e6b85", marginBottom: 12 }}>
                 Dicetak &amp; diverifikasi standar ASPI / Bank Indonesia
               </div>
             </div>
@@ -1242,7 +1242,7 @@ function PaymentView({
                       }}
                       style={{ opacity: 0, width: 0, height: 0 }}
                     />
-                    <span style={{ position: "absolute", inset: 0, backgroundColor: bank.active ? "#10B981" : "#CBD5E1", borderRadius: 20, transition: "0.2s" }}>
+                    <span style={{ position: "absolute", inset: 0, backgroundColor: bank.active ? "#10B981" : "#d9cdb4", borderRadius: 20, transition: "0.2s" }}>
                       <span style={{ position: "absolute", left: bank.active ? 19 : 2, top: 2, width: 14, height: 14, background: "white", borderRadius: "50%", transition: "0.2s" }} />
                     </span>
                   </label>
@@ -1250,7 +1250,7 @@ function PaymentView({
                 <div className="bank-card-accno">{bank.accNo}</div>
                 <div className="bank-card-accname">a.n. {bank.accName}</div>
               </div>
-              <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", borderTop: "1px solid #F1F5F9", paddingTop: 10 }}>
+              <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", borderTop: "1px solid #f7ebd3", paddingTop: 10 }}>
                 <button type="button" className="btn-icon-square btn-edit-bank" title="Edit Rekening" onClick={() => onEditBank(bank.id)}>
                   <Stroke width={14} height={14}>
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
@@ -1290,12 +1290,12 @@ function PaymentView({
           {settings.ewallets.map((wallet) => (
             <div
               key={wallet.id}
-              style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: 10, padding: 14, display: "flex", alignItems: "center", justifyContent: "space-between" }}
+              style={{ background: "#fff4e2", border: "1px solid #eadfc9", borderRadius: 10, padding: 14, display: "flex", alignItems: "center", justifyContent: "space-between" }}
             >
               <div>
-                <div style={{ fontWeight: 700, color: "#0F172A", fontSize: 14 }}>{wallet.name}</div>
-                <div style={{ fontFamily: "var(--font-mono)", fontWeight: 600, color: "#4F46E5", fontSize: 13.5 }}>{wallet.accNo}</div>
-                <div style={{ fontSize: 12, color: "#64748B" }}>a.n. {wallet.accName}</div>
+                <div style={{ fontWeight: 700, color: "#101a33", fontSize: 14 }}>{wallet.name}</div>
+                <div style={{ fontFamily: "var(--font-mono)", fontWeight: 600, color: "#3a5ba8", fontSize: 13.5 }}>{wallet.accNo}</div>
+                <div style={{ fontSize: 12, color: "#5e6b85" }}>a.n. {wallet.accName}</div>
               </div>
               <button type="button" className="btn-icon-square btn-edit-ewallet" title="Edit E-Wallet" onClick={() => onEditEwallet(wallet.id)}>
                 <Stroke width={14} height={14}>
@@ -1350,7 +1350,7 @@ function WhatsAppView({
   function testWhatsApp() {
     let num = draft.whatsappNumber.trim().replace(/[^0-9]/g, "");
     if (num.startsWith("0")) num = "62" + num.slice(1);
-    const msg = encodeURIComponent("Halo Admin Jogatix, ini pesan uji coba koneksi WhatsApp dari Dashboard Admin.");
+    const msg = encodeURIComponent("Halo Admin Turvanotopweb, ini pesan uji coba koneksi WhatsApp dari Dashboard Admin.");
     window.open(`https://wa.me/${num}?text=${msg}`, "_blank");
   }
 
@@ -1360,7 +1360,7 @@ function WhatsAppView({
         <div className="card-header-flex">
           <div className="card-title-group">
             <h2>Nomor WhatsApp &amp; Layanan Pelanggan</h2>
-            <p>Atur nomor WhatsApp resmi toko Jogatix untuk menerima notifikasi pembayaran dan melayani bantuan pembeli.</p>
+            <p>Atur nomor WhatsApp resmi toko Turvanotopweb untuk menerima notifikasi pembayaran dan melayani bantuan pembeli.</p>
           </div>
         </div>
 
@@ -1376,7 +1376,7 @@ function WhatsAppView({
                 value={draft.whatsappNumber}
                 onChange={(e) => setDraft({ ...draft, whatsappNumber: e.target.value })}
               />
-              <span style={{ fontSize: 12, color: "#64748B", marginTop: 4, display: "block" }}>Format: diawali 08 atau 628.</span>
+              <span style={{ fontSize: 12, color: "#5e6b85", marginTop: 4, display: "block" }}>Format: diawali 08 atau 628.</span>
             </div>
 
             <div className="form-group-admin">
@@ -1385,7 +1385,7 @@ function WhatsAppView({
                 type="text"
                 className="form-input-admin"
                 id="setting-wa-name"
-                placeholder="Contoh: Customer Care Jogatix"
+                placeholder="Contoh: Customer Care Turvanotopweb"
                 value={draft.whatsappAdminName}
                 onChange={(e) => setDraft({ ...draft, whatsappAdminName: e.target.value })}
               />
@@ -1432,7 +1432,7 @@ function WhatsAppView({
             />
           </div>
 
-          <div style={{ display: "flex", gap: 12, alignItems: "center", justifyContent: "flex-end", marginTop: 24, paddingTop: 16, borderTop: "1px solid #E2E8F0" }}>
+          <div style={{ display: "flex", gap: 12, alignItems: "center", justifyContent: "flex-end", marginTop: 24, paddingTop: 16, borderTop: "1px solid #eadfc9" }}>
             <button type="button" className="btn-secondary-admin" id="btn-test-wa" onClick={testWhatsApp}>
               <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="#25D366" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
@@ -1506,7 +1506,7 @@ function TransactionsView({
     const template =
       order.status === "SUCCESS"
         ? settings.whatsappTemplateSuccess
-        : "Halo Kak, konfirmasi pesanan Jogatix ID {id} untuk {produk} status: {status}. Nominal: {total}. Hubungi kami jika ada pertanyaan.";
+        : "Halo Kak, konfirmasi pesanan Turvanotopweb ID {id} untuk {produk} status: {status}. Nominal: {total}. Hubungi kami jika ada pertanyaan.";
     const msg = template
       .replace(/{id}/g, order.id)
       .replace(/{produk}/g, order.product || order.category)
@@ -1524,7 +1524,7 @@ function TransactionsView({
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = `jogatix-transaksi-${new Date().toISOString().slice(0, 10)}.json`;
+    anchor.download = `turvanotopweb-transaksi-${new Date().toISOString().slice(0, 10)}.json`;
     anchor.click();
     URL.revokeObjectURL(url);
     pushToast("File rekapan transaksi berhasil diunduh!");
@@ -1566,7 +1566,7 @@ function TransactionsView({
             <input
               type="text"
               id="search-transactions-input"
-              placeholder="Cari ID transaksi (JGX-...), nomor HP, produk..."
+              placeholder="Cari ID transaksi (TVN-...), nomor HP, produk..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -1595,7 +1595,7 @@ function TransactionsView({
           </div>
         </div>
 
-        <div style={{ fontSize: 13, color: "#64748B", marginBottom: 14 }} id="tx-filter-count-label">
+        <div style={{ fontSize: 13, color: "#5e6b85", marginBottom: 14 }} id="tx-filter-count-label">
           Menampilkan {filtered.length} dari {list.length} transaksi
         </div>
 
@@ -1615,7 +1615,7 @@ function TransactionsView({
             <tbody id="transactions-table-body">
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={8} style={{ textAlign: "center", color: "#94A3B8", padding: 32 }}>
+                  <td colSpan={8} style={{ textAlign: "center", color: "#8d96aa", padding: 32 }}>
                     Tidak ada transaksi yang cocok dengan filter atau pencarian.
                   </td>
                 </tr>
@@ -1628,18 +1628,18 @@ function TransactionsView({
                         <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                           <span className="tx-id-badge">{order.id}</span>
                         </div>
-                        <div style={{ fontSize: 11, color: "#94A3B8", marginTop: 3 }}>{order.createdAt || "-"}</div>
+                        <div style={{ fontSize: 11, color: "#8d96aa", marginTop: 3 }}>{order.createdAt || "-"}</div>
                       </td>
                       <td>
-                        <div style={{ fontWeight: 700, color: "#0F172A", fontSize: 13.5 }}>{order.product || order.category}</div>
-                        <div style={{ fontSize: 12, color: "#64748B" }}>{order.provider ? `Provider: ${order.provider}` : order.category || "-"}</div>
+                        <div style={{ fontWeight: 700, color: "#101a33", fontSize: 13.5 }}>{order.product || order.category}</div>
+                        <div style={{ fontSize: 12, color: "#5e6b85" }}>{order.provider ? `Provider: ${order.provider}` : order.category || "-"}</div>
                       </td>
                       <td>
-                        <div style={{ fontFamily: "var(--font-mono)", fontWeight: 600, color: "#334155" }}>{order.customer || "-"}</div>
+                        <div style={{ fontFamily: "var(--font-mono)", fontWeight: 600, color: "#34405c" }}>{order.customer || "-"}</div>
                       </td>
                       <td>
-                        <div style={{ fontWeight: 800, color: "#0F172A" }}>{rupiah(order.total)}</div>
-                        <div style={{ fontSize: 11, color: "#94A3B8" }}>{order.paymentMethod || "QRIS"}</div>
+                        <div style={{ fontWeight: 800, color: "#101a33" }}>{rupiah(order.total)}</div>
+                        <div style={{ fontSize: 11, color: "#8d96aa" }}>{order.paymentMethod || "QRIS"}</div>
                       </td>
                       <td>
                         <span className={`status-pill-admin ${badge.cls}`}>
@@ -1651,7 +1651,7 @@ function TransactionsView({
                         {order.sn ? (
                           <span className="tx-sn-code">{order.sn}</span>
                         ) : (
-                          <span style={{ color: "#CBD5E1", fontSize: 12 }}>Belum ada SN</span>
+                          <span style={{ color: "#d9cdb4", fontSize: 12 }}>Belum ada SN</span>
                         )}
                       </td>
                       <td>
@@ -2018,7 +2018,7 @@ function BankModal({
             type="text"
             className="form-input-admin"
             id="bank-input-accname"
-            placeholder="Contoh: JOGATIX INDONESIA"
+            placeholder="Contoh: TURVANOTOPWEB"
             required
             value={form.accName}
             onChange={(e) => setForm({ ...form, accName: e.target.value })}
@@ -2078,7 +2078,7 @@ function EwalletModal({
       <form id="form-ewallet-edit" onSubmit={submit}>
         <div className="form-group-admin">
           <label className="form-label-admin" htmlFor="ewallet-input-name">Nama Provider E-Wallet</label>
-          <input className="form-input-admin" id="ewallet-input-name" readOnly style={{ background: "#F1F5F9" }} value={editing?.name ?? ""} />
+          <input className="form-input-admin" id="ewallet-input-name" readOnly style={{ background: "#f7ebd3" }} value={editing?.name ?? ""} />
         </div>
 
         <div className="form-group-admin">
@@ -2100,7 +2100,7 @@ function EwalletModal({
             type="text"
             className="form-input-admin"
             id="ewallet-input-accname"
-            placeholder="Contoh: Jogatix Official"
+            placeholder="Contoh: Turvanotopweb Official"
             required
             value={form.accName}
             onChange={(e) => setForm({ ...form, accName: e.target.value })}
@@ -2159,7 +2159,7 @@ function TransactionModal({
     const template =
       order.status === "SUCCESS"
         ? settings.whatsappTemplateSuccess
-        : "Halo Kak, konfirmasi pesanan Jogatix ID {id} untuk {produk} status: {status}. Nominal: {total}. Hubungi kami jika ada pertanyaan.";
+        : "Halo Kak, konfirmasi pesanan Turvanotopweb ID {id} untuk {produk} status: {status}. Nominal: {total}. Hubungi kami jika ada pertanyaan.";
     const msg = template
       .replace(/{id}/g, order.id)
       .replace(/{produk}/g, order.product || order.category)
@@ -2175,7 +2175,7 @@ function TransactionModal({
     <ModalShell
       id="modal-transaction"
       title="Kelola Transaksi"
-      extraTitle={<span style={{ color: "#4F46E5", fontFamily: "var(--font-mono)" }}>{order.id}</span>}
+      extraTitle={<span style={{ color: "#3a5ba8", fontFamily: "var(--font-mono)" }}>{order.id}</span>}
       wide
       onClose={onClose}
       footer={
@@ -2193,7 +2193,7 @@ function TransactionModal({
       }
     >
       <form id="form-tx-detail-edit" onSubmit={submit}>
-        <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: 12, padding: 18, marginBottom: 20 }}>
+        <div style={{ background: "#fff4e2", border: "1px solid #eadfc9", borderRadius: 12, padding: 18, marginBottom: 20 }}>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 14, fontSize: 13.5 }}>
             <DetailField label="Kategori:" value={order.category || "-"} />
             <DetailField label="Provider:" value={order.provider || "-"} />
@@ -2259,11 +2259,11 @@ function DetailField({
 }) {
   return (
     <div>
-      <span style={{ color: "#64748B", display: "block", fontSize: 12 }}>{label}</span>
+      <span style={{ color: "#5e6b85", display: "block", fontSize: 12 }}>{label}</span>
       <b
         style={{
           fontFamily: mono ? "var(--font-mono)" : undefined,
-          color: primary ? "#4F46E5" : "#0F172A",
+          color: primary ? "#3a5ba8" : "#101a33",
         }}
       >
         {value}
@@ -2301,7 +2301,7 @@ function ManualTransactionModal({
       window.alert("Mohon lengkapi produk, nomor pelanggan, dan nominal harga.");
       return;
     }
-    const orderId = `JGX-${Math.floor(1000000 + Math.random() * 9000000)}`;
+    const orderId = `TVN-${Math.floor(1000000 + Math.random() * 9000000)}`;
     const prov = form.provider.trim();
     const statusLabels: Record<string, string> = {
       SUCCESS: "Berhasil Dikonfirmasi",
@@ -2321,10 +2321,10 @@ function ManualTransactionModal({
         paymentMethod: form.method,
         total: price,
         totalFormatted: rupiah(price),
-        sn: form.sn.trim() || `TRX-${(prov || "JGX").toUpperCase().slice(0, 5)}-${Date.now().toString().slice(-6)}`,
+        sn: form.sn.trim() || `TRX-${(prov || "TVN").toUpperCase().slice(0, 5)}-${Date.now().toString().slice(-6)}`,
         status: form.status,
         statusLabel: statusLabels[form.status],
-        systemMessage: "Transaksi manual dicatat oleh Administrator Jogatix.",
+        systemMessage: "Transaksi manual dicatat oleh Administrator Turvanotopweb.",
       },
     });
     onClose();
@@ -2435,8 +2435,8 @@ function ConsoleLoading() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#F1F5F9",
-        color: "#64748B",
+        background: "#f7ebd3",
+        color: "#5e6b85",
         fontSize: 14.5,
       }}
     >
@@ -2456,12 +2456,12 @@ function ConsoleError({ onRetry }: { onRetry: () => void }) {
         justifyContent: "center",
         gap: 12,
         padding: 24,
-        background: "#F1F5F9",
+        background: "#f7ebd3",
         textAlign: "center",
       }}
     >
-      <h1 style={{ fontSize: 20, color: "#0F172A" }}>Gagal memuat data dashboard</h1>
-      <p style={{ fontSize: 14, color: "#64748B", maxWidth: 460, lineHeight: 1.6 }}>
+      <h1 style={{ fontSize: 20, color: "#101a33" }}>Gagal memuat data dashboard</h1>
+      <p style={{ fontSize: 14, color: "#5e6b85", maxWidth: 460, lineHeight: 1.6 }}>
         Dashboard tidak dapat terhubung ke database. Periksa koneksi internet lalu coba lagi.
       </p>
       <button

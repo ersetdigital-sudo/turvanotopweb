@@ -1,5 +1,5 @@
 /**
- * Shared domain types for the Jogatix app.
+ * Shared domain types for the Turvanotopweb app.
  */
 
 /** A label + link pair used by navigation menus. */

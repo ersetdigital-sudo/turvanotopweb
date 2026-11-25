@@ -12,6 +12,17 @@ import { buildDefaultProducts, defaultSettings } from "@/lib/admin-defaults";
 import { getSupabaseAdmin } from "@/lib/supabase/server";
 
 /**
+ * Project Supabase ini dipakai bersama brand lain, jadi tabel brand ini diberi
+ * awalan agar tidak bentrok dengan tabel `orders`, `products`, dan `settings`
+ * milik brand lain.
+ */
+const TABLE = {
+  orders: "turvano_orders",
+  products: "turvano_products",
+  settings: "turvano_settings",
+} as const;
+
+/**
  * Data access layer for every Supabase-backed entity (orders, products,
  * settings). Route handlers are the only callers, so all of this runs on the
  * server with the service_role key.
@@ -221,7 +232,7 @@ async function runSeed(): Promise<void> {
   const supabase = getSupabaseAdmin();
 
   const { data, error } = await supabase
-    .from("settings")
+    .from(TABLE.settings)
     .select("id")
     .eq("id", 1)
     .maybeSingle();
@@ -229,13 +240,13 @@ async function runSeed(): Promise<void> {
   if (data) return;
 
   const { error: settingsError } = await supabase
-    .from("settings")
+    .from(TABLE.settings)
     .upsert(fromSettings(defaultSettings), { onConflict: "id", ignoreDuplicates: true });
   if (settingsError) throw settingsError;
 
   const defaults = buildDefaultProducts().map((product, index) => fromProduct(product, index));
   const { error: productsError } = await supabase
-    .from("products")
+    .from(TABLE.products)
     .upsert(defaults, { onConflict: "id", ignoreDuplicates: true });
   if (productsError) throw productsError;
 }
@@ -247,7 +258,7 @@ async function runSeed(): Promise<void> {
 export async function readSettings(): Promise<AdminSettings> {
   await ensureSeeded();
   const { data, error } = await getSupabaseAdmin()
-    .from("settings")
+    .from(TABLE.settings)
     .select("*")
     .eq("id", 1)
     .maybeSingle();
@@ -258,7 +269,7 @@ export async function readSettings(): Promise<AdminSettings> {
 export async function writeSettings(settings: AdminSettings): Promise<AdminSettings> {
   await ensureSeeded();
   const { data, error } = await getSupabaseAdmin()
-    .from("settings")
+    .from(TABLE.settings)
     .upsert({ ...fromSettings(settings), updated_at: new Date().toISOString() }, { onConflict: "id" })
     .select("*")
     .single();
@@ -273,7 +284,7 @@ export async function writeSettings(settings: AdminSettings): Promise<AdminSetti
 export async function readProducts(): Promise<AdminProduct[]> {
   await ensureSeeded();
   const { data, error } = await getSupabaseAdmin()
-    .from("products")
+    .from(TABLE.products)
     .select("*")
     .order("sort_order", { ascending: true });
   if (error) throw error;
@@ -293,16 +304,16 @@ export async function writeProducts(products: AdminProduct[]): Promise<AdminProd
   // Upsert first, then remove the deleted ids. This ordering means a failed
   // write can never leave the catalog empty.
   if (rows.length > 0) {
-    const { error } = await supabase.from("products").upsert(rows, { onConflict: "id" });
+    const { error } = await supabase.from(TABLE.products).upsert(rows, { onConflict: "id" });
     if (error) throw error;
   }
 
-  const { data: existing, error: existingError } = await supabase.from("products").select("id");
+  const { data: existing, error: existingError } = await supabase.from(TABLE.products).select("id");
   if (existingError) throw existingError;
   const keep = new Set(rows.map((row) => row.id));
   const stale = (existing as { id: string }[]).map((row) => row.id).filter((id) => !keep.has(id));
   if (stale.length > 0) {
-    const { error } = await supabase.from("products").delete().in("id", stale);
+    const { error } = await supabase.from(TABLE.products).delete().in("id", stale);
     if (error) throw error;
   }
 
@@ -313,7 +324,7 @@ export async function writeProducts(products: AdminProduct[]): Promise<AdminProd
 export async function readActiveProductsByCategory(): Promise<Partial<Record<CategorySlug, Product[]>>> {
   await ensureSeeded();
   const { data, error } = await getSupabaseAdmin()
-    .from("products")
+    .from(TABLE.products)
     .select("id, category_slug, name, note, price")
     .eq("active", true)
     .order("sort_order", { ascending: true });
@@ -335,7 +346,7 @@ export async function readActiveProductsByCategory(): Promise<Partial<Record<Cat
 export async function readOrders(): Promise<Record<string, Order>> {
   await ensureSeeded();
   const { data, error } = await getSupabaseAdmin()
-    .from("orders")
+    .from(TABLE.orders)
     .select("*")
     .order("created_ts", { ascending: true });
   if (error) throw error;
@@ -347,7 +358,7 @@ export async function readOrders(): Promise<Record<string, Order>> {
 
 export async function readOrder(id: string): Promise<Order | null> {
   const { data, error } = await getSupabaseAdmin()
-    .from("orders")
+    .from(TABLE.orders)
     .select("*")
     .eq("id", id)
     .maybeSingle();
@@ -357,7 +368,7 @@ export async function readOrder(id: string): Promise<Order | null> {
 
 export async function insertOrder(order: Order): Promise<Order> {
   const { data, error } = await getSupabaseAdmin()
-    .from("orders")
+    .from(TABLE.orders)
     .insert(fromOrder(order))
     .select("*")
     .single();
@@ -367,7 +378,7 @@ export async function insertOrder(order: Order): Promise<Order> {
 
 export async function upsertOrder(order: Order): Promise<Order> {
   const { data, error } = await getSupabaseAdmin()
-    .from("orders")
+    .from(TABLE.orders)
     .upsert(fromOrder(order), { onConflict: "id" })
     .select("*")
     .single();
@@ -376,6 +387,6 @@ export async function upsertOrder(order: Order): Promise<Order> {
 }
 
 export async function deleteOrder(id: string): Promise<void> {
-  const { error } = await getSupabaseAdmin().from("orders").delete().eq("id", id);
+  const { error } = await getSupabaseAdmin().from(TABLE.orders).delete().eq("id", id);
   if (error) throw error;
 }

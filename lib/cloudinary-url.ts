@@ -9,7 +9,7 @@ const UPLOAD_SEGMENT = "/image/upload/";
 
 /**
  * Pulls the public id out of a delivery URL, e.g.
- * `.../image/upload/v1791/qris/jogatix.png` -> `qris/jogatix`.
+ * `.../image/upload/v1791/qris/turvanotopweb.png` -> `qris/turvanotopweb`.
  * Returns null for anything that is not a Cloudinary URL, including the
  * legacy base64 data URLs still sitting in existing rows.
  */

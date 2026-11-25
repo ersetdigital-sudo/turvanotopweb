@@ -1,11 +1,11 @@
 /* ==========================================================================
-   Jogatix — Admin dashboard stylesheet (ported verbatim from css/admin.css)
+   Turvanotopweb — Admin dashboard stylesheet (ported verbatim from css/admin.css)
    Standalone: the admin console loads only this stylesheet, exactly like the
    original admin.html did, so the console renders identically.
    ========================================================================== */
 
 /* ==========================================================================
-   Jogatix — Official Admin Dashboard Stylesheet
+   Turvanotopweb — Official Admin Dashboard Stylesheet
    Modern, Responsive, Dark-Slate & Indigo Professional Theme
    ========================================================================== */
 
@@ -14,34 +14,35 @@
    second cooler neutral for chrome, depth drawn with hairlines instead of
    shadow bloom, and mono promoted to the numeric register.
 
-   Colour stays Jogatix. The site's committed world (indigo #4338CA, navy
-   #0E1126, lime #C7F36B, canvas #F8FAFC, hairline #E2E8F0) outranks the
+   Colour stays Turvanotopweb. The site's committed world (indigo #2e4c8c, navy
+   #101a33, lime #fa2d1a, canvas #fff4e2, hairline #eadfc9) outranks the
    style's teal, so only the style's *roles* are inherited here, not its hues.
    ======================================================================= */
 :root {
   --admin-navy-dark: #080A16;
-  --admin-navy: #0E1126;
-  --admin-navy-card: #171A35;
-  --admin-navy-surface: #22264A;
+  --admin-navy: #101a33;
+  --admin-navy-card: #18264a;
+  --admin-navy-surface: #22335f;
   --admin-navy-border: rgba(255, 255, 255, 0.09);
 
-  --admin-primary: #4338CA;
-  --admin-primary-hover: #3730A3;
-  --admin-primary-active: #312E81;
-  --admin-primary-light: #EEF2FF;
-  --admin-primary-border: #C7D2FE;
+  --admin-primary: #2e4c8c;
+  --admin-primary-hover: #243d73;
+  --admin-primary-active: #1f3669;
+  --admin-primary-light: #e9eef8;
+  --admin-primary-border: #c3cfe8;
 
-  --admin-lime: #C7F36B;
-  --admin-lime-hover: #B4E856;
+  --admin-lime: #fa2d1a;
+  --admin-lime-hover: #e02515;
+  --admin-lime-text: #ff6a58;
 
-  --admin-bg: #F8FAFC;
+  --admin-bg: #fff4e2;
   --admin-card-bg: #FFFFFF;
-  --admin-text-main: #0E1126;
-  --admin-text-body: #334155;
-  --admin-text-muted: #64748B;
-  --admin-text-subtle: #94A3B8;
-  --admin-border: #E2E8F0;
-  --admin-border-strong: #CBD5E1;
+  --admin-text-main: #101a33;
+  --admin-text-body: #34405c;
+  --admin-text-muted: #5e6b85;
+  --admin-text-subtle: #8d96aa;
+  --admin-border: #eadfc9;
+  --admin-border-strong: #d9cdb4;
 
   --admin-success: #059669;
   --admin-success-bg: #ECFDF5;
@@ -56,7 +57,7 @@
   --admin-danger-border: #FECACA;
 
   --admin-info: #0284C7;
-  --admin-info-bg: #F0F9FF;
+  --admin-info-bg: #eef3fa;
   --admin-info-border: #BAE6FD;
 
   /* Tightened from the legacy 8/12/16/20 ladder so plates read tooled
@@ -71,7 +72,7 @@
      bloom. Only hover and overlays are allowed a real lift. */
   --admin-shadow-sm: none;
   --admin-shadow: none;
-  --admin-shadow-lg: 0 10px 24px -8px rgba(14, 17, 38, 0.14);
+  --admin-shadow-lg: 0 10px 24px -8px rgba(16,26,51, 0.14);
 
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-heading: 'Plus Jakarta Sans', var(--font-sans);
@@ -154,13 +155,13 @@ body.admin-body {
 .admin-brand-icon {
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, var(--admin-primary), #6366F1);
+  background: linear-gradient(135deg, var(--admin-primary), #5c7cc0);
   border-radius: var(--admin-radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #FFFFFF;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+  box-shadow: 0 4px 12px rgba(58,91,168, 0.35);
   flex-shrink: 0;
 }
 
@@ -179,7 +180,7 @@ body.admin-body {
 }
 
 .admin-brand-title span {
-  color: var(--admin-lime);
+  color: var(--admin-lime-text);
 }
 
 .admin-badge-sub {
@@ -187,7 +188,7 @@ body.admin-body {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #94A3B8;
+  color: #8d96aa;
   margin-top: 1px;
 }
 
@@ -195,7 +196,7 @@ body.admin-body {
   display: none;
   background: transparent;
   border: none;
-  color: #94A3B8;
+  color: #8d96aa;
   cursor: pointer;
   padding: 6px;
   border-radius: var(--admin-radius-sm);
@@ -230,7 +231,7 @@ body.admin-body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #64748B;
+  color: #5e6b85;
   padding: 6px 10px 3px;
   margin-top: 4px;
 }
@@ -242,7 +243,7 @@ body.admin-body {
   width: 100%;
   padding: 9px 12px;
   border-radius: var(--admin-radius-md);
-  color: #94A3B8;
+  color: #8d96aa;
   text-decoration: none;
   font-size: 13.5px;
   font-weight: 600;
@@ -262,7 +263,7 @@ body.admin-body {
 .nav-item-btn.active {
   color: #FFFFFF;
   background: var(--admin-primary);
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+  box-shadow: 0 4px 14px rgba(58,91,168, 0.35);
 }
 
 .nav-item-btn svg {
@@ -282,7 +283,7 @@ body.admin-body {
 
 .nav-item-btn.active .nav-item-badge {
   background: var(--admin-lime);
-  color: var(--admin-navy);
+  color: #ffffff;
 }
 
 /* Sidebar Footer */
@@ -450,7 +451,7 @@ body.admin-body {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3730A3, #4F46E5);
+  background: linear-gradient(135deg, #243d73, #3a5ba8);
   color: #FFFFFF;
   display: flex;
   align-items: center;
@@ -577,10 +578,10 @@ body.admin-body {
   justify-content: center;
 }
 
-.stat-icon-indigo { background: #EEF2FF; color: var(--admin-primary); }
+.stat-icon-indigo { background: #e9eef8; color: var(--admin-primary); }
 .stat-icon-emerald { background: #ECFDF5; color: var(--admin-success); }
 .stat-icon-amber { background: #FFFBEB; color: var(--admin-warning); }
-.stat-icon-cyan { background: #F0F9FF; color: var(--admin-info); }
+.stat-icon-cyan { background: #eef3fa; color: var(--admin-info); }
 
 .stat-trend-tag {
   font-size: 11.5px;
@@ -591,7 +592,7 @@ body.admin-body {
 
 .trend-up { background: #ECFDF5; color: #059669; }
 .trend-warning { background: #FFFBEB; color: #D97706; }
-.trend-neutral { background: #F1F5F9; color: #64748B; }
+.trend-neutral { background: #f7ebd3; color: #5e6b85; }
 
 .stat-value {
   font-family: var(--font-heading);
@@ -623,13 +624,13 @@ body.admin-body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
+  box-shadow: 0 2px 8px rgba(58,91,168, 0.25);
   text-decoration: none;
 }
 
 .btn-primary-admin:hover {
   background: var(--admin-primary-hover);
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+  box-shadow: 0 4px 14px rgba(58,91,168, 0.35);
 }
 
 .btn-secondary-admin {
@@ -651,7 +652,7 @@ body.admin-body {
 
 .btn-secondary-admin:hover {
   background: var(--admin-bg);
-  border-color: #CBD5E1;
+  border-color: #d9cdb4;
 }
 
 .btn-danger-admin {
@@ -762,7 +763,7 @@ body.admin-body {
 }
 
 .admin-data-table th {
-  background: #F8FAFC;
+  background: #fff4e2;
   padding: 12px 16px;
   font-weight: 700;
   font-size: 12px;
@@ -785,7 +786,7 @@ body.admin-body {
 }
 
 .admin-data-table tbody tr:hover {
-  background-color: #F8FAFC;
+  background-color: #fff4e2;
 }
 
 .tx-id-badge {
@@ -802,8 +803,8 @@ body.admin-body {
 .tx-sn-code {
   font-family: var(--font-mono);
   font-size: 12px;
-  color: #334155;
-  background: #F1F5F9;
+  color: #34405c;
+  background: #f7ebd3;
   padding: 2px 6px;
   border-radius: 4px;
 }
@@ -839,7 +840,7 @@ body.admin-body {
 
 .toolbar-search-box input:focus {
   border-color: var(--admin-primary);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+  box-shadow: 0 0 0 3px rgba(58,91,168, 0.12);
 }
 
 .toolbar-search-box svg {
@@ -878,7 +879,7 @@ body.admin-body {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: #F1F5F9;
+  background: #f7ebd3;
   padding: 4px;
   border-radius: var(--admin-radius-md);
   overflow-x: auto;
@@ -944,7 +945,7 @@ body.admin-body {
 
 .form-input-admin:focus, .form-textarea-admin:focus {
   border-color: var(--admin-primary);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+  box-shadow: 0 0 0 3px rgba(58,91,168, 0.12);
 }
 
 .form-textarea-admin {
@@ -959,7 +960,7 @@ body.admin-body {
   justify-content: space-between;
   gap: 16px;
   padding: 12px 16px;
-  background: #F8FAFC;
+  background: #fff4e2;
   border: 1px solid var(--admin-border);
   border-radius: var(--admin-radius-md);
   margin-bottom: 12px;
@@ -987,7 +988,7 @@ body.admin-body {
   display: inline-block;
   width: 44px;
   height: 24px;
-  background-color: #CBD5E1;
+  background-color: #d9cdb4;
   border-radius: 24px;
   cursor: pointer;
   transition: background-color 0.25s ease;
@@ -1069,7 +1070,7 @@ body.admin-body {
 .qris-image-frame {
   width: 220px;
   height: 220px;
-  border: 2px solid #E2E8F0;
+  border: 2px solid #eadfc9;
   border-radius: var(--admin-radius-md);
   padding: 10px;
   background: #FFFFFF;
@@ -1109,7 +1110,7 @@ body.admin-body {
 
 .bank-card-item.inactive {
   opacity: 0.6;
-  background: #F8FAFC;
+  background: #fff4e2;
 }
 
 .bank-card-header {
@@ -1130,7 +1131,7 @@ body.admin-body {
 .bank-mandiri { background: #003D79; }
 .bank-bri { background: #00529C; }
 .bank-bni { background: #E55300; }
-.bank-custom { background: #4338CA; }
+.bank-custom { background: #2e4c8c; }
 
 .bank-card-accno {
   font-family: var(--font-mono);
@@ -1153,7 +1154,7 @@ body.admin-body {
 .admin-modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(16,26,51, 0.6);
   backdrop-filter: blur(4px);
   z-index: 1000;
   display: none;
@@ -1213,7 +1214,7 @@ body.admin-body {
 }
 
 .modal-close-btn:hover {
-  background: #F1F5F9;
+  background: #f7ebd3;
   color: var(--admin-text-main);
 }
 
@@ -1225,7 +1226,7 @@ body.admin-body {
 .modal-footer-admin {
   padding: 18px 24px;
   border-top: 1px solid var(--admin-border);
-  background: #F8FAFC;
+  background: #fff4e2;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -1415,7 +1416,7 @@ body.admin-body {
 }
 
 .admin-body *:focus-visible {
-  outline: 3px solid rgba(67, 56, 202, 0.35);
+  outline: 3px solid rgba(46,76,140, 0.35);
   outline-offset: 2px;
 }
 
@@ -1445,7 +1446,7 @@ body.admin-body {
 .admin-body select:focus-visible {
   outline: none;
   border-color: var(--admin-primary);
-  box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.18);
+  box-shadow: 0 0 0 3px rgba(46,76,140, 0.18);
 }
 
 /* --- Motion ---------------------------------------------------------------
@@ -1525,7 +1526,7 @@ body.admin-body {
 }
 
 .btn-primary-admin:hover {
-  box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.16);
+  box-shadow: 0 0 0 3px rgba(46,76,140, 0.16);
 }
 
 .btn-primary-admin:active {
@@ -1604,7 +1605,7 @@ body.admin-body {
   align-items: flex-start;
   font-size: 13px;
   line-height: 1.5;
-  color: #C7D2FE;
+  color: #c3cfe8;
 }
 
 .admin-auth-fact-dot {
@@ -1620,7 +1621,7 @@ body.admin-body {
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.04em;
-  color: #94A3B8;
+  color: #8d96aa;
   border-top: 1px solid var(--admin-navy-border);
   padding-top: 16px;
   font-variant-numeric: tabular-nums;
@@ -1702,7 +1703,7 @@ body.admin-body {
 
 .admin-auth-submit:hover:not(:disabled) {
   background: var(--admin-primary-hover);
-  box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.16);
+  box-shadow: 0 0 0 3px rgba(46,76,140, 0.16);
 }
 
 .admin-auth-submit:active:not(:disabled) {
@@ -1713,7 +1714,7 @@ body.admin-body {
 .admin-auth-submit:disabled {
   background: var(--admin-border);
   border-color: var(--admin-border);
-  color: #475569;
+  color: #4a5670;
   cursor: not-allowed;
 }
 
@@ -1875,6 +1876,6 @@ body.admin-body {
 .btn-danger-admin:disabled {
   background: var(--admin-border);
   border-color: var(--admin-border);
-  color: #475569;
+  color: #4a5670;
   cursor: not-allowed;
 }

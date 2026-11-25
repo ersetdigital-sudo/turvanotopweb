@@ -4,9 +4,9 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema, createMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata({
-  title: "Bantuan & Kendala - Jogatix",
+  title: "Bantuan & Kendala - Turvanotopweb",
   description:
-    "Pusat bantuan Jogatix. Periksa status pesanan terlebih dahulu, siapkan ID transaksi, dan telusuri panduan penanganan kendala pembayaran serta pengiriman produk.",
+    "Pusat bantuan Turvanotopweb. Periksa status pesanan terlebih dahulu, siapkan ID transaksi, dan telusuri panduan penanganan kendala pembayaran serta pengiriman produk.",
   path: "/bantuan",
 });
 
@@ -41,7 +41,7 @@ export default function BantuanPage() {
 
       <section className="page-hero-banner" style={{ textAlign: "left", padding: "48px 0 32px" }}>
         <div className="section-kicker">PUSAT BANTUAN</div>
-        <h1 style={{ fontSize: "clamp(2.3rem, 3.8vw, 3.2rem)", marginBottom: 12, color: "#0E1126" }}>
+        <h1 style={{ fontSize: "clamp(2.3rem, 3.8vw, 3.2rem)", marginBottom: 12, color: "#101a33" }}>
           Ada kendala? Mulai dari sini.
         </h1>
         <p className="section-desc" style={{ maxWidth: 640 }}>
@@ -53,8 +53,8 @@ export default function BantuanPage() {
       {/* Quick action to the tracker */}
       <div
         style={{
-          background: "#EEF2FF",
-          border: "1.5px solid #C7D2FE",
+          background: "#e9eef8",
+          border: "1.5px solid #c3cfe8",
           borderRadius: 16,
           padding: "22px 26px",
           marginBottom: 38,
@@ -66,10 +66,10 @@ export default function BantuanPage() {
         }}
       >
         <div>
-          <div style={{ fontWeight: 700, color: "#4338CA", fontSize: 15, marginBottom: 4 }}>
+          <div style={{ fontWeight: 700, color: "#2e4c8c", fontSize: 15, marginBottom: 4 }}>
             Langkah Pertama Penanganan Kendala
           </div>
-          <div style={{ fontSize: 14, color: "#4338CA" }}>
+          <div style={{ fontSize: 14, color: "#2e4c8c" }}>
             Gunakan ID pesanan untuk melihat status terbaru yang tercatat di sistem penyedia.
           </div>
         </div>
@@ -97,8 +97,8 @@ export default function BantuanPage() {
 
         <div className="official-channel-info">
           <strong>Kanal Bantuan Resmi:</strong> Layanan bantuan pelanggan dapat diakses melalui
-          portal resmi sistem Jogatix saat akun dan integrasi produksi diaktifkan. Harap waspada
-          terhadap pihak tidak bertanggung jawab yang mengatasnamakan Jogatix di luar kanal yang
+          portal resmi sistem Turvanotopweb saat akun dan integrasi produksi diaktifkan. Harap waspada
+          terhadap pihak tidak bertanggung jawab yang mengatasnamakan Turvanotopweb di luar kanal yang
           terverifikasi.
         </div>
       </div>

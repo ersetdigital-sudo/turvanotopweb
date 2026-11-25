@@ -19,7 +19,7 @@ export const CLOUDINARY_DESTROY_URL = CLOUD_NAME
   : "";
 
 /** All console assets land here, so cleanup can target one folder. */
-export const ASSET_FOLDER = "jogatix";
+export const ASSET_FOLDER = "turvanotopweb";
 
 export function cloudinaryConfigured(): boolean {
   return Boolean(CLOUD_NAME && API_KEY && API_SECRET);

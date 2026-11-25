@@ -24,9 +24,9 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-  title: "Dashboard Admin — Jogatix Management Console",
+  title: "Dashboard Admin — Turvanotopweb Management Console",
   description:
-    "Dashboard administrasi resmi Jogatix untuk kelola produk, upload foto QRIS, nomor WhatsApp, metode pembayaran, dan kelola transaksi.",
+    "Dashboard administrasi resmi Turvanotopweb untuk kelola produk, upload foto QRIS, nomor WhatsApp, metode pembayaran, dan kelola transaksi.",
   // The admin console must never be indexed.
   robots: { index: false, follow: false, nocache: true },
 };
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0E1126",
+  themeColor: "#101a33",
 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

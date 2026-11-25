@@ -10,7 +10,7 @@ import { cookies } from "next/headers";
  * Server-only: imports `node:crypto`, so do not import this from a client
  * component.
  */
-export const ADMIN_COOKIE = "jogatix_admin";
+export const ADMIN_COOKIE = "turvanotopweb_admin";
 
 const SESSION_TTL_SECONDS = 12 * 60 * 60; // 12 hours
 export const ADMIN_SESSION_MAX_AGE = SESSION_TTL_SECONDS;

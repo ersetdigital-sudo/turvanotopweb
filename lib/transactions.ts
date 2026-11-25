@@ -96,6 +96,6 @@ export function parseOrderInput(input: unknown, current?: Order | null): Order |
     status,
     statusLabel: asString(raw.statusLabel) || STATUS_LABELS[status],
     systemMessage:
-      asString(raw.systemMessage) || "Pesanan diterima dan sedang diproses oleh sistem Jogatix.",
+      asString(raw.systemMessage) || "Pesanan diterima dan sedang diproses oleh sistem Turvanotopweb.",
   };
 }

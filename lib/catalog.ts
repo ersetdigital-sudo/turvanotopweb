@@ -1,7 +1,7 @@
 import type { CategorySlug, ServiceCategory } from "@/types";
 
 /**
- * The full Jogatix catalog — 8 categories with their products, providers and
+ * The full Turvanotopweb catalog — 8 categories with their products, providers and
  * validation rules. Ported 1:1 from the original js/services.js so prices,
  * notes and patterns match the legacy site exactly.
  *
@@ -23,20 +23,20 @@ export const categories: ServiceCategory[] = [
       error: "Masukkan nomor ponsel yang diawali 08 (10–13 digit).",
     },
     products: [
-      { id: "pulsa-5000", name: "Rp5.000", note: "Masa aktif +7 hari", price: 6500 },
-      { id: "pulsa-10000", name: "Rp10.000", note: "Masa aktif +15 hari", price: 11500 },
-      { id: "pulsa-15000", name: "Rp15.000", note: "Masa aktif +20 hari", price: 16500 },
-      { id: "pulsa-20000", name: "Rp20.000", note: "Masa aktif +30 hari", price: 21500 },
-      { id: "pulsa-25000", name: "Rp25.000", note: "Masa aktif +30 hari", price: 26500 },
-      { id: "pulsa-30000", name: "Rp30.000", note: "Masa aktif +30 hari", price: 31500 },
-      { id: "pulsa-50000", name: "Rp50.000", note: "Masa aktif +45 hari", price: 51500 },
-      { id: "pulsa-75000", name: "Rp75.000", note: "Masa aktif +60 hari", price: 76500 },
-      { id: "pulsa-100000", name: "Rp100.000", note: "Masa aktif +60 hari", price: 101500 },
-      { id: "pulsa-150000", name: "Rp150.000", note: "Masa aktif +90 hari", price: 152000 },
-      { id: "pulsa-200000", name: "Rp200.000", note: "Masa aktif +120 hari", price: 202000 },
-      { id: "pulsa-300000", name: "Rp300.000", note: "Masa aktif +180 hari", price: 303000 },
-      { id: "pulsa-500000", name: "Rp500.000", note: "Masa aktif +360 hari", price: 504000 },
-      { id: "pulsa-1000000", name: "Rp1.000.000", note: "Masa aktif +360 hari", price: 1005000 },
+      { id: "pulsa-5000", name: "Rp5.000", note: "Masa aktif +7 hari", price: 7000 },
+      { id: "pulsa-10000", name: "Rp10.000", note: "Masa aktif +15 hari", price: 12000 },
+      { id: "pulsa-15000", name: "Rp15.000", note: "Masa aktif +20 hari", price: 16300 },
+      { id: "pulsa-20000", name: "Rp20.000", note: "Masa aktif +30 hari", price: 21000 },
+      { id: "pulsa-25000", name: "Rp25.000", note: "Masa aktif +30 hari", price: 26300 },
+      { id: "pulsa-30000", name: "Rp30.000", note: "Masa aktif +30 hari", price: 31000 },
+      { id: "pulsa-50000", name: "Rp50.000", note: "Masa aktif +45 hari", price: 51000 },
+      { id: "pulsa-75000", name: "Rp75.000", note: "Masa aktif +60 hari", price: 76000 },
+      { id: "pulsa-100000", name: "Rp100.000", note: "Masa aktif +60 hari", price: 100500 },
+      { id: "pulsa-150000", name: "Rp150.000", note: "Masa aktif +90 hari", price: 151000 },
+      { id: "pulsa-200000", name: "Rp200.000", note: "Masa aktif +120 hari", price: 201000 },
+      { id: "pulsa-300000", name: "Rp300.000", note: "Masa aktif +180 hari", price: 301500 },
+      { id: "pulsa-500000", name: "Rp500.000", note: "Masa aktif +360 hari", price: 502000 },
+      { id: "pulsa-1000000", name: "Rp1.000.000", note: "Masa aktif +360 hari", price: 1003000 },
     ],
   },
   {
@@ -80,17 +80,17 @@ export const categories: ServiceCategory[] = [
       error: "Masukkan nomor akun terdaftar yang diawali 08 (10–13 digit).",
     },
     products: [
-      { id: "ewallet-10000", name: "Saldo Rp10.000", note: "Top up saldo instan", price: 11000 },
-      { id: "ewallet-20000", name: "Saldo Rp20.000", note: "Top up saldo instan", price: 21000 },
-      { id: "ewallet-25000", name: "Saldo Rp25.000", note: "Top up saldo instan", price: 26000 },
-      { id: "ewallet-50000", name: "Saldo Rp50.000", note: "Paling sering dipilih", price: 51000 },
-      { id: "ewallet-75000", name: "Saldo Rp75.000", note: "Top up saldo instan", price: 76000 },
-      { id: "ewallet-100000", name: "Saldo Rp100.000", note: "Top up saldo instan", price: 101000 },
-      { id: "ewallet-150000", name: "Saldo Rp150.000", note: "Top up saldo instan", price: 151500 },
-      { id: "ewallet-200000", name: "Saldo Rp200.000", note: "Top up saldo instan", price: 201500 },
-      { id: "ewallet-300000", name: "Saldo Rp300.000", note: "Top up saldo instan", price: 302000 },
-      { id: "ewallet-500000", name: "Saldo Rp500.000", note: "Top up saldo instan", price: 502500 },
-      { id: "ewallet-1000000", name: "Saldo Rp1.000.000", note: "Batas harian akun terverifikasi", price: 1003500 },
+      { id: "ewallet-10000", name: "Saldo Rp10.000", note: "Top up saldo instan", price: 11500 },
+      { id: "ewallet-20000", name: "Saldo Rp20.000", note: "Top up saldo instan", price: 21500 },
+      { id: "ewallet-25000", name: "Saldo Rp25.000", note: "Top up saldo instan", price: 26500 },
+      { id: "ewallet-50000", name: "Saldo Rp50.000", note: "Paling sering dipilih", price: 51500 },
+      { id: "ewallet-75000", name: "Saldo Rp75.000", note: "Top up saldo instan", price: 77000 },
+      { id: "ewallet-100000", name: "Saldo Rp100.000", note: "Top up saldo instan", price: 102000 },
+      { id: "ewallet-150000", name: "Saldo Rp150.000", note: "Top up saldo instan", price: 152500 },
+      { id: "ewallet-200000", name: "Saldo Rp200.000", note: "Top up saldo instan", price: 202500 },
+      { id: "ewallet-300000", name: "Saldo Rp300.000", note: "Top up saldo instan", price: 303000 },
+      { id: "ewallet-500000", name: "Saldo Rp500.000", note: "Top up saldo instan", price: 503000 },
+      { id: "ewallet-1000000", name: "Saldo Rp1.000.000", note: "Batas harian akun terverifikasi", price: 1003000 },
     ],
   },
   {

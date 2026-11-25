@@ -22,7 +22,7 @@ type LineItem = Product & { isBill?: boolean; adminFee?: number };
 function generateOrderId(): string {
   let code = "";
   for (let i = 0; i < 7; i += 1) code += Math.floor(Math.random() * 10);
-  return `JGX-${code}`;
+  return `TVN-${code}`;
 }
 
 function generateSN(provider?: string): string {
@@ -194,7 +194,7 @@ export function CheckoutFlow() {
   }
 
   const waText = order
-    ? `Halo Admin Jogatix, saya ingin konfirmasi pembayaran untuk pesanan ID: ${order.id} (${order.product}) sebesar ${order.totalFormatted}. Nomor tujuan: ${order.customer}.`
+    ? `Halo Admin Turvanotopweb, saya ingin konfirmasi pembayaran untuk pesanan ID: ${order.id} (${order.product}) sebesar ${order.totalFormatted}. Nomor tujuan: ${order.customer}.`
     : "";
 
   return (
@@ -284,7 +284,7 @@ export function CheckoutFlow() {
             />
             <div
               id="detected-provider-badge"
-              style={{ display: "none", marginTop: 10, fontSize: 12.5, fontWeight: 700, color: "#4338CA" }}
+              style={{ display: "none", marginTop: 10, fontSize: 12.5, fontWeight: 700, color: "#2e4c8c" }}
             />
             <div id="customer-id-error" style={{ color: "#DC2626", fontSize: 13, marginTop: 6 }}>
               {custError}
@@ -314,17 +314,17 @@ export function CheckoutFlow() {
             style={{
               marginBottom: 18,
               padding: "12px 18px",
-              background: "#EEF2FF",
+              background: "#e9eef8",
               borderRadius: 10,
-              border: "1.5px solid #C7D2FE",
+              border: "1.5px solid #c3cfe8",
               display: activeProvider ? "flex" : "none",
               alignItems: "center",
               justifyContent: "space-between",
             }}
           >
-            <div style={{ fontSize: 14, color: "#1E1B4B" }}>
+            <div style={{ fontSize: 14, color: "#14213f" }}>
               Provider / Dompet Digital:{" "}
-              <strong id="stage2-provider-name" style={{ color: "#4338CA", fontSize: 15 }}>
+              <strong id="stage2-provider-name" style={{ color: "#2e4c8c", fontSize: 15 }}>
                 {activeProvider || "-"}
               </strong>
             </div>
@@ -370,17 +370,17 @@ export function CheckoutFlow() {
               <div
                 style={{
                   gridColumn: "1 / -1",
-                  background: "#EEF2FF",
-                  border: "1.5px solid #C7D2FE",
+                  background: "#e9eef8",
+                  border: "1.5px solid #c3cfe8",
                   borderRadius: 12,
                   padding: 22,
-                  color: "#1E1B4B",
+                  color: "#14213f",
                 }}
               >
                 <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 6 }}>
                   Tagihan Ditemukan
                 </div>
-                <div style={{ fontSize: 14, color: "#4338CA", marginBottom: 14 }}>
+                <div style={{ fontSize: 14, color: "#2e4c8c", marginBottom: 14 }}>
                   Nomor Pelanggan: <b>{customer}</b> ({category.name})
                 </div>
                 <div
@@ -388,7 +388,7 @@ export function CheckoutFlow() {
                     display: "flex",
                     justifyContent: "space-between",
                     padding: "8px 0",
-                    borderTop: "1px solid #C7D2FE",
+                    borderTop: "1px solid #c3cfe8",
                     fontSize: 14,
                   }}
                 >
@@ -400,7 +400,7 @@ export function CheckoutFlow() {
                     display: "flex",
                     justifyContent: "space-between",
                     padding: "8px 0",
-                    borderTop: "1px solid #C7D2FE",
+                    borderTop: "1px solid #c3cfe8",
                     fontSize: 14,
                   }}
                 >
@@ -450,7 +450,7 @@ export function CheckoutFlow() {
                   ? "Penyedia / Dompet Digital"
                   : "Penyedia / Operator"}
               </span>
-              <span className="val" id="summary-provider-val" style={{ fontWeight: 700, color: "#4338CA" }}>
+              <span className="val" id="summary-provider-val" style={{ fontWeight: 700, color: "#2e4c8c" }}>
                 {activeProvider || "-"}
               </span>
             </div>
@@ -528,20 +528,20 @@ export function CheckoutFlow() {
             style={{
               marginBottom: 24,
               padding: "18px 22px",
-              background: "#EEF2FF",
+              background: "#e9eef8",
               borderRadius: 12,
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              border: "1px solid #C7D2FE",
+              border: "1px solid #c3cfe8",
             }}
           >
-            <span style={{ fontSize: 14.5, color: "#4338CA", fontWeight: 600 }}>
+            <span style={{ fontSize: 14.5, color: "#2e4c8c", fontWeight: 600 }}>
               Total yang harus dibayar:
             </span>
             <span
               id="payment-total-val"
-              style={{ fontFamily: "var(--font-mono)", fontSize: 22, fontWeight: 700, color: "#171A35" }}
+              style={{ fontFamily: "var(--font-mono)", fontSize: 22, fontWeight: 700, color: "#18264a" }}
             >
               {order?.totalFormatted ?? rupiah(total)}
             </span>
@@ -577,7 +577,7 @@ export function CheckoutFlow() {
             />
           </div>
 
-          <div style={{ marginBottom: 24, fontSize: 13, color: "#646982", lineHeight: 1.55 }}>
+          <div style={{ marginBottom: 24, fontSize: 13, color: "#5e6b85", lineHeight: 1.55 }}>
             Status akan diperbarui setelah sistem menerima dan memverifikasi konfirmasi pembayaran.
           </div>
 
@@ -632,10 +632,10 @@ export function CheckoutFlow() {
               style={{
                 display: "inline-block",
                 padding: "10px 18px",
-                background: "#F1F4FD",
+                background: "#f6ecd8",
                 borderRadius: 8,
                 fontSize: 13,
-                color: "#4338CA",
+                color: "#2e4c8c",
                 fontWeight: 700,
               }}
             >
@@ -672,7 +672,7 @@ export function CheckoutFlow() {
                 <span
                   className="val"
                   id="final-tx-id"
-                  style={{ fontFamily: "var(--font-mono)", color: "#4338CA", fontSize: 17 }}
+                  style={{ fontFamily: "var(--font-mono)", color: "#2e4c8c", fontSize: 17 }}
                 >
                   {order?.id ?? "-"}
                 </span>
@@ -687,7 +687,7 @@ export function CheckoutFlow() {
                     ? "Penyedia / Dompet Digital"
                     : "Penyedia / Operator"}
                 </span>
-                <span className="val" id="final-provider-val" style={{ fontWeight: 700, color: "#4338CA" }}>
+                <span className="val" id="final-provider-val" style={{ fontWeight: 700, color: "#2e4c8c" }}>
                   {order?.provider || "-"}
                 </span>
               </div>
@@ -799,13 +799,13 @@ function PaymentInstructions({
   if (method === "qris") {
     return (
       <div style={{ textAlign: "center", padding: "12px 0" }}>
-        <div style={{ fontWeight: 700, color: "#0E1126", marginBottom: 4 }}>
+        <div style={{ fontWeight: 700, color: "#101a33", marginBottom: 4 }}>
           {settings.qrisMerchant || "QRIS Standar Pembayaran Nasional"}
         </div>
-        <div style={{ fontSize: 12, color: "#64748B", fontFamily: "var(--font-mono)", marginBottom: 12 }}>
+        <div style={{ fontSize: 12, color: "#5e6b85", fontFamily: "var(--font-mono)", marginBottom: 12 }}>
           NMID: {settings.qrisNmid || "ID1020039102910"}
         </div>
-        <div style={{ fontSize: 13.5, color: "#64748B", marginBottom: 16 }}>
+        <div style={{ fontSize: 13.5, color: "#5e6b85", marginBottom: 16 }}>
           {settings.qrisInstructions ||
             "Buka aplikasi GoPay, OVO, DANA, BCA Mobile, atau aplikasi bank kamu, lalu pindai kode di bawah."}
         </div>
@@ -814,7 +814,7 @@ function PaymentInstructions({
             display: "inline-block",
             padding: 14,
             background: "#FFFFFF",
-            border: "2px solid #E2E8F0",
+            border: "2px solid #eadfc9",
             borderRadius: 12,
             boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
           }}
@@ -825,30 +825,19 @@ function PaymentInstructions({
             // as-is. 360 device pixels keeps the code scannable on retina.
             <Image
               src={cloudinarySrc(settings.qrisImage, { width: 360 })}
-              alt="Barcode QRIS merchant Jogatix"
+              alt="Barcode QRIS merchant Turvanotopweb"
               width={180}
               height={180}
               unoptimized
               style={{ objectFit: "contain" }}
             />
           ) : (
-            <svg width={160} height={160} viewBox="0 0 100 100" fill="#0E1126" aria-hidden="true">
-              <rect width="100" height="100" fill="#FFFFFF" />
-              <rect x="10" y="10" width="25" height="25" fill="#0E1126" />
-              <rect x="15" y="15" width="15" height="15" fill="#FFFFFF" />
-              <rect x="65" y="10" width="25" height="25" fill="#0E1126" />
-              <rect x="70" y="15" width="15" height="15" fill="#FFFFFF" />
-              <rect x="10" y="65" width="25" height="25" fill="#0E1126" />
-              <rect x="15" y="70" width="15" height="15" fill="#FFFFFF" />
-              <rect x="45" y="15" width="10" height="10" fill="#0E1126" />
-              <rect x="40" y="40" width="20" height="20" fill="#0E1126" />
-              <rect x="65" y="55" width="15" height="10" fill="#0E1126" />
-              <rect x="45" y="75" width="20" height="15" fill="#0E1126" />
-              <rect x="75" y="75" width="15" height="15" fill="#0E1126" />
-            </svg>
+            <p style={{ maxWidth: 220, padding: "12px 8px", fontSize: 13, color: "#5e6b85" }}>
+              QRIS belum tersedia. Hubungi CS untuk menyelesaikan pembayaran.
+            </p>
           )}
         </div>
-        <div style={{ fontSize: 13, color: "#4338CA", fontWeight: 700, marginTop: 12 }}>
+        <div style={{ fontSize: 13, color: "#2e4c8c", fontWeight: 700, marginTop: 12 }}>
           ID Transaksi: {order.id}
         </div>
         <div style={{ marginTop: 16 }}>{waButton}</div>
@@ -860,7 +849,7 @@ function PaymentInstructions({
     const activeBanks = (settings.banks || []).filter((b) => b.active !== false);
     return (
       <div style={{ padding: "10px 0" }}>
-        <div style={{ fontWeight: 700, color: "#0E1126", marginBottom: 8 }}>
+        <div style={{ fontWeight: 700, color: "#101a33", marginBottom: 8 }}>
           Pilihan Rekening Transfer Bank &amp; Virtual Account
         </div>
         <div style={{ marginBottom: 14 }}>
@@ -870,7 +859,7 @@ function PaymentInstructions({
                 key={b.id}
                 style={{
                   background: "#FFFFFF",
-                  border: "1px solid #E2E8F0",
+                  border: "1px solid #eadfc9",
                   borderRadius: 8,
                   padding: "10px 14px",
                   marginBottom: 8,
@@ -880,21 +869,21 @@ function PaymentInstructions({
                 }}
               >
                 <div>
-                  <b style={{ color: "#0E1126", fontSize: 13.5 }}>Bank {b.name}</b>
-                  <div style={{ fontSize: 12, color: "#64748B" }}>a.n. {b.accName}</div>
+                  <b style={{ color: "#101a33", fontSize: 13.5 }}>Bank {b.name}</b>
+                  <div style={{ fontSize: 12, color: "#5e6b85" }}>a.n. {b.accName}</div>
                 </div>
-                <span style={{ fontFamily: "var(--font-mono)", fontSize: 15, fontWeight: 700, color: "#4338CA" }}>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: 15, fontWeight: 700, color: "#2e4c8c" }}>
                   {b.accNo}
                 </span>
               </div>
             ))
           ) : (
-            <div style={{ color: "#4338CA", fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: 18, marginBottom: 12 }}>
-              8901 2891 0492 8841 (BCA)
+            <div style={{ color: "#5e6b85", fontSize: 13, marginBottom: 12 }}>
+              Rekening transfer belum tersedia. Hubungi CS untuk menyelesaikan pembayaran.
             </div>
           )}
         </div>
-        <p style={{ fontSize: 13, color: "#64748B" }}>
+        <p style={{ fontSize: 13, color: "#5e6b85" }}>
           Transfer tepat sesuai nominal: <b>{order.totalFormatted}</b> melalui menu Transfer pada
           m-banking atau ATM kamu.
         </p>
@@ -905,10 +894,10 @@ function PaymentInstructions({
 
   return (
     <div style={{ padding: "10px 0" }}>
-      <div style={{ fontWeight: 700, color: "#0E1126", marginBottom: 8 }}>
+      <div style={{ fontWeight: 700, color: "#101a33", marginBottom: 8 }}>
         Pembayaran E-Wallet Instan
       </div>
-      <p style={{ fontSize: 13, color: "#64748B" }}>
+      <p style={{ fontSize: 13, color: "#5e6b85" }}>
         Pemberitahuan konfirmasi top up <b>{order.provider || "dompet digital"}</b> akan dikirimkan
         ke nomor <b>{order.customer}</b>. Buka aplikasi {order.provider || "dompet digitalmu"} untuk
         menyelesaikan pembayaran sebesar <b>{order.totalFormatted}</b>.

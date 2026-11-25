@@ -86,10 +86,10 @@ export function TransactionTracker() {
     <>
       <div className="tx-search-card">
         <div className="section-kicker">PELACAKAN PESANAN</div>
-        <h1 style={{ fontSize: 27, color: "#0E1126", marginBottom: 8 }}>
+        <h1 style={{ fontSize: 27, color: "#101a33", marginBottom: 8 }}>
           Cari tahu status pesananmu.
         </h1>
-        <p style={{ color: "#646982", fontSize: 15 }}>
+        <p style={{ color: "#5e6b85", fontSize: 15 }}>
           Masukkan ID transaksi untuk melihat perkembangan pesanan.
         </p>
 
@@ -98,7 +98,7 @@ export function TransactionTracker() {
             type="text"
             id="tx-search-input"
             className="tx-input-field"
-            placeholder="Contoh: JGX-XXXXXXXX"
+            placeholder="Contoh: TVN-XXXXXXXX"
             aria-label="ID Transaksi"
             value={inputValue}
             onChange={(event) => {
@@ -125,15 +125,15 @@ export function TransactionTracker() {
           style={{
             marginTop: 20,
             padding: "18px 22px",
-            background: "#F8FAFC",
-            border: "1px solid #E4E7F0",
+            background: "#fff4e2",
+            border: "1px solid #e8dec9",
             borderRadius: 12,
             fontSize: 14,
-            color: "#646982",
+            color: "#5e6b85",
             textAlign: "center",
           }}
         >
-          Memeriksa transaksi <strong style={{ color: "#0E1126" }}>{activeId}</strong>…
+          Memeriksa transaksi <strong style={{ color: "#101a33" }}>{activeId}</strong>…
         </div>
       )}
 
@@ -146,7 +146,7 @@ export function TransactionTracker() {
                 fontSize: 12,
                 fontWeight: 700,
                 textTransform: "uppercase",
-                color: "#646982",
+                color: "#5e6b85",
                 letterSpacing: "0.06em",
                 marginBottom: 4,
               }}
@@ -155,7 +155,7 @@ export function TransactionTracker() {
             </div>
             <div
               id="res-tx-id"
-              style={{ fontFamily: "var(--font-mono)", fontSize: 24, fontWeight: 700, color: "#0E1126" }}
+              style={{ fontFamily: "var(--font-mono)", fontSize: 24, fontWeight: 700, color: "#101a33" }}
             >
               {order?.id ?? "-"}
             </div>
@@ -184,7 +184,7 @@ export function TransactionTracker() {
             <span
               className="tx-detail-val"
               id="res-provider"
-              style={{ fontWeight: 700, color: "#4338CA" }}
+              style={{ fontWeight: 700, color: "#2e4c8c" }}
             >
               {order?.provider ?? "-"}
             </span>
@@ -222,7 +222,7 @@ export function TransactionTracker() {
             <span
               className="tx-detail-val"
               id="res-total"
-              style={{ fontFamily: "var(--font-mono)", fontSize: 17, color: "#4338CA" }}
+              style={{ fontFamily: "var(--font-mono)", fontSize: 17, color: "#2e4c8c" }}
             >
               {order?.totalFormatted ?? "-"}
             </span>
@@ -246,11 +246,11 @@ export function TransactionTracker() {
           style={{
             marginTop: 24,
             padding: "16px 18px",
-            background: "#F8FAFC",
+            background: "#fff4e2",
             borderRadius: 10,
-            border: "1px solid #E4E7F0",
+            border: "1px solid #e8dec9",
             fontSize: 13.5,
-            color: "#646982",
+            color: "#5e6b85",
             lineHeight: 1.55,
           }}
         >
@@ -278,17 +278,17 @@ export function TransactionTracker() {
         >
           <CloseCircleIcon width={28} height={28} />
         </div>
-        <h2 style={{ fontSize: 21, color: "#0E1126", marginBottom: 8 }}>Transaksi Tidak Ditemukan</h2>
-        <p style={{ color: "#646982", fontSize: 14.5, maxWidth: 500, margin: "0 auto 22px", lineHeight: 1.6 }}>
+        <h2 style={{ fontSize: 21, color: "#101a33", marginBottom: 8 }}>Transaksi Tidak Ditemukan</h2>
+        <p style={{ color: "#5e6b85", fontSize: 14.5, maxWidth: 500, margin: "0 auto 22px", lineHeight: 1.6 }}>
           ID pesanan{" "}
           <strong
             id="not-found-id-label"
-            style={{ color: "#0E1126", fontFamily: "var(--font-mono)" }}
+            style={{ color: "#101a33", fontFamily: "var(--font-mono)" }}
           >
             {notFoundId ?? ""}
           </strong>{" "}
-          tidak terdaftar dalam catatan sistem Jogatix. Pastikan kamu memasukkan ID yang tepat
-          (contoh: JGX-1234567) atau periksa kembali bukti pesananmu.
+          tidak terdaftar dalam catatan sistem Turvanotopweb. Pastikan kamu memasukkan ID yang tepat
+          (contoh: TVN-1234567) atau periksa kembali bukti pesananmu.
         </p>
         <Link href="/bantuan" className="btn-secondary" style={{ fontSize: 13.5 }}>
           Buka Halaman Bantuan

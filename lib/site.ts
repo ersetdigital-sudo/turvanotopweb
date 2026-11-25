@@ -7,16 +7,16 @@ import type { NavItem } from "@/types";
  * (it shipped placeholder/demo data) and must be filled in before going live.
  */
 export const siteConfig = {
-  name: "Jogatix",
-  legalName: "Jogatix Digital Commerce",
+  name: "Turvanotopweb",
+  legalName: "Turvanotopweb",
   /** Manual: set NEXT_PUBLIC_SITE_URL to the production domain. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.jogatix.id",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://turvanotopweb.com",
   locale: "id_ID",
   description:
     "Platform transaksi digital untuk pulsa, paket data, uang elektronik, PLN, dan pembayaran berbagai tagihan dengan alur transparan.",
   /** Manual: replace with the real customer-care number. */
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "081234567890",
-  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "halo@jogatix.id",
+  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "halo@turvanotopweb.com",
 } as const;
 
 /** Primary navigation, shared by the header drawer and footer. */
@@ -25,12 +25,12 @@ export const primaryNav: NavItem[] = [
   { label: "Layanan", href: "/layanan" },
   { label: "Cek Transaksi", href: "/cek-transaksi" },
   { label: "Bantuan", href: "/bantuan" },
-  { label: "Tentang Jogatix", href: "/tentang" },
+  { label: "Tentang Turvanotopweb", href: "/tentang" },
 ];
 
 /** Informational links shown in the footer. */
 export const footerInfoLinks: NavItem[] = [
-  { label: "Tentang Jogatix", href: "/tentang" },
+  { label: "Tentang Turvanotopweb", href: "/tentang" },
   { label: "Cek Transaksi", href: "/cek-transaksi" },
   { label: "Bantuan", href: "/bantuan" },
   { label: "Kebijakan Privasi", href: "/bantuan#kebijakan" },

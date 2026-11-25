@@ -16,7 +16,7 @@ const AdminConsole = dynamic(
         style={{
           padding: 48,
           fontFamily: "var(--font-sans, sans-serif)",
-          color: "#64748B",
+          color: "#5e6b85",
           fontSize: 14,
         }}
       >

@@ -7,11 +7,11 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { createMetadata, faqSchema } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata({
-  title: "Jogatix — Urus Kebutuhan Digital, Lebih Gampang",
+  title: "Turvanotopweb — Urus Kebutuhan Digital, Lebih Gampang",
   description:
     "Platform transaksi digital terpercaya untuk pulsa, paket data, uang elektronik, PLN, dan pembayaran berbagai tagihan dengan alur transparan.",
   path: "/",
-  keywords: ["pulsa", "paket data", "uang elektronik", "token listrik", "bayar tagihan", "Jogatix"],
+  keywords: ["pulsa", "paket data", "uang elektronik", "token listrik", "bayar tagihan", "Turvanotopweb"],
 });
 
 export default function HomePage() {

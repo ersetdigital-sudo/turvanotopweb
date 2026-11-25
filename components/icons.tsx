@@ -20,10 +20,11 @@ function Icon({ children, ...props }: IconProps & { children: React.ReactNode })
   );
 }
 
-export function BrandBoltIcon(props: IconProps) {
+export function BrandMarkIcon(props: IconProps) {
   return (
-    <Icon strokeWidth={2.2} {...props}>
-      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+    <Icon strokeWidth={2.6} {...props}>
+      <path d="M5 5h14" />
+      <path d="M12 5v14" />
     </Icon>
   );
 }

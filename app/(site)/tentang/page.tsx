@@ -5,9 +5,9 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema, createMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata({
-  title: "Tentang Jogatix - Transaksi Digital Jelas & Terstruktur",
+  title: "Tentang Turvanotopweb - Transaksi Digital Jelas & Terstruktur",
   description:
-    "Jogatix dirancang sebagai tempat untuk menemukan layanan digital dan mengurus berbagai transaksi dalam satu alur yang jelas.",
+    "Turvanotopweb dirancang sebagai tempat untuk menemukan layanan digital dan mengurus berbagai transaksi dalam satu alur yang jelas.",
   path: "/tentang",
 });
 
@@ -24,17 +24,17 @@ export default function TentangPage() {
       <JsonLd
         data={breadcrumbSchema([
           { name: "Beranda", path: "/" },
-          { name: "Tentang Jogatix", path: "/tentang" },
+          { name: "Tentang Turvanotopweb", path: "/tentang" },
         ])}
       />
 
       <section className="page-hero-banner" style={{ textAlign: "left", padding: "48px 0 32px" }}>
-        <div className="section-kicker">TENTANG JOGATIX</div>
-        <h1 style={{ fontSize: "clamp(2.3rem, 3.8vw, 3.2rem)", marginBottom: 14, color: "#0E1126" }}>
+        <div className="section-kicker">TENTANG TURVANOTOPWEB</div>
+        <h1 style={{ fontSize: "clamp(2.3rem, 3.8vw, 3.2rem)", marginBottom: 14, color: "#101a33" }}>
           Kebutuhan digital, lebih mudah dijangkau.
         </h1>
         <p className="section-desc" style={{ maxWidth: 660, fontSize: 17 }}>
-          Jogatix dirancang sebagai tempat untuk menemukan layanan digital dan mengurus berbagai
+          Turvanotopweb dirancang sebagai tempat untuk menemukan layanan digital dan mengurus berbagai
           transaksi dalam satu alur yang jelas.
         </p>
       </section>
@@ -70,7 +70,7 @@ export default function TentangPage() {
       <section
         className="about-card-section"
         style={{
-          background: "linear-gradient(160deg, #121532 0%, #0A0D21 100%)",
+          background: "linear-gradient(160deg, #0f1830 0%, #0A0D21 100%)",
           color: "white",
           borderColor: "rgba(255,255,255,0.08)",
         }}

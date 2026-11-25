@@ -21,7 +21,7 @@ export function QuickTrackerForm() {
         type="text"
         id="home-quick-tracker-input"
         className="home-tracking-input"
-        placeholder="Masukkan ID (mis. JGX-7749210)"
+        placeholder="Masukkan ID (mis. TVN-7749210)"
         aria-label="ID Transaksi"
         value={value}
         onChange={(event) => setValue(event.target.value)}

@@ -49,7 +49,7 @@ export async function DELETE(request: Request) {
   const publicId = new URL(request.url).searchParams.get("public_id")?.trim();
   if (!publicId) return apiError("public_id wajib diisi.");
   if (!publicId.startsWith(`${ASSET_FOLDER}/`)) {
-    return apiError("Asset di luar folder Jogatix tidak boleh dihapus.", 403);
+    return apiError("Asset di luar folder Turvanotopweb tidak boleh dihapus.", 403);
   }
 
   try {

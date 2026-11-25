@@ -4,8 +4,8 @@ import { AdminLoginForm } from "@/components/admin/AdminLoginForm";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 
 export const metadata: Metadata = {
-  title: "Login Admin — Jogatix Management Console",
-  description: "Halaman masuk dashboard administrasi Jogatix.",
+  title: "Login Admin — Turvanotopweb Management Console",
+  description: "Halaman masuk dashboard administrasi Turvanotopweb.",
   robots: { index: false, follow: false, nocache: true },
 };
 

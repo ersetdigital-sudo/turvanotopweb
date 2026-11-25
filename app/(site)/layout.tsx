@@ -36,7 +36,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Jogatix — Urus Kebutuhan Digital, Lebih Gampang",
+    default: "Turvanotopweb — Urus Kebutuhan Digital, Lebih Gampang",
     template: "%s",
   },
   description: siteConfig.description,
@@ -47,13 +47,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: siteConfig.locale,
     siteName: siteConfig.name,
-    title: "Jogatix — Urus Kebutuhan Digital, Lebih Gampang",
+    title: "Turvanotopweb — Urus Kebutuhan Digital, Lebih Gampang",
     description: siteConfig.description,
     url: siteConfig.url,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jogatix — Urus Kebutuhan Digital, Lebih Gampang",
+    title: "Turvanotopweb — Urus Kebutuhan Digital, Lebih Gampang",
     description: siteConfig.description,
   },
   robots: {
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#4338CA",
+  themeColor: "#2e4c8c",
 };
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {

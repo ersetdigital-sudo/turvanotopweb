@@ -53,7 +53,7 @@ export function AdminLoginForm() {
               <path d="M8 10.5V7.2a4 4 0 0 1 8 0v3.3" />
             </svg>
           </span>
-          <span className="admin-auth-brand-name">Jogatix</span>
+          <span className="admin-auth-brand-name">Turvanotopweb</span>
         </div>
 
         <div className="admin-auth-facts">
@@ -71,14 +71,14 @@ export function AdminLoginForm() {
           </div>
         </div>
 
-        <div className="admin-auth-stamp">jogatix.vercel.app · sesi 12 jam</div>
+        <div className="admin-auth-stamp">turvanotopweb.com · sesi 12 jam</div>
       </aside>
 
       <main className="admin-auth-stage">
         <div className="admin-auth-panel">
           <h1 className="admin-auth-title">Masuk ke console</h1>
           <p className="admin-auth-lede">
-            Area ini khusus staf Jogatix. Masukkan password admin untuk membuka katalog,
+            Area ini khusus staf Turvanotopweb. Masukkan password admin untuk membuka katalog,
             pembayaran, dan transaksi.
           </p>
 
@@ -118,7 +118,7 @@ export function AdminLoginForm() {
           </form>
 
           <Link href="/" className="admin-auth-back">
-            ← Kembali ke situs Jogatix
+            ← Kembali ke situs Turvanotopweb
           </Link>
         </div>
       </main>
