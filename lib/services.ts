@@ -28,41 +28,41 @@ export const homeServiceCards: HomeServiceCard[] = [
   {
     slug: "pulsa",
     name: "Pulsa",
-    desc: "Isi ulang pulsa semua operator seluler, dari nominal kecil sampai besar.",
+    desc: "Isi pulsa semua operator, dari nominal kecil sampai besar.",
   },
   {
     slug: "paket-data",
     name: "Paket Data",
-    desc: "Kuota harian sampai bulanan, tinggal pilih yang pas untuk pemakaianmu.",
+    desc: "Kuota harian sampai bulanan, pilih sesuai pemakaianmu.",
   },
   {
     slug: "uang-elektronik",
     name: "Uang Elektronik",
-    desc: "Tambah saldo GoPay, OVO, DANA, ShopeePay, atau LinkAja tanpa repot.",
+    desc: "Isi saldo GoPay, OVO, DANA, ShopeePay, atau LinkAja.",
   },
   {
     slug: "pln",
     name: "PLN",
-    desc: "Token listrik prabayar dengan nomor meter, atau lunasi tagihan bulanannya.",
+    desc: "Beli token listrik pakai nomor meter, atau bayar tagihan bulanan.",
   },
   {
     slug: "internet",
     name: "Pembayaran Internet",
-    desc: "Lunasi tagihan Wi-Fi rumah dari IndiHome, Biznet, First Media, dan lainnya.",
+    desc: "Bayar tagihan Wi-Fi rumah: IndiHome, Biznet, First Media, dan lainnya.",
   },
   {
     slug: "bpjs",
     name: "BPJS Kesehatan",
-    desc: "Bayar iuran BPJS Kesehatan keluarga cukup dengan nomor Virtual Account.",
+    desc: "Bayar iuran BPJS Kesehatan keluarga pakai nomor Virtual Account.",
   },
   {
     slug: "pdam",
     name: "PDAM",
-    desc: "Cek dan bayar tagihan air PDAM sesuai wilayah pelangganmu.",
+    desc: "Cek dan bayar tagihan air PDAM di wilayahmu.",
   },
   {
     slug: "multifinance",
     name: "Multifinance",
-    desc: "Bayar angsuran kendaraan dan pembiayaan lain memakai nomor kontrak.",
+    desc: "Bayar cicilan motor, mobil, dan pembiayaan lain pakai nomor kontrak.",
   },
 ];

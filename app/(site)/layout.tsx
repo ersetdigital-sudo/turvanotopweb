@@ -36,7 +36,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Turvanotopweb — Pulsa sampai Tagihan, Beres dari Satu Layar",
+    default: "Turvanotopweb — Isi Pulsa, Bayar Listrik, Top Up E-Wallet",
     template: "%s",
   },
   description: siteConfig.description,
@@ -47,13 +47,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: siteConfig.locale,
     siteName: siteConfig.name,
-    title: "Turvanotopweb — Pulsa sampai Tagihan, Beres dari Satu Layar",
+    title: "Turvanotopweb — Isi Pulsa, Bayar Listrik, Top Up E-Wallet",
     description: siteConfig.description,
     url: siteConfig.url,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Turvanotopweb — Pulsa sampai Tagihan, Beres dari Satu Layar",
+    title: "Turvanotopweb — Isi Pulsa, Bayar Listrik, Top Up E-Wallet",
     description: siteConfig.description,
   },
   robots: {

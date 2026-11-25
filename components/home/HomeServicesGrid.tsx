@@ -8,11 +8,10 @@ export function HomeServicesGrid() {
     <section className="home-services-section" id="daftar-layanan">
       <div className="container">
         <div className="home-sec-header">
-          <span className="section-kicker">KATALOG</span>
-          <h2>Apa yang perlu dibayar hari ini?</h2>
+          <span className="section-kicker">LAYANAN</span>
+          <h2>Semua yang bisa kamu bayar di sini</h2>
           <p>
-            Ketuk salah satu kategori, isi data tujuan, lalu lihat produk dan harganya sebelum
-            melanjutkan.
+            Pilih salah satu, isi nomor atau ID tujuan, lalu cek produk dan harganya.
           </p>
         </div>
 
@@ -31,7 +30,7 @@ export function HomeServicesGrid() {
               <h3>{card.name}</h3>
               <p>{card.desc}</p>
               <span className="home-service-action">
-                Buka Layanan
+                Lihat Produk
                 <ArrowRightIcon width={15} height={15} strokeWidth={2.5} />
               </span>
             </Link>

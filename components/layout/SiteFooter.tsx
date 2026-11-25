@@ -20,11 +20,11 @@ export function SiteFooter() {
               </span>
             </Link>
             <p className="footer-brand-desc">
-              Tempat isi ulang dan bayar tagihan yang rapi: pulsa, kuota, saldo e-wallet, token
-              listrik, sampai cicilan dan iuran bulanan.
+              Isi ulang dan bayar tagihan di satu tempat: pulsa, kuota, saldo e-wallet, token
+              listrik, sampai cicilan.
             </p>
             <p className="footer-brand-sub">
-              Lihat total sebelum bayar, simpan ID transaksimu, dan lacak pesanan kapan saja.
+              Harga kelihatan sebelum bayar, dan pesananmu bisa dilacak kapan saja.
             </p>
           </div>
 

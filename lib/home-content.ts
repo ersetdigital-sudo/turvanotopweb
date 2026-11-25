@@ -1,9 +1,9 @@
 /** Static marketing copy for the home page sections. */
 
 export const heroTrustPoints = [
-  "8 kategori dalam satu tempat",
-  "Total tampil sebelum bayar",
-  "Lacak dengan ID transaksi",
+  "8 jenis layanan",
+  "Harga kelihatan sebelum bayar",
+  "Pesanan bisa dilacak",
 ];
 
 export interface TimelineStep {
@@ -15,17 +15,17 @@ export interface TimelineStep {
 export const timelineSteps: TimelineStep[] = [
   {
     badge: "01",
-    title: "Pilih layanan dan isi tujuan",
-    desc: "Tentukan produknya, lalu masukkan nomor ponsel atau ID pelanggan sesuai layanan.",
+    title: "Pilih layanan",
+    desc: "Pilih produknya, lalu isi nomor HP atau ID pelanggan.",
   },
   {
     badge: "02",
-    title: "Cek total, lalu bayar",
-    desc: "Harga produk dan biaya admin ditampilkan sebelum kamu menyelesaikan pembayaran.",
+    title: "Cek total dan bayar",
+    desc: "Harga produk dan biaya admin kelihatan dulu sebelum kamu bayar.",
   },
   {
     badge: "03",
-    title: "Pantau sampai selesai",
-    desc: "Buka Cek Transaksi dan masukkan ID untuk melihat status serta hasil pesananmu.",
+    title: "Pantau pesananmu",
+    desc: "Masukkan ID transaksi di Cek Transaksi buat lihat status dan hasilnya.",
   },
 ];

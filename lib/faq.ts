@@ -4,23 +4,23 @@ import type { FaqItem } from "@/types";
 export const faqItems: FaqItem[] = [
   {
     id: "faq-1",
-    badge: "Panduan",
-    question: "Bagaimana cara memesan di Turvanotopweb?",
+    badge: "Cara pesan",
+    question: "Gimana cara pesannya?",
     answer: [
       {
         type: "text",
-        text: "Buka halaman Layanan, pilih kategori, isi nomor ponsel atau ID pelanggan, lalu pilih produknya. Di checkout kamu bisa melihat total pembayaran, memilih metode bayar yang aktif, dan menyelesaikan pembayaran. Setelah itu simpan ID transaksi yang muncul.",
+        text: "Buka Layanan, pilih kategorinya, isi nomor HP atau ID pelanggan, lalu pilih produk. Di checkout kamu bisa lihat total dan pilih cara bayar. Setelah itu, simpan ID transaksinya ya.",
       },
     ],
   },
   {
     id: "faq-2",
     badge: "Akun",
-    question: "Perlu daftar akun dulu?",
+    question: "Harus bikin akun dulu?",
     answer: [
       {
         type: "text",
-        text: "Tidak. Tidak ada registrasi atau login untuk pembeli. Cukup simpan ID transaksi setelah checkout, lalu pakai untuk melacak pesananmu kapan saja.",
+        text: "Nggak perlu. Tidak ada daftar atau login. Simpan saja ID transaksi yang muncul setelah checkout, dipakai buat cek pesananmu kapan pun.",
       },
     ],
   },
@@ -31,58 +31,58 @@ export const faqItems: FaqItem[] = [
     answer: [
       {
         type: "text",
-        text: "Pesanan diproses setelah pembayaranmu dikonfirmasi admin, biasanya dalam hitungan menit. Saat penyedia layanan atau operator sedang padat, prosesnya bisa lebih lama. Statusnya selalu bisa dicek di halaman Cek Transaksi.",
+        text: "Pesananmu diproses setelah pembayaran dikonfirmasi admin, biasanya cuma beberapa menit. Kalau operator atau penyedianya lagi padat, bisa lebih lama. Statusnya bisa kamu pantau di halaman Cek Transaksi.",
       },
     ],
   },
   {
     id: "faq-4",
     badge: "Pembayaran",
-    question: "Bayarnya bisa lewat apa?",
+    question: "Bayarnya bisa pakai apa?",
     answer: [
       {
         type: "text",
-        text: "Metode yang tersedia tampil di halaman checkout, misalnya QRIS yang bisa dipindai dari e-wallet atau m-banking, atau transfer ke rekening yang tertera. Metode yang muncul mengikuti yang sedang aktif.",
+        text: "Pilihannya muncul di halaman checkout, misalnya QRIS yang bisa discan dari e-wallet atau m-banking, atau transfer bank. Yang tampil tergantung metode yang sedang aktif.",
       },
     ],
   },
   {
     id: "faq-5",
-    badge: "Pelacakan",
-    question: "Bagaimana cara melacak pesanan?",
+    badge: "Cek pesanan",
+    question: "Gimana cara cek pesanan?",
     answer: [
       { type: "text", text: "Buka halaman " },
       { type: "link", text: "Cek Transaksi", href: "/cek-transaksi" },
       {
         type: "text",
-        text: ", masukkan ID transaksi, lalu lihat status pembayaran dan rincian pesananmu. ID juga bisa dimasukkan lewat kolom cek cepat di bawah.",
+        text: ", masukkan ID transaksi, lalu kamu bisa lihat status bayar dan detail pesanannya. Bisa juga lewat kolom cek cepat di bawah.",
       },
     ],
   },
   {
     id: "faq-6",
     badge: "Kendala",
-    question: "Sudah bayar tapi produk belum masuk, bagaimana?",
+    question: "Sudah bayar tapi produk belum masuk?",
     answer: [
       {
         type: "text",
-        text: "Tunggu beberapa menit sambil memantau statusnya di Cek Transaksi. Kalau belum berubah, buka ",
+        text: "Tunggu beberapa menit dulu sambil cek status di Cek Transaksi. Kalau masih belum berubah, hubungi CS lewat ",
       },
       { type: "link", text: "Pusat Bantuan", href: "/bantuan" },
       {
         type: "text",
-        text: " atau hubungi CS dengan menyertakan ID transaksi dan bukti pembayaran.",
+        text: " dengan menyertakan ID transaksi dan bukti bayar.",
       },
     ],
   },
   {
     id: "faq-7",
     badge: "Biaya",
-    question: "Ada biaya lain di luar harga produk?",
+    question: "Ada biaya lain selain harga produk?",
     answer: [
       {
         type: "text",
-        text: "Total yang harus dibayar, termasuk biaya admin bila ada, ditampilkan di ringkasan pesanan sebelum kamu membayar.",
+        text: "Total yang harus dibayar, termasuk biaya admin kalau ada, ditampilkan di ringkasan pesanan sebelum kamu bayar.",
       },
     ],
   },

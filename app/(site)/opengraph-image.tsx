@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/site";
 
-export const alt = "Turvanotopweb — Pulsa sampai Tagihan, Beres dari Satu Layar";
+export const alt = "Turvanotopweb — Isi Pulsa, Bayar Listrik, Top Up E-Wallet";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -42,7 +42,7 @@ export default function OpengraphImage() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
           <div style={{ fontSize: 64, fontWeight: 800, lineHeight: 1.1, maxWidth: 900 }}>
-            Pulsa sampai tagihan, beres dari satu layar.
+            Pulsa habis, token listrik bunyi? Beresin di sini.
           </div>
           <div style={{ fontSize: 28, color: "#c3cfe8", maxWidth: 820 }}>
             {siteConfig.description}

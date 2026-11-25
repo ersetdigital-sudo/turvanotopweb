@@ -13,7 +13,7 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://turvanotopweb.com",
   locale: "id_ID",
   description:
-    "Isi pulsa, beli paket data, top up uang elektronik, token listrik, dan bayar tagihan bulanan di satu tempat. Total terlihat sebelum bayar dan status pesanan bisa dilacak.",
+    "Isi pulsa, beli paket data, top up e-wallet, bayar token listrik dan tagihan bulanan di satu tempat. Harga kelihatan sebelum bayar, pesanan bisa dilacak.",
   /** Manual: replace with the real customer-care number. */
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "081234567890",
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "halo@turvanotopweb.com",

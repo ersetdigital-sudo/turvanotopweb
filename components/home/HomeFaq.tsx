@@ -36,10 +36,10 @@ export function HomeFaq() {
       <div className="container">
         <div className="faq-container-inner">
           <div className="home-sec-header">
-            <span className="section-kicker">PERTANYAAN UMUM</span>
-            <h2 id="faq-section-title">Yang sering ditanyakan sebelum bayar</h2>
+            <span className="section-kicker">TANYA JAWAB</span>
+            <h2 id="faq-section-title">Biasanya orang nanya ini dulu</h2>
             <p>
-              Jawaban singkat soal cara memesan, metode pembayaran, dan cara melacak pesanan.
+              Jawaban singkat soal cara pesan, pembayaran, dan cek pesanan.
             </p>
           </div>
 
@@ -91,10 +91,10 @@ export function HomeFaq() {
               </div>
               <div>
                 <strong className="faq-helper-title">
-                  Masih ada yang mengganjal?
+                  Belum ketemu jawabannya?
                 </strong>
                 <p className="faq-helper-desc">
-                  Buka Pusat Bantuan, atau langsung cek status pesananmu.
+                  Tanya langsung lewat Pusat Bantuan, atau cek status pesananmu.
                 </p>
               </div>
             </div>

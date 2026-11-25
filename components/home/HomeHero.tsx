@@ -35,24 +35,24 @@ export function HomeHero() {
         <div className="tv-hero-copy">
           <div className="tv-eyebrow">
             <span className="tv-eyebrow-dot" aria-hidden="true" />
-            TOP UP DAN TAGIHAN, SATU LAYAR
+            ISI ULANG &amp; BAYAR TAGIHAN
           </div>
 
           <h1 className="tv-hero-title">
-            <span>Pulsa sampai tagihan,</span>{" "}
-            <span className="tv-hero-mark">beres dari satu layar.</span>
-            <span className="tv-hero-tag">Lihat total sebelum bayar, lacak sampai selesai.</span>
+            <span>Pulsa habis, token listrik bunyi?</span>{" "}
+            <span className="tv-hero-mark">Beresin di sini.</span>
+            <span className="tv-hero-tag">Tinggal pilih, cek harganya, lalu bayar pakai QRIS.</span>
           </h1>
 
           <p className="tv-hero-sub">
-            Isi pulsa dan kuota, tambah saldo e-wallet, beli token listrik, atau lunasi cicilan dan
-            iuran bulanan. Pilih produk, cek totalnya, bayar lewat QRIS atau transfer, lalu pantau
-            pesananmu dengan ID transaksi.
+            Dari pulsa, kuota, saldo e-wallet, token listrik, sampai cicilan dan iuran bulanan,
+            semuanya bisa diurus di sini. Harganya kelihatan sebelum bayar, jadi nggak ada kejutan
+            di akhir. Setelah itu, pesananmu bisa dilacak pakai ID transaksi.
           </p>
 
           <div className="tv-hero-cta">
             <Link href="/layanan" className="tv-btn tv-btn-primary">
-              <span>Mulai Transaksi</span>
+              <span>Pilih Layanan</span>
               <ArrowRightIcon width={18} height={18} strokeWidth={2.4} />
             </Link>
             <Link href="/cek-transaksi" className="tv-btn tv-btn-ghost">
@@ -74,7 +74,7 @@ export function HomeHero() {
         <div className="tv-hero-visual">
           <div className="tv-panel">
             <div className="tv-panel-head">
-              <h2>Pilih layanan, lanjut bayar</h2>
+              <h2>Mau bayar apa hari ini?</h2>
               <span className="tv-panel-badge">Cek harga dulu</span>
             </div>
 
@@ -101,7 +101,7 @@ export function HomeHero() {
             </div>
 
             <Link href="/layanan" className="tv-panel-link">
-              Buka katalog lengkap
+              Lihat semua layanan
               <ArrowRightIcon width={15} height={15} strokeWidth={2.4} />
             </Link>
           </div>
@@ -111,8 +111,8 @@ export function HomeHero() {
               <CheckIcon width={16} height={16} strokeWidth={3} />
             </span>
             <span>
-              <b>Bayar lewat QRIS</b>
-              <small>Scan, bayar, lalu konfirmasi</small>
+              <b>Bayar pakai QRIS</b>
+              <small>Tinggal scan dari e-wallet kamu</small>
             </span>
           </div>
 
@@ -121,7 +121,7 @@ export function HomeHero() {
               <ClockCheckIcon width={17} height={17} />
             </span>
             <span>
-              <b>Pesanan bisa dilacak</b>
+              <b>Status pesanan jelas</b>
               <small className="tv-steps">
                 <i /> Dipesan <i /> Dibayar <i className="on" /> Selesai
               </small>
