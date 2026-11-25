@@ -21,3 +21,8 @@ export function toWhatsAppLink(phone: string, text: string): string {
   if (digits.startsWith("0")) digits = "62" + digits.slice(1);
   return `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
 }
+
+/** Menjaga angka dan satuannya ("2 GB", "30 hari") tetap satu baris saat teks membungkus. */
+export function keepTogether(text: string): string {
+  return text.replace(/(\d)\s(GB|MB|hari)\b/g, "$1\u00a0$2");
+}

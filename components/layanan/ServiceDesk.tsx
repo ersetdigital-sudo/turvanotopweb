@@ -6,7 +6,7 @@ import { ArrowRightIcon, CategoryIcon, SearchIcon } from "@/components/icons";
 import { useSearchParam } from "@/hooks/use-search-param";
 import { isCategorySlug } from "@/lib/catalog";
 import { useLiveCatalog } from "@/hooks/use-live-catalog";
-import { normalizeCustomerId, rupiah } from "@/lib/format";
+import { keepTogether, normalizeCustomerId, rupiah } from "@/lib/format";
 import {
   detectOperator,
   isAutoOperatorCategory,
@@ -286,9 +286,9 @@ export function ServiceDesk() {
                   >
                     <div className="product-name-txt">
                       {category.slug === "uang-elektronik" && provider ? `${provider} ` : ""}
-                      {p.name}
+                      {keepTogether(p.name)}
                     </div>
-                    <div className="product-note-txt">{p.note}</div>
+                    <div className="product-note-txt">{keepTogether(p.note)}</div>
                     <div className="product-price-txt">{rupiah(p.price)}</div>
                   </div>
                 ))

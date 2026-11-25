@@ -3265,3 +3265,54 @@ button, input, select, textarea {
   font-size: 14px;
   line-height: 1.6;
 }
+
+/* Nominal 2 kolom di mobile */
+@media (max-width: 640px) {
+  .products-selection-grid,
+  .checkout-products-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .product-card-item {
+    min-width: 0;
+    padding: 12px;
+  }
+
+  .product-name-txt {
+    font-size: 13.5px;
+    line-height: 1.3;
+    margin-bottom: 4px;
+    overflow-wrap: anywhere;
+  }
+
+  .product-note-txt {
+    font-size: 11.5px;
+    line-height: 1.35;
+    margin-bottom: 8px;
+  }
+
+  .product-price-txt {
+    font-size: 14.5px;
+    line-height: 1.2;
+  }
+
+  /* Operator sudah tampil di bar atas tahap 2, jadi lencananya tidak perlu diulang di tiap kartu. */
+  .checkout-products-list .product-provider-badge {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .product-card-item {
+    padding: 10px;
+  }
+
+  .product-name-txt {
+    font-size: 13px;
+  }
+
+  .product-price-txt {
+    font-size: 13px;
+  }
+}

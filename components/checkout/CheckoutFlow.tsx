@@ -8,7 +8,7 @@ import { useSearchParam } from "@/hooks/use-search-param";
 import { isCategorySlug } from "@/lib/catalog";
 import { useLiveCatalog } from "@/hooks/use-live-catalog";
 import { apiFetch } from "@/lib/fetcher";
-import { rupiah, toWhatsAppLink } from "@/lib/format";
+import { keepTogether, rupiah, toWhatsAppLink } from "@/lib/format";
 import {
   detectOperator,
   isAutoOperatorCategory,
@@ -416,8 +416,8 @@ export function CheckoutFlow() {
                     {activeProvider && (
                       <div className="product-provider-badge">{activeProvider}</div>
                     )}
-                    <div className="product-name-txt">{displayName}</div>
-                    <div className="product-note-txt">{item.note}</div>
+                    <div className="product-name-txt">{keepTogether(displayName)}</div>
+                    <div className="product-note-txt">{keepTogether(item.note)}</div>
                     <div className="product-price-txt">{rupiah(item.price)}</div>
                   </div>
                 );
