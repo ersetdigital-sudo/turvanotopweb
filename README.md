@@ -22,4 +22,5 @@ aktifkan lewat dashboard admin.
 ## Admin
 
 `/admin` dilindungi satu password (`ADMIN_PASSWORD`) dengan sesi bertanda tangan (`ADMIN_SESSION_SECRET`).
-Unggah gambar (QRIS) memakai Cloudinary; isi `CLOUDINARY_*` di env agar unggah berfungsi.
+Gambar QRIS diunggah lewat `/api/admin/upload` ke bucket Supabase Storage `turvano-assets`
+(publik untuk dibaca, tulis hanya lewat server), jadi tidak butuh layanan gambar tambahan.

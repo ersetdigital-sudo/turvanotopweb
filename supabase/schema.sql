@@ -87,3 +87,14 @@ alter table public.turvano_settings enable row level security;
 -- RLS enabled with no policies already blocks anon/authenticated; revoking the
 -- default grants keeps them out of the Data API entirely (defence in depth).
 revoke all on public.turvano_orders, public.turvano_products, public.turvano_settings from anon, authenticated;
+
+-- ---------------------------- Penyimpanan gambar ---------------------------
+-- Foto QRIS dari dashboard admin. Bucket publik supaya gambar bisa tampil di
+-- halaman checkout; menulis dan menghapus hanya lewat server (service_role),
+-- jadi tidak ada policy untuk anon/authenticated.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('turvano-assets', 'turvano-assets', true, 2097152, array['image/jpeg', 'image/png', 'image/webp'])
+on conflict (id) do update
+  set public = excluded.public,
+      file_size_limit = excluded.file_size_limit,
+      allowed_mime_types = excluded.allowed_mime_types;

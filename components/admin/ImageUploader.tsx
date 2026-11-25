@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { cloudinarySrc } from "@/lib/cloudinary-url";
 import {
   ACCEPTED_IMAGE_LABEL,
   MAX_IMAGE_BYTES,
-  uploadToCloudinary,
+  uploadImage,
   validateImageFile,
-} from "@/lib/cloudinary-client";
+} from "@/lib/upload-client";
 
 type Props = {
   /** Element id, so the visible label stays associated with the control. */
@@ -15,12 +14,10 @@ type Props = {
   label: string;
   /** The URL currently stored. May be a legacy base64 data URL. */
   value: string;
-  /** Called once Cloudinary has accepted the file. */
+  /** Called once the file has been stored. */
   onUploaded: (url: string) => void;
   /** Called when the admin asks to drop the image. */
   onCleared?: () => void;
-  /** Delivery width for the preview — never render the full-size upload. */
-  previewWidth?: number;
   clearLabel?: string;
   disabled?: boolean;
 };
@@ -28,10 +25,10 @@ type Props = {
 type Phase = "idle" | "uploading" | "error";
 
 /**
- * Drag-and-drop image field that uploads straight to Cloudinary.
+ * Drag-and-drop image field that uploads to Supabase Storage via the server.
  *
  * The preview exists twice on purpose: a local object URL the instant a file
- * is picked, then the delivered Cloudinary URL once the upload lands. The
+ * is picked, then the stored URL once the upload lands. The
  * local preview is what makes the wait feel short, and it is revoked as soon
  * as the real asset replaces it.
  */
@@ -41,7 +38,6 @@ export function ImageUploader({
   value,
   onUploaded,
   onCleared,
-  previewWidth = 640,
   clearLabel = "Hapus Gambar",
   disabled = false,
 }: Props) {
@@ -86,10 +82,10 @@ export function ImageUploader({
     setPhase("uploading");
 
     try {
-      const { secureUrl } = await uploadToCloudinary(file, setPercent);
+      const { url } = await uploadImage(file, setPercent);
       clearLocalPreview();
       setPhase("idle");
-      onUploaded(secureUrl);
+      onUploaded(url);
     } catch (uploadError) {
       // The previous image stays in place: a failed upload must never cost
       // the admin the asset they already had.
@@ -116,7 +112,7 @@ export function ImageUploader({
         <div className="img-upload-preview">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={localPreview || cloudinarySrc(value, { width: previewWidth })}
+            src={localPreview || value}
             alt={`Pratinjau ${label}`}
             className="img-upload-preview-img"
             loading="lazy"

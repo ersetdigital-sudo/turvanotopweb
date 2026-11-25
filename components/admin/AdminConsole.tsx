@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ImageUploader } from "@/components/admin/ImageUploader";
-import { deleteCloudinaryAsset } from "@/lib/cloudinary-client";
-import { cloudinarySrc, publicIdFromUrl } from "@/lib/cloudinary-url";
+import { deleteUploadedAsset } from "@/lib/upload-client";
+import { assetPathFromUrl } from "@/lib/asset-url";
 import { CATEGORY_NAMES, buildDefaultProducts } from "@/lib/admin-defaults";
 import { apiFetch } from "@/lib/fetcher";
 import { rupiah } from "@/lib/format";
@@ -1023,18 +1023,18 @@ function PaymentView({
   });
 
   /**
-   * The stored value is a Cloudinary delivery URL, not the megabytes of base64
-   * this form used to write into the database on every pick. The asset that
-   * gets replaced is removed too, so the folder does not accumulate orphans —
-   * but a failed delete never blocks the save.
+   * The stored value is a Supabase Storage public URL, not the megabytes of
+   * base64 this form used to write into the database on every pick. The asset
+   * that gets replaced is removed too, so the bucket does not accumulate
+   * orphans — but a failed delete never blocks the save.
    */
   function handleQrisUploaded(url: string) {
     if (settings.qrisImage && settings.qrisImage !== url) {
-      const previousId = publicIdFromUrl(settings.qrisImage);
-      if (previousId) void deleteCloudinaryAsset(previousId);
+      const previousPath = assetPathFromUrl(settings.qrisImage);
+      if (previousPath) void deleteUploadedAsset(previousPath);
     }
     persistSettings({ ...settings, qrisImage: url });
-    pushToast("Foto QRIS berhasil diunggah ke Cloudinary!");
+    pushToast("Foto QRIS berhasil diunggah!");
   }
 
   function saveQris(event: React.FormEvent) {
@@ -1052,8 +1052,8 @@ function PaymentView({
 
   function clearQris() {
     if (!window.confirm("Gunakan kembali template QRIS bawaan Turvanotopweb?")) return;
-    const previousId = publicIdFromUrl(settings.qrisImage);
-    if (previousId) void deleteCloudinaryAsset(previousId);
+    const previousPath = assetPathFromUrl(settings.qrisImage);
+    if (previousPath) void deleteUploadedAsset(previousPath);
     persistSettings({ ...settings, qrisImage: "" });
     pushToast("Foto QRIS di-reset ke template standar.");
   }
@@ -1126,7 +1126,6 @@ function PaymentView({
                 value={settings.qrisImage}
                 onUploaded={handleQrisUploaded}
                 onCleared={clearQris}
-                previewWidth={640}
                 clearLabel="Gunakan Barcode Bawaan"
               />
 
@@ -1173,7 +1172,7 @@ function PaymentView({
                 {settings.qrisImage ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
-                    src={cloudinarySrc(settings.qrisImage, { width: 512 })}
+                    src={settings.qrisImage}
                     alt="Pratinjau barcode QRIS merchant"
                     loading="lazy"
                     style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
