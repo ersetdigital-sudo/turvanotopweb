@@ -7,6 +7,7 @@ import { useSearchParam } from "@/hooks/use-search-param";
 import { isCategorySlug } from "@/lib/catalog";
 import { useLiveCatalog } from "@/hooks/use-live-catalog";
 import { normalizeCustomerId, rupiah } from "@/lib/format";
+import { detectOperator, isAutoOperatorCategory, toLocalPhone } from "@/lib/operator";
 import type { CategorySlug, Product } from "@/types";
 
 const PREPAID = "prabayar";
@@ -31,11 +32,17 @@ export function ServiceDesk() {
   const slug: CategorySlug = slugOverride ?? (isCategorySlug(urlKategori) ? urlKategori : DEFAULT_SLUG);
   const category = categories.find((c) => c.slug === slug) ?? categories[0];
   const isPrepaid = category.type === PREPAID;
+  // Pulsa & paket data: operator ditebak dari nomor, chip hanya jadi penanda / koreksi manual.
+  const autoOperator = isAutoOperatorCategory(category.slug);
+  const detected = autoOperator ? detectOperator(customerId, category.providers) : null;
   const provider =
     selectedProvider ??
+    detected ??
     (urlProvider && category.providers.includes(urlProvider)
       ? urlProvider
-      : category.providers[0] ?? "");
+      : autoOperator
+        ? ""
+        : category.providers[0] ?? "");
 
   const visibleCategories = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -64,13 +71,18 @@ export function ServiceDesk() {
   }
 
   function handleProceed() {
-    const clean = normalizeCustomerId(customerId);
+    const clean =
+      category.field.inputmode === "tel" ? toLocalPhone(customerId) : normalizeCustomerId(customerId);
     if (!clean) {
       setError(`Silakan masukkan ${category.field.label.toLowerCase()}.`);
       return;
     }
     if (!category.field.pattern.test(clean)) {
       setError(category.field.error);
+      return;
+    }
+    if (autoOperator && !provider) {
+      setError("Operator belum dikenali dari nomor ini. Pilih operatornya di bagian atas.");
       return;
     }
     if (isPrepaid && !selectedProduct) {
@@ -172,7 +184,11 @@ export function ServiceDesk() {
 
           <div className="detail-meta-row">
             <div className="detail-meta-item">
-              <span>Pilihan Provider / Operator:</span>
+              <span>
+                {autoOperator
+                  ? "Operator (terdeteksi otomatis dari nomor ponsel):"
+                  : "Pilihan Provider / Operator:"}
+              </span>
               <div id="desk-detail-providers" style={{ marginTop: 4 }}>
                 <div className="provider-chips-wrap">
                   {category.providers.map((provName) => (
@@ -203,10 +219,11 @@ export function ServiceDesk() {
           <div className="form-step-block">
             <div className="form-step-header">
               <span className="form-step-label">Masukkan Data Pelanggan</span>
-              <span
-                id="desk-detected-provider"
-                style={{ display: "none", fontSize: 12, fontWeight: 700, color: "#2e4c8c" }}
-              />
+              {autoOperator && provider && (
+                <span id="desk-detected-provider" className="operator-detect-badge">
+                  ✓ {provider === detected ? "Terdeteksi" : "Dipilih"}: {provider}
+                </span>
+              )}
             </div>
 
             <label className="form-label" id="desk-input-label" htmlFor="desk-customer-id">
@@ -221,7 +238,12 @@ export function ServiceDesk() {
               autoComplete="tel"
               value={customerId}
               onChange={(event) => {
-                setCustomerId(event.target.value);
+                const next = event.target.value;
+                // Nomor berganti operator -> buang pilihan manual sebelumnya.
+                if (autoOperator && detectOperator(next, category.providers) !== detected) {
+                  setSelectedProvider(null);
+                }
+                setCustomerId(next);
                 setError("");
               }}
             />

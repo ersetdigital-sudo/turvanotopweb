@@ -9,6 +9,7 @@ import { isCategorySlug } from "@/lib/catalog";
 import { useLiveCatalog } from "@/hooks/use-live-catalog";
 import { apiFetch } from "@/lib/fetcher";
 import { rupiah, toWhatsAppLink } from "@/lib/format";
+import { detectOperator, isAutoOperatorCategory, toLocalPhone } from "@/lib/operator";
 import type { CategorySlug, Order, Product, PublicSettings } from "@/types";
 
 const PREPAID = "prabayar";
@@ -51,6 +52,7 @@ export function CheckoutFlow() {
   const [submitting, setSubmitting] = useState(false);
   const [custError, setCustError] = useState("");
   const [providerError, setProviderError] = useState("");
+  const [showProviderPicker, setShowProviderPicker] = useState(false);
   const [stage2Error, setStage2Error] = useState("");
   const [creatingOrder, setCreatingOrder] = useState(false);
   const [orderError, setOrderError] = useState("");
@@ -62,10 +64,19 @@ export function CheckoutFlow() {
   const category = categories.find((c) => c.slug === slug) ?? categories[0];
   const isPrepaid = category.type === PREPAID;
   const customer = customerOverride ?? (urlCust || "");
+  // Pulsa & paket data: operator ditebak dari nomor, tidak perlu dipilih manual.
+  const autoOperator = isAutoOperatorCategory(category.slug);
+  const detected = autoOperator ? detectOperator(customer, category.providers) : null;
   const provider =
     providerOverride ??
+    detected ??
     (urlProvider && category.providers.includes(urlProvider) ? urlProvider : "");
-  const activeProvider = provider || category.providers[0] || "";
+  const activeProvider = provider || (autoOperator ? "" : category.providers[0] || "");
+  const providerPickerVisible =
+    category.providers.length > 0 &&
+    (!autoOperator ||
+      showProviderPicker ||
+      (!detected && toLocalPhone(customer).length >= 4));
 
   /** Stage 2 product list — prepaid uses catalog products, bills use a demo inquiry. */
   const lineItems: LineItem[] = isPrepaid
@@ -87,8 +98,14 @@ export function CheckoutFlow() {
   const admin = activeItem?.isBill ? (settings?.adminFeeBill ?? category.adminFee ?? 2500) : 0;
   const total = activeItem ? activeItem.price + admin : 0;
 
-  // A valid ?cust= skips straight to product selection.
-  const initialStage = urlCust && category.field.pattern.test(urlCust) ? 2 : 1;
+  // Nomor valid + nominal sudah dipilih di halaman layanan -> langsung ke ringkasan;
+  // nomor valid saja -> pilih produk; selain itu mulai dari awal.
+  const hasValidCust = !!urlCust && category.field.pattern.test(urlCust);
+  const initialStage = hasValidCust
+    ? isPrepaid && requestedItem && (!autoOperator || activeProvider)
+      ? 3
+      : 2
+    : 1;
   const stage = stageOverride ?? initialStage;
   const stage5 = fulfilled ? "success" : "processing";
 
@@ -105,7 +122,8 @@ export function CheckoutFlow() {
   }, []);
 
   function handleStage1Next() {
-    const clean = customer.trim().replace(/[\s-]/g, "");
+    const clean =
+      category.field.inputmode === "tel" ? toLocalPhone(customer) : customer.trim().replace(/[\s-]/g, "");
     if (!clean) {
       setCustError(`Silakan masukkan ${category.field.label.toLowerCase()}.`);
       return;
@@ -115,7 +133,11 @@ export function CheckoutFlow() {
       return;
     }
     if (category.providers.length > 0 && !activeProvider) {
-      setProviderError("Silakan pilih provider terlebih dahulu.");
+      setProviderError(
+        autoOperator
+          ? "Operator belum dikenali dari nomor ini. Pilih operatornya secara manual."
+          : "Silakan pilih provider terlebih dahulu.",
+      );
       return;
     }
     setCustError("");
@@ -137,6 +159,7 @@ export function CheckoutFlow() {
     setSlugOverride(nextSlug);
     setProductOverride(undefined);
     setProviderOverride(null);
+    setShowProviderPicker(false);
     setCustError("");
     setProviderError("");
     setStage2Error("");
@@ -234,36 +257,6 @@ export function CheckoutFlow() {
             ))}
           </div>
 
-          <div
-            id="checkout-provider-section"
-            style={{ marginBottom: 24, display: category.providers.length > 0 ? "block" : "none" }}
-          >
-            <label className="form-label" id="checkout-provider-label">
-              {category.slug === "uang-elektronik"
-                ? "Pilih Dompet Digital / E-Wallet"
-                : "Pilih Operator / Penyedia Resmi"}
-            </label>
-            <div id="checkout-provider-chips" className="provider-chips-wrap">
-              {category.providers.map((p) => (
-                <button
-                  key={p}
-                  type="button"
-                  className={`provider-chip-btn${p === activeProvider ? " active" : ""}`}
-                  data-provider={p}
-                  onClick={() => {
-                    setProviderOverride(p);
-                    setProviderError("");
-                  }}
-                >
-                  {p}
-                </button>
-              ))}
-            </div>
-            <div id="checkout-provider-error" style={{ color: "#DC2626", fontSize: 13, marginTop: 6 }}>
-              {providerError}
-            </div>
-          </div>
-
           <div style={{ marginBottom: 28 }}>
             <label className="form-label" id="customer-id-label" htmlFor="customer-id-input">
               {category.field.label}
@@ -277,16 +270,66 @@ export function CheckoutFlow() {
               autoComplete="tel"
               value={customer}
               onChange={(event) => {
-                setCustomerOverride(event.target.value);
+                const next = event.target.value;
+                // Nomor berganti operator -> buang pilihan manual sebelumnya.
+                if (autoOperator && detectOperator(next, category.providers) !== detected) {
+                  setProviderOverride(null);
+                  setShowProviderPicker(false);
+                }
+                setCustomerOverride(next);
                 setCustError("");
+                setProviderError("");
               }}
             />
-            <div
-              id="detected-provider-badge"
-              style={{ display: "none", marginTop: 10, fontSize: 12.5, fontWeight: 700, color: "#2e4c8c" }}
-            />
+            {autoOperator && activeProvider && (
+              <div id="detected-provider-badge" className="operator-detect-badge" style={{ marginTop: 10 }}>
+                ✓ Operator {activeProvider === detected ? "terdeteksi" : "dipilih"}: {activeProvider}
+                {detected && (
+                  <button
+                    type="button"
+                    className="operator-detect-change"
+                    onClick={() => setShowProviderPicker((open) => !open)}
+                  >
+                    {showProviderPicker ? "Tutup" : "Ganti"}
+                  </button>
+                )}
+              </div>
+            )}
             <div id="customer-id-error" style={{ color: "#DC2626", fontSize: 13, marginTop: 6 }}>
               {custError}
+            </div>
+          </div>
+
+          <div
+            id="checkout-provider-section"
+            style={{ marginBottom: 28, display: providerPickerVisible ? "block" : "none" }}
+          >
+            <label className="form-label" id="checkout-provider-label">
+              {category.slug === "uang-elektronik"
+                ? "Pilih Dompet Digital / E-Wallet"
+                : autoOperator
+                  ? "Pilih Operator Secara Manual"
+                  : "Pilih Operator / Penyedia Resmi"}
+            </label>
+            <div id="checkout-provider-chips" className="provider-chips-wrap">
+              {category.providers.map((p) => (
+                <button
+                  key={p}
+                  type="button"
+                  className={`provider-chip-btn${p === activeProvider ? " active" : ""}`}
+                  data-provider={p}
+                  onClick={() => {
+                    setProviderOverride(p);
+                    setProviderError("");
+                    if (autoOperator && detected) setShowProviderPicker(false);
+                  }}
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
+            <div id="checkout-provider-error" style={{ color: "#DC2626", fontSize: 13, marginTop: 6 }}>
+              {providerError}
             </div>
           </div>
 
