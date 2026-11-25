@@ -20,12 +20,36 @@ function Icon({ children, ...props }: IconProps & { children: React.ReactNode })
   );
 }
 
-export function BrandMarkIcon(props: IconProps) {
+/**
+ * Logo Turvanotopweb: huruf T tebal dengan titik aksen di kanan bawah. `gradId` harus unik per halaman bila mark dirender lebih dari sekali.
+ */
+export function BrandLogoMark({
+  size = 38,
+  gradId = "tv-mark-grad",
+}: {
+  size?: number;
+  gradId?: string;
+}) {
   return (
-    <Icon strokeWidth={2.6} {...props}>
-      <path d="M5 5h14" />
-      <path d="M12 5v14" />
-    </Icon>
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 40 40"
+      aria-hidden="true"
+      focusable="false"
+      style={{ display: "block", filter: "drop-shadow(0 4px 8px rgba(46, 76, 140, 0.3))" }}
+    >
+      <defs>
+        <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#4a6dbd" />
+          <stop offset="1" stopColor="#1c3166" />
+        </linearGradient>
+      </defs>
+      <rect width="40" height="40" rx="12" fill={`url(#${gradId})`} />
+      <rect x="7.5" y="9" width="25" height="7.2" rx="3.6" fill="#fff4e2" />
+      <rect x="16.4" y="9" width="7.2" height="22.5" rx="3.6" fill="#fff4e2" />
+      <circle cx="29.2" cy="29.2" r="3.6" fill="#fa2d1a" />
+    </svg>
   );
 }
 

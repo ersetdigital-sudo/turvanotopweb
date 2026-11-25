@@ -3178,3 +3178,51 @@ button, input, select, textarea {
     animation: none;
   }
 }
+
+/* Turvanotopweb: logo modern. Mark berupa SVG penuh (lihat BrandLogoMark), jadi
+   wadahnya tidak perlu latar sendiri; wordmark memakai kontras bobot huruf. */
+.brand-icon-mark {
+  width: auto;
+  height: auto;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.brand-logo,
+.footer-brand-logo {
+  gap: 12px;
+  letter-spacing: -0.045em;
+}
+
+.brand-name span,
+.footer-brand-name span {
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+/* Header: menu tidak boleh menekuk ke dua baris; di lebar menengah dipadatkan. */
+.main-nav .nav-link,
+.btn-header-status {
+  white-space: nowrap;
+}
+
+@media (max-width: 1120px) {
+  .header-container {
+    gap: 14px;
+  }
+  .main-nav {
+    gap: 2px;
+  }
+  .main-nav .nav-link {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1000px) {
+  .main-nav .nav-link:last-child {
+    display: none;
+  }
+}

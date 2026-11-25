@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { BrandMarkIcon, CloseIcon, MenuIcon, SearchIcon } from "@/components/icons";
+import { BrandLogoMark, CloseIcon, MenuIcon, SearchIcon } from "@/components/icons";
 import { primaryNav } from "@/lib/site";
 
 /** True when `href` is the current route (root matches exactly). */
@@ -22,7 +22,7 @@ export function SiteHeader() {
       <div className="container header-container">
         <Link href="/" className="brand-logo" aria-label="Turvanotopweb Beranda">
           <span className="brand-icon-mark" aria-hidden="true">
-            <BrandMarkIcon width={20} height={20} />
+            <BrandLogoMark size={38} gradId="tv-mark-header" />
           </span>
           <span className="brand-name">
             Turvano<span>topweb</span>

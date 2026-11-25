@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BrandMarkIcon } from "@/components/icons";
+import { BrandLogoMark } from "@/components/icons";
 import { footerInfoLinks } from "@/lib/site";
 import { serviceLinks } from "@/lib/services";
 
@@ -13,7 +13,7 @@ export function SiteFooter() {
           <div className="footer-brand">
             <Link href="/" className="footer-brand-logo" aria-label="Turvanotopweb Beranda">
               <span className="brand-icon-mark" aria-hidden="true">
-                <BrandMarkIcon width={20} height={20} />
+                <BrandLogoMark size={40} gradId="tv-mark-footer" />
               </span>
               <span className="footer-brand-name">
                 Turvano<span>topweb</span>
