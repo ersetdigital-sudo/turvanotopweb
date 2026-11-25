@@ -11,11 +11,10 @@ export function HomeTimeline() {
     >
       <div className="container">
         <div className="home-sec-header">
-          <span className="section-kicker">ALUR TRANSAKSI</span>
-          <h2>Cara Mudah Bertransaksi di Turvanotopweb</h2>
+          <span className="section-kicker">CARA KERJA</span>
+          <h2>Tiga langkah dari pilih sampai selesai</h2>
           <p>
-            Penuhi kebutuhan digital dalam tiga langkah praktis, mulai dari memilih layanan hingga
-            memantau status pesanan.
+            Tidak perlu membuat akun. Pilih layanan, bayar, lalu cek statusnya kapan pun kamu mau.
           </p>
         </div>
 
@@ -31,8 +30,8 @@ export function HomeTimeline() {
 
         <div className="home-tracking-strip">
           <div className="home-tracking-info">
-            <h3>Sudah Memiliki ID Transaksi?</h3>
-            <p>Periksa status pembayaran dan pengiriman produk secara langsung di sini.</p>
+            <h3>Punya ID transaksi?</h3>
+            <p>Masukkan di sini untuk melihat status pesananmu.</p>
           </div>
           <QuickTrackerForm />
         </div>

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/site";
 
-export const alt = "Turvanotopweb — Urus Kebutuhan Digital, Lebih Gampang";
+export const alt = "Turvanotopweb — Pulsa sampai Tagihan, Beres dari Satu Layar";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -17,7 +17,7 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px",
-          background: "linear-gradient(135deg, #0f1830 0%, #0A0D21 100%)",
+          background: "linear-gradient(135deg, #16295a 0%, #0d1731 100%)",
           color: "#FFFFFF",
           fontFamily: "sans-serif",
         }}
@@ -35,14 +35,14 @@ export default function OpengraphImage() {
               fontSize: 40,
             }}
           >
-            ⚡
+            T
           </div>
           <div style={{ fontSize: 40, fontWeight: 800 }}>Turvanotopweb</div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
           <div style={{ fontSize: 64, fontWeight: 800, lineHeight: 1.1, maxWidth: 900 }}>
-            Semua Kebutuhan Digital, Satu Tempat.
+            Pulsa sampai tagihan, beres dari satu layar.
           </div>
           <div style={{ fontSize: 28, color: "#c3cfe8", maxWidth: 820 }}>
             {siteConfig.description}

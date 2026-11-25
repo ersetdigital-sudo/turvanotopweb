@@ -20,12 +20,11 @@ export function SiteFooter() {
               </span>
             </Link>
             <p className="footer-brand-desc">
-              Solusi transaksi digital untuk kebutuhan sehari-hari. Beli pulsa, paket data, token
-              listrik, top up uang elektronik, hingga bayar berbagai tagihan dalam satu platform.
+              Tempat isi ulang dan bayar tagihan yang rapi: pulsa, kuota, saldo e-wallet, token
+              listrik, sampai cicilan dan iuran bulanan.
             </p>
             <p className="footer-brand-sub">
-              Nikmati pengalaman transaksi yang praktis dengan informasi harga yang jelas dan
-              kemudahan memantau status pesanan.
+              Lihat total sebelum bayar, simpan ID transaksimu, dan lacak pesanan kapan saja.
             </p>
           </div>
 

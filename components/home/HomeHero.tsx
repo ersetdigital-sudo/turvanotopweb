@@ -1,111 +1,133 @@
 import Link from "next/link";
-import { Fragment } from "react";
-import { ArrowRightIcon, CheckIcon, SearchIcon, ShieldIcon } from "@/components/icons";
-import { Reveal } from "@/components/motion/Reveal";
-import { heroFlowSteps, heroTrustPoints } from "@/lib/home-content";
+import {
+  ArrowRightIcon,
+  CategoryIcon,
+  CheckIcon,
+  ClockCheckIcon,
+  SearchIcon,
+} from "@/components/icons";
+import { categories } from "@/lib/catalog";
+import { rupiah } from "@/lib/format";
+import { heroTrustPoints } from "@/lib/home-content";
+import type { CategorySlug } from "@/types";
+
+const QUICK_SLUGS: CategorySlug[] = ["pulsa", "paket-data", "uang-elektronik", "pln"];
+
+const quickServices = QUICK_SLUGS.flatMap((slug) => {
+  const category = categories.find((entry) => entry.slug === slug);
+  if (!category) return [];
+  const prices = (category.products ?? []).map((product) => product.price);
+  return [
+    {
+      slug,
+      name: category.name,
+      from: prices.length ? Math.min(...prices) : null,
+    },
+  ];
+});
 
 export function HomeHero() {
   return (
-    <section className="home-hero-wrap" aria-label="Hero Turvanotopweb">
-      <div className="container home-hero-grid">
-        {/* Left: headline + CTAs */}
-        <div className="home-hero-content">
-          <div className="hero-eyebrow">
-            <span className="hero-eyebrow-dot" aria-hidden="true" />
-            <span>SOLUSI TRANSAKSI DIGITAL</span>
+    <section className="tv-hero" aria-label="Hero Turvanotopweb">
+      <div className="tv-hero-bg" aria-hidden="true" />
+
+      <div className="container tv-hero-grid">
+        <div className="tv-hero-copy">
+          <div className="tv-eyebrow">
+            <span className="tv-eyebrow-dot" aria-hidden="true" />
+            TOP UP DAN TAGIHAN, SATU LAYAR
           </div>
 
-          <h1 className="home-hero-title">
-            <span className="hero-title-base">Semua Kebutuhan Digital, Satu Tempat.</span>
-            <span className="hero-title-highlight">Praktis, Transparan, dan Mudah.</span>
+          <h1 className="tv-hero-title">
+            <span>Pulsa sampai tagihan,</span>{" "}
+            <span className="tv-hero-mark">beres dari satu layar.</span>
+            <span className="tv-hero-tag">Lihat total sebelum bayar, lacak sampai selesai.</span>
           </h1>
 
-          <p className="home-hero-sub">
-            Isi pulsa, beli paket data, top up uang elektronik, token listrik, hingga bayar tagihan
-            bulanan dalam satu platform. Cek harga sebelum membayar dan pantau status transaksi
-            dengan mudah.
+          <p className="tv-hero-sub">
+            Isi pulsa dan kuota, tambah saldo e-wallet, beli token listrik, atau lunasi cicilan dan
+            iuran bulanan. Pilih produk, cek totalnya, bayar lewat QRIS atau transfer, lalu pantau
+            pesananmu dengan ID transaksi.
           </p>
 
-          <div className="home-hero-cta">
-            <Link href="/layanan" className="btn-primary hero-btn-primary">
-              <span>Jelajahi Layanan</span>
-              <ArrowRightIcon width={17} height={17} strokeWidth={2.2} />
+          <div className="tv-hero-cta">
+            <Link href="/layanan" className="tv-btn tv-btn-primary">
+              <span>Mulai Transaksi</span>
+              <ArrowRightIcon width={18} height={18} strokeWidth={2.4} />
             </Link>
-            <Link href="/cek-transaksi" className="btn-secondary hero-btn-secondary">
-              <SearchIcon width={16} height={16} strokeWidth={2.2} />
-              <span>Cek Transaksi</span>
+            <Link href="/cek-transaksi" className="tv-btn tv-btn-ghost">
+              <SearchIcon width={17} height={17} strokeWidth={2.2} />
+              <span>Lacak Pesanan</span>
             </Link>
           </div>
 
-          <div className="home-hero-trust" aria-label="Keunggulan Layanan">
-            {heroTrustPoints.map((point, index) => (
-              <Fragment key={point}>
-                {index > 0 && (
-                  <span className="trust-divider" aria-hidden="true">
-                    ·
-                  </span>
-                )}
-                <div className="trust-item">
-                  <CheckIcon width={15} height={15} />
-                  <span>{point}</span>
-                </div>
-              </Fragment>
+          <ul className="tv-hero-trust" aria-label="Keunggulan Layanan">
+            {heroTrustPoints.map((point) => (
+              <li key={point}>
+                <CheckIcon width={15} height={15} strokeWidth={2.6} />
+                <span>{point}</span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
-        {/* Right: transaction flow panel */}
-        <Reveal className="home-hero-panel" delay={0.1}>
-          <div className="hero-flow-card">
-            <div className="hero-flow-header">
-              <div className="hero-flow-header-left">
-                <span className="hero-flow-kicker">ALUR TRANSAKSI TURVANOTOPWEB</span>
-                <h2 className="hero-flow-title">Transaksi Jelas di Setiap Langkah</h2>
-              </div>
-              <div className="hero-flow-badge" title="Status proses transaksi dapat dipantau">
-                <span className="hero-flow-pulse" aria-hidden="true" />
-                <span>PROSES TERPANTAU</span>
-              </div>
+        <div className="tv-hero-visual">
+          <div className="tv-panel">
+            <div className="tv-panel-head">
+              <h2>Pilih layanan, lanjut bayar</h2>
+              <span className="tv-panel-badge">Cek harga dulu</span>
             </div>
 
-            <ol className="hero-flow-steps">
-              {heroFlowSteps.map((step, index) => (
-                <li className="hero-flow-step" key={step.n}>
-                  <div className="flow-step-num-wrap">
-                    <span className="flow-step-num">{step.n}</span>
-                    {index < heroFlowSteps.length - 1 && (
-                      <span className="flow-step-line" aria-hidden="true" />
-                    )}
-                  </div>
-                  <div className="flow-step-content">
-                    <div className="flow-step-head">
-                      <span className="flow-step-title">{step.title}</span>
-                      <span
-                        className={`flow-step-tag${step.success ? " flow-step-tag-success" : ""}`}
-                      >
-                        {step.tag}
-                      </span>
-                    </div>
-                    <p className="flow-step-desc">{step.desc}</p>
-                  </div>
-                </li>
+            <div className="tv-tiles">
+              {quickServices.map((service) => (
+                <Link
+                  key={service.slug}
+                  href={`/layanan?kategori=${service.slug}`}
+                  className="tv-tile"
+                  aria-label={`Buka layanan ${service.name}`}
+                >
+                  <span className="tv-tile-icon">
+                    <CategoryIcon slug={service.slug} width={22} height={22} />
+                  </span>
+                  <span className="tv-tile-name">{service.name}</span>
+                  {service.from !== null ? (
+                    <span className="tv-tile-price">
+                      Mulai <b>{rupiah(service.from)}</b>
+                    </span>
+                  ) : null}
+                  <ArrowRightIcon className="tv-tile-arrow" width={16} height={16} strokeWidth={2.4} />
+                </Link>
               ))}
-            </ol>
-
-            <div className="hero-flow-footer">
-              <ShieldIcon width={15} height={15} />
-              <div className="hero-flow-footer-content">
-                <strong className="hero-flow-footer-title">
-                  Informasi Transaksi dalam Satu Tempat
-                </strong>
-                <p className="hero-flow-footer-desc">
-                  Gunakan nomor pesanan atau informasi yang diminta sistem untuk memeriksa
-                  perkembangan transaksi.
-                </p>
-              </div>
             </div>
+
+            <Link href="/layanan" className="tv-panel-link">
+              Buka katalog lengkap
+              <ArrowRightIcon width={15} height={15} strokeWidth={2.4} />
+            </Link>
           </div>
-        </Reveal>
+
+          <div className="tv-float tv-float-qris">
+            <span className="tv-float-icon tv-float-icon-light">
+              <CheckIcon width={16} height={16} strokeWidth={3} />
+            </span>
+            <span>
+              <b>Bayar lewat QRIS</b>
+              <small>Scan, bayar, lalu konfirmasi</small>
+            </span>
+          </div>
+
+          <div className="tv-float tv-float-track">
+            <span className="tv-float-icon tv-float-icon-dark">
+              <ClockCheckIcon width={17} height={17} />
+            </span>
+            <span>
+              <b>Pesanan bisa dilacak</b>
+              <small className="tv-steps">
+                <i /> Dipesan <i /> Dibayar <i className="on" /> Selesai
+              </small>
+            </span>
+          </div>
+        </div>
       </div>
     </section>
   );

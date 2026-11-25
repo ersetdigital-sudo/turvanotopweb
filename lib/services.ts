@@ -28,41 +28,41 @@ export const homeServiceCards: HomeServiceCard[] = [
   {
     slug: "pulsa",
     name: "Pulsa",
-    desc: "Isi pulsa untuk tetap terhubung ke semua operator seluler di Indonesia.",
+    desc: "Isi ulang pulsa semua operator seluler, dari nominal kecil sampai besar.",
   },
   {
     slug: "paket-data",
     name: "Paket Data",
-    desc: "Pilihan paket internet harian hingga bulanan sesuai kebutuhan kuotamu.",
+    desc: "Kuota harian sampai bulanan, tinggal pilih yang pas untuk pemakaianmu.",
   },
   {
     slug: "uang-elektronik",
     name: "Uang Elektronik",
-    desc: "Isi saldo dompet digital favorit: GoPay, OVO, DANA, ShopeePay, dan lainnya.",
+    desc: "Tambah saldo GoPay, OVO, DANA, ShopeePay, atau LinkAja tanpa repot.",
   },
   {
     slug: "pln",
     name: "PLN",
-    desc: "Beli token listrik prabayar atau bayar tagihan listrik bulanan dengan kode meteran.",
+    desc: "Token listrik prabayar dengan nomor meter, atau lunasi tagihan bulanannya.",
   },
   {
     slug: "internet",
     name: "Pembayaran Internet",
-    desc: "Periksa dan lunasi tagihan Wi-Fi rumah: IndiHome, Biznet, First Media, dan provider lainnya.",
+    desc: "Lunasi tagihan Wi-Fi rumah dari IndiHome, Biznet, First Media, dan lainnya.",
   },
   {
     slug: "bpjs",
     name: "BPJS Kesehatan",
-    desc: "Cek iuran dan bayar tagihan BPJS Kesehatan keluarga dengan nomor Virtual Account.",
+    desc: "Bayar iuran BPJS Kesehatan keluarga cukup dengan nomor Virtual Account.",
   },
   {
     slug: "pdam",
     name: "PDAM",
-    desc: "Pemeriksaan dan pembayaran tagihan air minum untuk berbagai wilayah kabupaten & kota.",
+    desc: "Cek dan bayar tagihan air PDAM sesuai wilayah pelangganmu.",
   },
   {
     slug: "multifinance",
     name: "Multifinance",
-    desc: "Bayar angsuran kredit kendaraan dan pembiayaan lainnya dengan nomor kontrak resmi.",
+    desc: "Bayar angsuran kendaraan dan pembiayaan lain memakai nomor kontrak.",
   },
 ];

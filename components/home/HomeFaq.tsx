@@ -36,11 +36,10 @@ export function HomeFaq() {
       <div className="container">
         <div className="faq-container-inner">
           <div className="home-sec-header">
-            <span className="section-kicker">INFORMASI TRANSAKSI</span>
-            <h2 id="faq-section-title">Hal Penting Sebelum dan Sesudah Bertransaksi</h2>
+            <span className="section-kicker">PERTANYAAN UMUM</span>
+            <h2 id="faq-section-title">Yang sering ditanyakan sebelum bayar</h2>
             <p>
-              Pelajari alur pemesanan, metode pembayaran yang didukung, serta cara memantau status
-              pesanan agar transaksi Anda berjalan lancar dan terarah.
+              Jawaban singkat soal cara memesan, metode pembayaran, dan cara melacak pesanan.
             </p>
           </div>
 
@@ -92,11 +91,10 @@ export function HomeFaq() {
               </div>
               <div>
                 <strong className="faq-helper-title">
-                  Membutuhkan bantuan atau informasi lebih lanjut?
+                  Masih ada yang mengganjal?
                 </strong>
                 <p className="faq-helper-desc">
-                  Pelajari panduan transaksi di Pusat Bantuan atau pantau langsung status pesanan
-                  Anda.
+                  Buka Pusat Bantuan, atau langsung cek status pesananmu.
                 </p>
               </div>
             </div>

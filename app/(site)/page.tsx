@@ -7,9 +7,9 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { createMetadata, faqSchema } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata({
-  title: "Turvanotopweb — Urus Kebutuhan Digital, Lebih Gampang",
+  title: "Turvanotopweb — Pulsa sampai Tagihan, Beres dari Satu Layar",
   description:
-    "Platform transaksi digital terpercaya untuk pulsa, paket data, uang elektronik, PLN, dan pembayaran berbagai tagihan dengan alur transparan.",
+    "Isi pulsa, beli paket data, top up uang elektronik, token listrik, dan bayar tagihan bulanan di satu tempat. Total terlihat sebelum bayar dan status pesanan bisa dilacak.",
   path: "/",
   keywords: ["pulsa", "paket data", "uang elektronik", "token listrik", "bayar tagihan", "Turvanotopweb"],
 });

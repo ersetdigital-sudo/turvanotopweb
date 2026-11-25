@@ -36,7 +36,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Turvanotopweb — Urus Kebutuhan Digital, Lebih Gampang",
+    default: "Turvanotopweb — Pulsa sampai Tagihan, Beres dari Satu Layar",
     template: "%s",
   },
   description: siteConfig.description,
@@ -47,13 +47,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: siteConfig.locale,
     siteName: siteConfig.name,
-    title: "Turvanotopweb — Urus Kebutuhan Digital, Lebih Gampang",
+    title: "Turvanotopweb — Pulsa sampai Tagihan, Beres dari Satu Layar",
     description: siteConfig.description,
     url: siteConfig.url,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Turvanotopweb — Urus Kebutuhan Digital, Lebih Gampang",
+    title: "Turvanotopweb — Pulsa sampai Tagihan, Beres dari Satu Layar",
     description: siteConfig.description,
   },
   robots: {

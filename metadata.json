@@ -1,6 +1,6 @@
 {
   "name": "Turvanotopweb - Digital Commerce",
-  "description": "Platform transaksi digital dan PPOB untuk pulsa, paket data, uang elektronik, dan pembayaran berbagai tagihan dengan alur transparan.",
+  "description": "Isi pulsa, beli paket data, top up uang elektronik, token listrik, dan bayar tagihan bulanan di satu tempat. Total terlihat sebelum bayar dan status pesanan bisa dilacak.",
   "requestFramePermissions": [],
   "majorCapabilities": []
 }

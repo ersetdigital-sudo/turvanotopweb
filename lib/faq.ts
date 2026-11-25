@@ -5,84 +5,84 @@ export const faqItems: FaqItem[] = [
   {
     id: "faq-1",
     badge: "Panduan",
-    question: "Bagaimana cara bertransaksi di Turvanotopweb?",
+    question: "Bagaimana cara memesan di Turvanotopweb?",
     answer: [
       {
         type: "text",
-        text: "Pilih layanan yang Anda butuhkan dari katalog (pulsa, kuota, token PLN, e-wallet, atau tagihan), masukkan nomor tujuan atau ID pelanggan, lalu tentukan produk yang diinginkan. Pada halaman checkout, pilih metode pembayaran yang tersedia (seperti QRIS atau Virtual Account). Setelah pembayaran selesai, sistem otomatis memproses dan memperbarui status pesanan.",
+        text: "Buka halaman Layanan, pilih kategori, isi nomor ponsel atau ID pelanggan, lalu pilih produknya. Di checkout kamu bisa melihat total pembayaran, memilih metode bayar yang aktif, dan menyelesaikan pembayaran. Setelah itu simpan ID transaksi yang muncul.",
       },
     ],
   },
   {
     id: "faq-2",
     badge: "Akun",
-    question: "Apakah saya wajib membuat akun untuk bertransaksi?",
+    question: "Perlu daftar akun dulu?",
     answer: [
       {
         type: "text",
-        text: "Tidak perlu. Turvanotopweb dapat digunakan secara langsung tanpa kewajiban registrasi atau login akun. Cukup simpan ID Transaksi unik yang diterbitkan setelah checkout untuk memantau status pembayaran dan pengiriman produk kapan saja.",
+        text: "Tidak. Tidak ada registrasi atau login untuk pembeli. Cukup simpan ID transaksi setelah checkout, lalu pakai untuk melacak pesananmu kapan saja.",
       },
     ],
   },
   {
     id: "faq-3",
-    badge: "Kecepatan",
-    question: "Berapa lama waktu proses hingga transaksi berhasil?",
+    badge: "Proses",
+    question: "Berapa lama sampai produknya masuk?",
     answer: [
       {
         type: "text",
-        text: "Sebagian besar produk digital diproses otomatis secara instan dalam 1 hingga 5 menit setelah sistem memverifikasi pembayaran. Khusus untuk token listrik PLN, kode token 20 digit langsung ditampilkan di halaman status transaksi dan siap diinput ke meteran listrik.",
+        text: "Pesanan diproses setelah pembayaranmu dikonfirmasi admin, biasanya dalam hitungan menit. Saat penyedia layanan atau operator sedang padat, prosesnya bisa lebih lama. Statusnya selalu bisa dicek di halaman Cek Transaksi.",
       },
     ],
   },
   {
     id: "faq-4",
     badge: "Pembayaran",
-    question: "Metode pembayaran apa saja yang didukung?",
+    question: "Bayarnya bisa lewat apa?",
     answer: [
       {
         type: "text",
-        text: "Kami mendukung pembayaran via QRIS yang kompatibel dengan seluruh aplikasi e-wallet (GoPay, OVO, DANA, ShopeePay, LinkAja) dan mobile banking (BCA, Mandiri, BRI, BNI), serta transfer Virtual Account resmi dengan verifikasi otomatis tanpa konfirmasi manual.",
+        text: "Metode yang tersedia tampil di halaman checkout, misalnya QRIS yang bisa dipindai dari e-wallet atau m-banking, atau transfer ke rekening yang tertera. Metode yang muncul mengikuti yang sedang aktif.",
       },
     ],
   },
   {
     id: "faq-5",
     badge: "Pelacakan",
-    question: "Bagaimana cara memeriksa status pesanan saya?",
+    question: "Bagaimana cara melacak pesanan?",
     answer: [
       { type: "text", text: "Buka halaman " },
       { type: "link", text: "Cek Transaksi", href: "/cek-transaksi" },
       {
         type: "text",
-        text: " atau masukkan ID pesanan pada kolom cek transaksi cepat di bawah. Anda dapat memantau status pembayaran, waktu pemrosesan, nomor serial (SN), dan rincian produk secara langsung.",
+        text: ", masukkan ID transaksi, lalu lihat status pembayaran dan rincian pesananmu. ID juga bisa dimasukkan lewat kolom cek cepat di bawah.",
       },
     ],
   },
   {
     id: "faq-6",
     badge: "Kendala",
-    question: "Pembayaran berhasil tetapi produk belum masuk, apa solusinya?",
+    question: "Sudah bayar tapi produk belum masuk, bagaimana?",
     answer: [
       {
         type: "text",
-        text: "Beri jeda 5 hingga 10 menit untuk pemrosesan antrean operator. Jika status di halaman Cek Transaksi belum berubah atau mengalami kendala, kunjungi halaman ",
+        text: "Tunggu beberapa menit sambil memantau statusnya di Cek Transaksi. Kalau belum berubah, buka ",
       },
       { type: "link", text: "Pusat Bantuan", href: "/bantuan" },
       {
         type: "text",
-        text: " dan siapkan ID Transaksi Anda untuk penanganan prioritas.",
+        text: " atau hubungi CS dengan menyertakan ID transaksi dan bukti pembayaran.",
       },
     ],
   },
   {
     id: "faq-7",
-    badge: "Transparansi",
-    question: "Apakah ada biaya tambahan atau biaya tersembunyi?",
+    badge: "Biaya",
+    question: "Ada biaya lain di luar harga produk?",
     answer: [
       {
         type: "text",
-        text: "Sama sekali tidak ada. Semua biaya di Turvanotopweb bersifat transparan. Rincian harga dasar produk dan biaya admin metode pembayaran selalu dipaparkan secara jelas di ringkasan pesanan sebelum Anda melakukan pembayaran.",
+        text: "Total yang harus dibayar, termasuk biaya admin bila ada, ditampilkan di ringkasan pesanan sebelum kamu membayar.",
       },
     ],
   },
