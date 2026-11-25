@@ -3253,3 +3253,15 @@ button, input, select, textarea {
   text-underline-offset: 2px;
   cursor: pointer;
 }
+
+/* Daftar paket kosong sebelum operator diketahui. */
+.products-empty-hint {
+  grid-column: 1 / -1;
+  padding: 20px;
+  border: 1.5px dashed #d9cdb4;
+  border-radius: 12px;
+  background: #fff4e2;
+  color: #4a5670;
+  font-size: 14px;
+  line-height: 1.6;
+}

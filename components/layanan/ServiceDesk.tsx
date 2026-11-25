@@ -7,7 +7,12 @@ import { useSearchParam } from "@/hooks/use-search-param";
 import { isCategorySlug } from "@/lib/catalog";
 import { useLiveCatalog } from "@/hooks/use-live-catalog";
 import { normalizeCustomerId, rupiah } from "@/lib/format";
-import { detectOperator, isAutoOperatorCategory, toLocalPhone } from "@/lib/operator";
+import {
+  detectOperator,
+  isAutoOperatorCategory,
+  productsForProvider,
+  toLocalPhone,
+} from "@/lib/operator";
 import type { CategorySlug, Product } from "@/types";
 
 const PREPAID = "prabayar";
@@ -43,6 +48,13 @@ export function ServiceDesk() {
       : autoOperator
         ? ""
         : category.providers[0] ?? "");
+
+  // Paket data: hanya paket operator terpilih; pilihan lama dibuang bila operator berganti.
+  const visibleProducts = productsForProvider(category.products, category.slug, provider);
+  const chosenProduct =
+    selectedProduct && visibleProducts.some((item) => item.id === selectedProduct.id)
+      ? selectedProduct
+      : null;
 
   const visibleCategories = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -85,25 +97,25 @@ export function ServiceDesk() {
       setError("Operator belum dikenali dari nomor ini. Pilih operatornya di bagian atas.");
       return;
     }
-    if (isPrepaid && !selectedProduct) {
+    if (isPrepaid && !chosenProduct) {
       setError("Pilih salah satu nominal atau produk terlebih dahulu.");
       return;
     }
 
     const params = new URLSearchParams({ kategori: category.slug, cust: clean });
-    if (selectedProduct?.id) params.set("produk", selectedProduct.id);
+    if (chosenProduct?.id) params.set("produk", chosenProduct.id);
     if (provider) params.set("provider", provider);
     router.push(`/transaksi?${params.toString()}`);
   }
 
   const summaryProduct = isPrepaid
-    ? selectedProduct
-      ? `${provider ? `${provider} - ` : ""}${selectedProduct.name}`
+    ? chosenProduct
+      ? `${provider ? `${provider} - ` : ""}${chosenProduct.name}`
       : "Pilih salah satu nominal produk"
     : `${provider ? `${provider} - ` : ""}Tagihan ${category.name}`;
   const summaryTotal = isPrepaid
-    ? selectedProduct
-      ? rupiah(selectedProduct.price)
+    ? chosenProduct
+      ? rupiah(chosenProduct.price)
       : "Rp 0"
     : `Sesuai Tagihan + ${rupiah(category.adminFee ?? 2500)}`;
 
@@ -256,11 +268,16 @@ export function ServiceDesk() {
             </div>
 
             <div className="products-selection-grid" id="desk-products-grid">
-              {isPrepaid && category.products ? (
-                category.products.map((p) => (
+              {isPrepaid && visibleProducts.length === 0 && autoOperator ? (
+                <div className="products-empty-hint">
+                  Masukkan nomor ponsel di atas, paket {category.name.toLowerCase()} khusus operatormu
+                  akan muncul di sini.
+                </div>
+              ) : isPrepaid ? (
+                visibleProducts.map((p) => (
                   <div
                     key={p.id}
-                    className={`product-card-item${selectedProduct?.id === p.id ? " selected" : ""}`}
+                    className={`product-card-item${chosenProduct?.id === p.id ? " selected" : ""}`}
                     data-id={p.id}
                     onClick={() => {
                       setSelectedProduct(p);

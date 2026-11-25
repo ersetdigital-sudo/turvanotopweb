@@ -62,7 +62,7 @@ export function buildDefaultProducts(): AdminProduct[] {
         id: product.id,
         categorySlug: category.slug,
         categoryName: category.name,
-        provider: category.providers[0] ?? "",
+        provider: product.provider ?? category.providers[0] ?? "",
         name: product.name,
         price: product.price,
         note: product.note,

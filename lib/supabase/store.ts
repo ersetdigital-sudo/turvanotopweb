@@ -325,15 +325,15 @@ export async function readActiveProductsByCategory(): Promise<Partial<Record<Cat
   await ensureSeeded();
   const { data, error } = await getSupabaseAdmin()
     .from(TABLE.products)
-    .select("id, category_slug, name, note, price")
+    .select("id, category_slug, name, note, price, provider")
     .eq("active", true)
     .order("sort_order", { ascending: true });
   if (error) throw error;
 
   const grouped: Partial<Record<CategorySlug, Product[]>> = {};
-  for (const row of data as Pick<ProductRow, "id" | "category_slug" | "name" | "note" | "price">[]) {
+  for (const row of data as Pick<ProductRow, "id" | "category_slug" | "name" | "note" | "price" | "provider">[]) {
     const list = grouped[row.category_slug] ?? [];
-    list.push({ id: row.id, name: row.name, note: row.note, price: row.price });
+    list.push({ id: row.id, name: row.name, note: row.note, price: row.price, provider: row.provider || undefined });
     grouped[row.category_slug] = list;
   }
   return grouped;

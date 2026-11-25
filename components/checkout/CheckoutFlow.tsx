@@ -9,7 +9,12 @@ import { isCategorySlug } from "@/lib/catalog";
 import { useLiveCatalog } from "@/hooks/use-live-catalog";
 import { apiFetch } from "@/lib/fetcher";
 import { rupiah, toWhatsAppLink } from "@/lib/format";
-import { detectOperator, isAutoOperatorCategory, toLocalPhone } from "@/lib/operator";
+import {
+  detectOperator,
+  isAutoOperatorCategory,
+  productsForProvider,
+  toLocalPhone,
+} from "@/lib/operator";
 import type { CategorySlug, Order, Product, PublicSettings } from "@/types";
 
 const PREPAID = "prabayar";
@@ -80,7 +85,7 @@ export function CheckoutFlow() {
 
   /** Stage 2 product list — prepaid uses catalog products, bills use a demo inquiry. */
   const lineItems: LineItem[] = isPrepaid
-    ? (category.products ?? []).map((p) => ({ ...p }))
+    ? productsForProvider(category.products, category.slug, activeProvider).map((p) => ({ ...p }))
     : [
         {
           id: `bill-${category.slug}`,
@@ -93,7 +98,12 @@ export function CheckoutFlow() {
       ];
   // A ?produk= param pre-selects the matching product without an effect.
   const requestedItem = urlProduk ? lineItems.find((i) => i.id === urlProduk) ?? null : null;
-  const product = productOverride !== undefined ? productOverride : requestedItem;
+  const product =
+    productOverride !== undefined
+      ? productOverride && lineItems.some((item) => item.id === productOverride.id)
+        ? productOverride
+        : null
+      : requestedItem;
   const activeItem = product ?? lineItems[0] ?? null;
   const admin = activeItem?.isBill ? (settings?.adminFeeBill ?? category.adminFee ?? 2500) : 0;
   const total = activeItem ? activeItem.price + admin : 0;
@@ -382,7 +392,11 @@ export function CheckoutFlow() {
           </div>
 
           <div className="checkout-products-list" id="checkout-products-list">
-            {isPrepaid ? (
+            {isPrepaid && lineItems.length === 0 ? (
+              <div className="products-empty-hint" style={{ gridColumn: "1 / -1" }}>
+                Belum ada paket untuk operator ini. Kembali ke tahap 1 lalu pilih operatornya.
+              </div>
+            ) : isPrepaid ? (
               lineItems.map((item) => {
                 const selected = activeItem?.id === item.id;
                 const displayName =

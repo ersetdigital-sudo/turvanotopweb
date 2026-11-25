@@ -1,4 +1,4 @@
-import type { CategorySlug } from "@/types";
+import type { CategorySlug, Product } from "@/types";
 
 /** Kategori yang operatornya bisa ditebak dari nomor ponsel (tanpa perlu dipilih manual). */
 export const AUTO_OPERATOR_SLUGS: readonly CategorySlug[] = ["pulsa", "paket-data"];
@@ -36,4 +36,20 @@ export function detectOperator(raw: string, providers?: readonly string[]): stri
     if (prefixes.includes(head) && (!providers || providers.includes(name))) return name;
   }
   return null;
+}
+
+/**
+ * Daftar produk yang tampil untuk operator terpilih. Paket data berbeda tiap operator, jadi
+ * hanya paket operator itu (plus paket tanpa provider) yang muncul, dan tidak ada yang
+ * muncul sebelum operator diketahui. Kategori lain menampilkan semua produknya.
+ */
+export function productsForProvider(
+  products: Product[] | undefined,
+  slug: CategorySlug,
+  provider: string,
+): Product[] {
+  const list = products ?? [];
+  if (slug !== "paket-data") return list;
+  if (!provider) return list.filter((item) => !item.provider);
+  return list.filter((item) => !item.provider || item.provider === provider);
 }
