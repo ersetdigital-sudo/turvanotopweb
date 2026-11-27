@@ -2320,7 +2320,8 @@ function ManualTransactionModal({
         paymentMethod: form.method,
         total: price,
         totalFormatted: rupiah(price),
-        sn: form.sn.trim() || `TRX-${(prov || "TVN").toUpperCase().slice(0, 5)}-${Date.now().toString().slice(-6)}`,
+        // SN hanya diisi kalau memang ada; tidak ada nomor karangan.
+        sn: form.sn.trim(),
         status: form.status,
         statusLabel: statusLabels[form.status],
         systemMessage: "Transaksi manual dicatat oleh Administrator Turvanotopweb.",

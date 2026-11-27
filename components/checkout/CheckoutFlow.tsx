@@ -19,7 +19,8 @@ import type { CategorySlug, Order, Product, PublicSettings } from "@/types";
 
 const PREPAID = "prabayar";
 const STEPPER = ["Data Pelanggan", "Pilih Produk", "Ringkasan", "Pembayaran", "Hasil"];
-const BILL_AMOUNT = 145000; // demo bill total shown in the inquiry flow
+const BILL_MIN = 10000;
+const BILL_MAX = 50000000;
 
 type PaymentMethod = "qris" | "va" | "ewallet";
 type LineItem = Product & { isBill?: boolean; adminFee?: number };
@@ -28,15 +29,6 @@ function generateOrderId(): string {
   let code = "";
   for (let i = 0; i < 7; i += 1) code += Math.floor(Math.random() * 10);
   return `TVN-${code}`;
-}
-
-function generateSN(provider?: string): string {
-  const stamp = Date.now().toString().slice(-7);
-  if (provider) {
-    const clean = provider.toUpperCase().replace(/[^A-Z0-9]/g, "");
-    return `TRX-${clean}-${stamp}`;
-  }
-  return `SN${Date.now().toString().slice(-8)}0928`;
 }
 
 export function CheckoutFlow() {
@@ -57,7 +49,7 @@ export function CheckoutFlow() {
   const [pendingId, setPendingId] = useState("");
   const instructionsRef = useRef<HTMLDivElement>(null);
   const [order, setOrder] = useState<Order | null>(null);
-  const [fulfilled, setFulfilled] = useState(false);
+  const [billAmountInput, setBillAmountInput] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [custError, setCustError] = useState("");
   const [providerError, setProviderError] = useState("");
@@ -87,7 +79,10 @@ export function CheckoutFlow() {
       showProviderPicker ||
       (!detected && toLocalPhone(customer).length >= 4));
 
-  /** Stage 2 product list — prepaid uses catalog products, bills use a demo inquiry. */
+  // Tagihan: nominal diketik pelanggan dari tagihan aslinya (tidak ada angka rekaan).
+  const billAmount = Number(billAmountInput) || 0;
+
+  /** Stage 2 product list — prepaid uses catalog products, bills use the amount the customer typed. */
   const lineItems: LineItem[] = isPrepaid
     ? productsForProvider(category.products, category.slug, activeProvider).map((p) => ({ ...p }))
     : [
@@ -95,7 +90,7 @@ export function CheckoutFlow() {
           id: `bill-${category.slug}`,
           name: `Tagihan ${category.name}`,
           note: "",
-          price: BILL_AMOUNT,
+          price: billAmount,
           isBill: true,
           adminFee: settings?.adminFeeBill ?? category.adminFee ?? 2500,
         },
@@ -121,14 +116,6 @@ export function CheckoutFlow() {
       : 2
     : 1;
   const stage = stageOverride ?? initialStage;
-  const stage5 = fulfilled ? "success" : "processing";
-
-  // Stage 5: confirm provider fulfillment after a short delay.
-  useEffect(() => {
-    if (stage !== 5 || !order) return;
-    const timer = setTimeout(() => setFulfilled(true), 1400);
-    return () => clearTimeout(timer);
-  }, [stage, order]);
 
   const goToStage = useCallback((next: number) => {
     setStageOverride(next);
@@ -165,6 +152,10 @@ export function CheckoutFlow() {
       setStage2Error("Pilih salah satu produk atau nominal terlebih dahulu.");
       return;
     }
+    if (activeItem.isBill && (billAmount < BILL_MIN || billAmount > BILL_MAX)) {
+      setStage2Error("Masukkan jumlah tagihan antara Rp10.000 dan Rp50.000.000.");
+      return;
+    }
     setStage2Error("");
     goToStage(3);
   }
@@ -180,13 +171,11 @@ export function CheckoutFlow() {
   }
 
   /**
-   * Persists the order to Supabase. Returns `false` when the server rejects it
-   * (validation error or a duplicate ID), leaving the customer on stage 3 with
-   * an inline message instead of advancing to a fake success screen.
+   * Persists the order to Supabase. The server rebuilds price, status, and SN itself
+   * (the order always starts as "menunggu verifikasi admin"). Returns `false` when the
+   * server rejects it, leaving the customer on the payment stage with an inline message.
    */
   async function createOrder(): Promise<boolean> {
-    const fullProduct = `${activeProvider ? `${activeProvider} — ` : ""}${activeItem?.name ?? ""}`;
-
     setCreatingOrder(true);
     setOrderError("");
     try {
@@ -194,19 +183,11 @@ export function CheckoutFlow() {
         method: "POST",
         body: JSON.stringify({
           id: pendingId || generateOrderId(),
-          category: category.name,
           categorySlug: category.slug,
           provider: activeProvider,
-          product: fullProduct,
+          ...(activeItem?.isBill ? { billAmount } : { productId: activeItem?.id }),
           customer,
-          total,
-          totalFormatted: rupiah(total),
           paymentMethod: (paymentMethod ?? "qris").toUpperCase(),
-          sn: generateSN(activeProvider),
-          status: "SUCCESS",
-          statusLabel: "Berhasil Dikonfirmasi",
-          systemMessage:
-            "Transaksi telah berhasil diproses oleh provider dan diteruskan ke pelanggan.",
         }),
       });
       setOrder(created);
@@ -463,35 +444,50 @@ export function CheckoutFlow() {
                   color: "#14213f",
                 }}
               >
-                <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 6 }}>
-                  Tagihan Ditemukan
-                </div>
+                <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 6 }}>Jumlah tagihan</div>
                 <div style={{ fontSize: 14, color: "#2e4c8c", marginBottom: 14 }}>
-                  Nomor Pelanggan: <b>{customer}</b> ({category.name})
+                  Nomor Pelanggan: <b>{customer}</b> ({category.name}). Masukkan nominal sesuai tagihan aslimu.
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    padding: "8px 0",
-                    borderTop: "1px solid #c3cfe8",
-                    fontSize: 14,
+                <label htmlFor="bill-amount-input" style={{ display: "block", fontSize: 13, fontWeight: 700, marginBottom: 6 }}>
+                  Nominal tagihan (Rp)
+                </label>
+                <input
+                  type="text"
+                  id="bill-amount-input"
+                  className="form-control-input"
+                  inputMode="numeric"
+                  autoComplete="off"
+                  placeholder="Contoh: 145000"
+                  value={billAmount ? billAmount.toLocaleString("id-ID") : ""}
+                  onChange={(event) => {
+                    setBillAmountInput(event.target.value.replace(/\D/g, "").slice(0, 9));
+                    setStage2Error("");
                   }}
-                >
-                  <span>Jumlah Tagihan:</span>
-                  <b>{rupiah(BILL_AMOUNT)}</b>
-                </div>
+                />
                 <div
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
                     padding: "8px 0",
+                    marginTop: 14,
                     borderTop: "1px solid #c3cfe8",
                     fontSize: 14,
                   }}
                 >
                   <span>Biaya Administrasi:</span>
                   <b>{rupiah(settings?.adminFeeBill ?? category.adminFee ?? 2500)}</b>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    padding: "8px 0",
+                    borderTop: "1px solid #c3cfe8",
+                    fontSize: 14,
+                  }}
+                >
+                  <span>Total:</span>
+                  <b>{rupiah(total)}</b>
                 </div>
               </div>
             )}
@@ -722,56 +718,15 @@ export function CheckoutFlow() {
 
         {/* Stage 5 */}
         <div className={`checkout-stage-pane${stage === 5 ? " active" : ""}`} id="stage-5-pane">
-          <div
-            id="stage5-processing-state"
-            className="stage-status-box"
-            style={stage5 === "processing" ? undefined : { display: "none" }}
-          >
+          <div id="stage5-processing-state" className="stage-status-box">
             <div className="stage-status-icon-wrap pending">
               <ClockCheckIcon width={34} height={34} />
             </div>
             <h2 className="stage-title">Pembayaran terkonfirmasi.</h2>
             <p className="stage-desc">
-              Pesananmu sedang diteruskan untuk diproses. Kamu bisa memeriksa statusnya di halaman
-              ini.
+              Admin akan memverifikasi pembayaranmu, lalu memproses pesananmu. Simpan ID transaksi di bawah dan pantau
+              statusnya kapan saja.
             </p>
-            <div
-              style={{
-                display: "inline-block",
-                padding: "10px 18px",
-                background: "#f6ecd8",
-                borderRadius: 8,
-                fontSize: 13,
-                color: "#2e4c8c",
-                fontWeight: 700,
-              }}
-            >
-              Menghubungi penyedia layanan...
-            </div>
-          </div>
-
-          <div
-            id="stage5-success-state"
-            className="stage-status-box"
-            style={stage5 === "success" ? undefined : { display: "none" }}
-          >
-            <div className="stage-status-icon-wrap success">
-              <svg
-                width={34}
-                height={34}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2.5}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-            </div>
-            <h2 className="stage-title">Transaksi berhasil.</h2>
-            <p className="stage-desc">Pesanan sudah selesai diproses.</p>
 
             <div className="summary-box" style={{ textAlign: "left", marginTop: 26 }}>
               <div className="summary-row">
@@ -790,9 +745,7 @@ export function CheckoutFlow() {
                 style={order?.provider ? undefined : { display: "none" }}
               >
                 <span className="label" id="final-provider-label">
-                  {category.slug === "uang-elektronik"
-                    ? "Penyedia / Dompet Digital"
-                    : "Penyedia / Operator"}
+                  {category.slug === "uang-elektronik" ? "Penyedia / Dompet Digital" : "Penyedia / Operator"}
                 </span>
                 <span className="val" id="final-provider-val" style={{ fontWeight: 700, color: "#2e4c8c" }}>
                   {order?.provider || "-"}
@@ -811,17 +764,16 @@ export function CheckoutFlow() {
                 </span>
               </div>
               <div className="summary-row">
-                <span className="label">Status</span>
-                <span className="val" style={{ color: "#059669", fontWeight: 700 }}>
-                  Berhasil Dikonfirmasi
+                <span className="label">Total</span>
+                <span className="val" id="final-total" style={{ fontWeight: 700 }}>
+                  {order?.totalFormatted ?? "-"}
                 </span>
               </div>
-            </div>
-
-            <div className="token-sn-box" id="final-sn-box">
-              <div className="token-sn-title">Nomor Seri / SN Provider</div>
-              <div className="token-sn-val" id="final-sn-val">
-                {order?.sn ?? "-"}
+              <div className="summary-row">
+                <span className="label">Status</span>
+                <span className="val" id="final-status" style={{ color: "#b45309", fontWeight: 700 }}>
+                  {order?.statusLabel ?? "Menunggu Verifikasi Admin"}
+                </span>
               </div>
             </div>
 

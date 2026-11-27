@@ -70,8 +70,6 @@ export function TransactionTracker() {
     else if (notFoundId) notFoundRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }, [order, notFoundId]);
 
-  const showResult = !notFoundId && !loading;
-
   const notFoundCardStyle: CSSProperties = {
     background: "#FFFFFF",
     border: "1px solid var(--color-border)",
@@ -138,7 +136,7 @@ export function TransactionTracker() {
       )}
 
       {/* Result card (found / idle) */}
-      <div className="tx-result-card" id="tx-result-card" ref={resultRef} style={showResult ? undefined : { display: "none" }}>
+      <div className="tx-result-card" id="tx-result-card" ref={resultRef} style={{ display: order ? "block" : "none" }}>
         <div className="tx-result-header">
           <div>
             <div
@@ -164,7 +162,7 @@ export function TransactionTracker() {
             id="res-status-badge"
             className={`tx-badge ${order ? STATUS_PILL_CLASS[order.status] : "success"}`}
           >
-            {order ? BADGE_LABEL[order.status] : "-"}
+            {order ? order.statusLabel || BADGE_LABEL[order.status] : "-"}
           </div>
         </div>
 

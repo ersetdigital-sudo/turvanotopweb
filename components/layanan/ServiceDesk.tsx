@@ -220,8 +220,8 @@ export function ServiceDesk() {
               <span>Alur Proses:</span>
               <strong id="desk-detail-process-note">
                 {isPrepaid
-                  ? "Otomatis instan setelah pembayaran terkonfirmasi"
-                  : "Pemeriksaan tagihan otomatis, nomor seri (SN) resmi diterbitkan"}
+                  ? "Diproses admin setelah pembayaran terverifikasi"
+                  : "Isi nominal tagihan, bayar, lalu admin memproses dan mengisi nomor seri (SN)"}
               </strong>
             </div>
           </div>
